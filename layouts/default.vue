@@ -1,19 +1,13 @@
 <template>
   <div>
-    <AppHeader />
-
     The header
-    
+
     <slot />
 
-    <AppFooter />
+    The footer
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

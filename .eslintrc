@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": [
+    "@nuxtjs/eslint-config-typescript",
+    // Disable styling rules from the linter
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-member-accessibility": "error"
+  }
+}

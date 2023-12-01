@@ -2,15 +2,19 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   typescript: {
-    shim: false
+    shim: false,
   },
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@/assets/_colors.scss" as *;'
-        }
-      }
-    }
-  }
-})
+          additionalData: '@use "@/assets/_colors.scss" as *;',
+        },
+      },
+    },
+  },
+  modules: [
+    // Simple usage
+    "@nuxtjs/eslint-module",
+  ],
+});
