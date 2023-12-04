@@ -3,3 +3,9 @@
     <NuxtPage />
   </NuxtLayout>
 </template>
+
+<style lang="scss">
+.something {
+  color: red;
+}
+</style>
