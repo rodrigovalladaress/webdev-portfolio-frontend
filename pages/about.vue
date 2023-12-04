@@ -8,6 +8,12 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+definePageMeta({
+  pageTransition: {
+    name: "rotate",
+  },
+});
+</script>
 
 <!-- <style lang="scss"></style> -->

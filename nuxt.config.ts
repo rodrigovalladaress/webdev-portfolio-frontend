@@ -7,6 +7,9 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
   ],
   devtools: { enabled: true },
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
   typescript: {
     shim: false,
   },
