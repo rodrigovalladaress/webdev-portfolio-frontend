@@ -13,5 +13,7 @@
 <style lang="scss">
 h1 {
   color: $primary;
+
+  // border: 1rem;
 }
 </style>

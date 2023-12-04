@@ -1,5 +1,11 @@
 # webdev-portfolio-frontend
 
+# Notes
+
+Make stylelint work with Vue files and prevent 'Unknown word CssSyntaxError' error:
+
+- https://github.com/ota-meshi/stylelint-config-standard-vue
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

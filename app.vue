@@ -5,7 +5,11 @@
 </template>
 
 <style lang="scss">
-.something {
-  color: red;
+html {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-family: "Roboto Mono", Arial, Helvetica, sans-serif;
 }
 </style>
