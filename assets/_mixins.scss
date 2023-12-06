@@ -1,0 +1,32 @@
+@use 'sass:math';
+
+// https://github.com/malothnaresh/css-utilities/blob/master/common.scss
+$spaces: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+
+// En vez de 0, 1, debe ser 
+// 1 -> 0.25rem
+// pero debe ser 0.4
+$sides: (top, right, bottom, left);
+
+// Multiply by 1.6 so the values are correctly when using font-size: 62.5% in :root
+$rem-correction: 1.6;
+
+@each $space in $spaces {
+    .m-#{$space} {
+      margin: #{math.div($space, 4) * $rem-correction}rem;
+    }
+
+    .p-#{$space} {
+      padding: #{math.div($space, 4) * $rem-correction}rem;
+    }
+
+    @each $side in $sides {
+      .m#{str-slice($side, 0, 1)}-#{$space} {
+        margin-#{$side}: #{math.div($space, 4) * $rem-correction}rem !important;
+      }
+
+      .p#{str-slice($side, 0, 1)}-#{$space} {
+        padding-#{$side}: #{math.div($space, 4) * $rem-correction}rem !important;
+      }
+    }
+  }
