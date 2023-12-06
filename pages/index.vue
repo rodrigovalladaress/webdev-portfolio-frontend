@@ -6,55 +6,55 @@
 
     <NuxtLink to="/about">About</NuxtLink>
 
-    <!-- <div v-if="data">
+    <div v-if="data">
       <div v-for="(d, i) in data.projects.data" :key="i">{{ d.id }} - {{ d.attributes.name }}</div>
     </div>
     <div v-else>WAITING FOR DATA</div>
 
-    <div>PROJECT: {{ project }}</div> -->
+    <div>PROJECT: {{ project }}</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-// const query = gql`
-//   query getProjects {
-//     projects {
-//       data {
-//         id
-//         attributes {
-//           name
-//           description
-//           images {
-//             data {
-//               attributes {
-//                 name
-//                 url
-//               }
-//             }
-//           }
-//           skill_tags
-//         }
-//       }
-//     }
-//   }
-// `;
+const query = gql`
+  query getProjects {
+    projects {
+      data {
+        id
+        attributes {
+          name
+          description
+          images {
+            data {
+              attributes {
+                name
+                url
+              }
+            }
+          }
+          skill_tags
+        }
+      }
+    }
+  }
+`;
 
-// const project = ref<any>({});
+const project = ref<any>({});
 
-// type Project = {
-//   id: string;
-//   attributes: { name: string; description: string };
-// };
+type Project = {
+  id: string;
+  attributes: { name: string; description: string };
+};
 
-// const { data, execute } = await useAsyncQuery<{
-//   projects: {
-//     data: Project[];
-//   };
-// }>(query, {});
+const { data, execute } = await useAsyncQuery<{
+  projects: {
+    data: Project[];
+  };
+}>(query, {});
 
-// execute();
+execute();
 
-// console.log("data", data);
+console.log("data", data);
 </script>
 
 <style lang="scss">
