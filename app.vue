@@ -4,6 +4,8 @@
   </NuxtLayout>
 </template>
 
+<script lang="ts" setup></script>
+
 <style lang="scss">
 html {
   font-family: Roboto, Arial, Helvetica, sans-serif;

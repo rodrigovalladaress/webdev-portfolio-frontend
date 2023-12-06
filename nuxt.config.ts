@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "@nuxtjs/eslint-module",
     "@nuxtjs/stylelint-module",
     "@nuxtjs/google-fonts",
+    "@nuxtjs/apollo",
   ],
   devtools: { enabled: true },
   app: {
@@ -27,6 +28,13 @@ export default defineNuxtConfig({
     families: {
       Roboto: true,
       "Roboto+Mono": true,
+    },
+  },
+  apollo: {
+    clients: {
+      default: {
+        httpEndpoint: "http://localhost:1338/graphql",
+      },
     },
   },
 });
