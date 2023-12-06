@@ -6,7 +6,7 @@
 
     <NuxtLink to="/about">About</NuxtLink>
 
-    <div v-if="data">
+    <div v-if="data && data.projects">
       <div v-for="(d, i) in data.projects.data" :key="i">{{ d.id }} - {{ d.attributes.name }}</div>
     </div>
     <div v-else>WAITING FOR DATA</div>
@@ -46,15 +46,18 @@ type Project = {
   attributes: { name: string; description: string };
 };
 
-const { data, execute } = await useAsyncQuery<{
+const {
+  data,
+  // execute
+} = await useAsyncQuery<{
   projects: {
     data: Project[];
   };
 }>(query, {});
 
-execute();
+// execute();
 
-console.log("data", data);
+// console.log("data", data);
 </script>
 
 <style lang="scss">
