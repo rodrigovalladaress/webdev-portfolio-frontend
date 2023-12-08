@@ -1,13 +1,32 @@
+@use "sass:string";
 @use "./variables" as *;
 @use "./colors" as *;
 @use "./mixins" as *;
 
 // Spacing
 @each $size-name, $child in $spacing {
-  .p-#{$size-name} {
-    @each $breakpoint, $size-value in $child {
-      @include media($breakpoint) {
+  @each $breakpoint, $size-value in $child {
+    .p-#{$size-name} {
+      padding: $size-value;
+    }
+
+    @include media($breakpoint) {
+      .p-#{$breakpoint}-#{$size-name} {
         padding: $size-value;
+      }
+    }
+
+    @each $side in $sides {
+      $s: string.slice($side, 1, 1);
+
+      .p-#{$s}-#{$size-name} {
+        padding-#{$side}: $size-value;
+      }
+
+      @include media($breakpoint) {
+        .p-#{$s}-#{$breakpoint}-#{$size-name} {
+          padding-#{$side}: $size-value;
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <header class="d-flex-lg justify-space-between bg-black-a-80-lg p-1">
-    <h1 class="lowercase">
+    <h1 class="lowercase p-r-lg-1">
       <div class="h1 text-medium">
         Rodrigo <br class="d-none d-block-lg" />
         Valladares Santana

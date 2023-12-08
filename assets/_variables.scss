@@ -7,6 +7,9 @@ $breakpoint-map: (
   xxl: 1400px,
 );
 
+// prettier-ignore
+$sides: [ "top", "right", "bottom", "left"];
+
 // spacing
 $spacing: (
   1: (
@@ -17,23 +20,41 @@ $spacing: (
     xl: 3.3rem,
     xxl: 3.3rem,
   ),
+  2: (
+    xs: 1.6rem,
+    sm: 1.6rem,
+    md: 1.6rem,
+    lg: 3.3rem,
+    xl: 3.3rem,
+    xxl: 3.3rem,
+  ),
 );
+
+// Text sizes from typescale.com
+$t-h1: 4.778rem;
+$t-h2: 3.981rem;
+$t-h3: 3.318rem;
+$t-h4: 2.765rem;
+$t-h5: 2.304rem;
+$t-h6: 1.92rem;
+$t-p: 1.6rem;
+$t-small: 1.333rem;
 $text-sizes: (
   h1: (
-    xs: 3.318rem,
-    sm: 3.318rem,
-    md: 3.318rem,
-    lg: 4.778rem,
-    xl: 4.778rem,
-    xxl: 4.778rem,
+    xs: $t-h3,
+    sm: $t-h3,
+    md: $t-h3,
+    lg: $t-h1,
+    xl: $t-h1,
+    xxl: $t-h1,
   ),
   h2: (
-    xs: 2.304rem,
-    sm: 2.304rem,
-    md: 2.304rem,
-    lg: 3.318rem,
-    xl: 3.318rem,
-    xxl: 3.318rem,
+    xs: $t-h5,
+    sm: $t-h5,
+    md: $t-h5,
+    lg: $t-h3,
+    xl: $t-h3,
+    xxl: $t-h3,
   ),
 );
 

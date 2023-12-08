@@ -21,25 +21,70 @@ const items = [
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
+
 .nav {
   position: fixed;
   left: 0;
   bottom: 0;
   height: 7.4rem;
-  font-size: 1.92rem;
+  font-size: $t-h6;
   line-height: 1;
 
   @include media(lg) {
     position: inherit;
     height: fit-content;
+    line-height: 1.4;
+
+    // So it's more or less aligned to the title in the left of the screen
+    margin-top: 0.1rem;
   }
 
   > * {
     flex: 1;
 
     @include media(lg) {
-      font-size: 3.318rem;
-      margin-top: 0.5rem;
+      $x-spacing: 0.5rem;
+
+      font-size: $t-h3;
+      padding: 0 $x-spacing;
+
+      &:last-child {
+        margin-right: -#{$x-spacing};
+      }
+    }
+  }
+
+  > a {
+    @include media(lg) {
+      $transition-duration: 250ms;
+
+      position: relative;
+      z-index: 0;
+      transition: color $transition-duration ease-in-out;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        background-color: color.change($text-color, $alpha: 0.1);
+        width: 100%;
+        height: 100%;
+        transform-origin: 0% 50%;
+        transform: scale(0%, 100%);
+        transition:
+          background-color $transition-duration ease-in-out,
+          transform $transition-duration ease-in-out;
+      }
+
+      &:hover {
+        color: #000;
+
+        &::before {
+          background-color: $text-color;
+          transform: scale(100%, 100%);
+        }
+      }
     }
   }
 
@@ -62,11 +107,9 @@ const items = [
     text-decoration: underline !important;
 
     @include media(lg) {
-      text-decoration: underline !important;
+      pointer-events: none;
       text-decoration-thickness: 2px;
       text-underline-offset: 10px;
-
-      // border-bottom: 2px $text-color solid;
     }
   }
 }
