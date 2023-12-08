@@ -1,10 +1,26 @@
 <template>
+  <canvas id="three"></canvas>
+
+  <ThreeJs></ThreeJs>
+
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup></script>
+
+<style lang="scss" scoped>
+#three {
+  position: fixed;
+  inset: 0;
+
+  // top: 0;
+  // left: 0;
+
+  outline: none;
+}
+</style>
 
 <style lang="scss">
 body {
