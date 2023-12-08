@@ -8,5 +8,6 @@ $secondary: #e4a79d;
 $text-color: #fff;
 
 // Background colors
-$bg-color: #000;
-$bg-color-trans-90: color.change($bg-color, $alpha: 0.9);
+$bg-black: #000;
+$bg-black-a-80: color.change($bg-black, $alpha: 0.8);
+$bg-black-a-90: color.change($bg-black, $alpha: 0.9);

@@ -14,3 +14,19 @@
     @content;
   }
 }
+
+@mixin generate-class-by-breakpoint($prefix) {
+  .#{$prefix} {
+    @content;
+  }
+
+  @each $breakpoint, $_ in $breakpoint-map {
+    @if $breakpoint != "xs" {
+      @include media($breakpoint) {
+        .#{$prefix}-#{$breakpoint} {
+          @content;
+        }
+      }
+    }
+  }
+}

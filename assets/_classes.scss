@@ -13,6 +13,28 @@
   }
 }
 
+// Display
+@include generate-class-by-breakpoint(d-flex) {
+  display: flex;
+}
+
+@include generate-class-by-breakpoint(d-none) {
+  display: none;
+}
+
+@include generate-class-by-breakpoint(d-block) {
+  display: block;
+}
+
+@include generate-class-by-breakpoint(d-inline) {
+  display: inline;
+}
+
+@include generate-class-by-breakpoint(d-inherit) {
+  display: inherit;
+}
+
+// Text
 // Text sizes
 @each $size-name, $child in $text-sizes {
   .#{$size-name} {
@@ -24,7 +46,6 @@
   }
 }
 
-// Text
 .text-regular {
   font-weight: 400;
 }
@@ -43,30 +64,51 @@
 
 // Background
 .bg-color {
-  background-color: $bg-color;
+  background-color: $bg-black;
 }
 
-.bg-color-trans-90 {
-  background-color: $bg-color-trans-90;
+@include generate-class-by-breakpoint(bg-black-a-80) {
+  background-color: $bg-black-a-80;
 }
 
-// Misc
-.flex {
-  display: flex;
+@include generate-class-by-breakpoint(bg-black-a-90) {
+  background-color: $bg-black-a-90;
 }
 
+@include generate-class-by-breakpoint(bg-trans) {
+  background-color: transparent;
+}
+
+// Flex
 .justify-space-around {
   justify-content: space-around;
+}
+
+.justify-space-between {
+  justify-content: space-between;
 }
 
 .justify-center {
   justify-content: center;
 }
 
-.align-center {
+.align-items-center {
   align-items: center;
 }
 
-.full-width {
+// Sizing
+@include generate-class-by-breakpoint(full-width) {
   width: 100%;
+}
+
+@include generate-class-by-breakpoint(width-inherit) {
+  width: inherit;
+}
+
+// .full-width {
+// }
+
+// Misc
+.pointer-events-none {
+  pointer-events: none;
 }
