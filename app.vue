@@ -7,6 +7,7 @@
 <script lang="ts" setup></script>
 
 <style lang="scss">
+// TODO move some of this to a different file
 :root {
   // So 10px = 1rem
   font-size: 62.5%;
@@ -29,18 +30,20 @@ body {
   box-sizing: inherit;
 }
 
-h1 {
-  font-family: "Roboto Mono", Arial, Helvetica, sans-serif;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-p {
+h6 {
+  margin: 0;
   color: $text-color;
+  font-weight: 400;
+}
+
+h1,
+.h1 {
+  font-family: "Roboto Mono", Arial, Helvetica, sans-serif;
 }
 
 .page-enter-active,
