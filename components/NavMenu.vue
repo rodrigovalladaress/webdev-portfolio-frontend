@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav full-width flex justify-space-around mono-font lowercase">
+  <nav class="nav full-width flex justify-space-around mono-font lowercase bg-color-trans-90">
     <template v-for="({ label, href }, i) in items" :key="i">
       <NuxtLink class="flex justify-center align-center" :to="href" active-class="active">
         {{ label }}

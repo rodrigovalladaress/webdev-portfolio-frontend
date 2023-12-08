@@ -41,6 +41,15 @@
   text-transform: lowercase;
 }
 
+// Background
+.bg-color {
+  background-color: $bg-color;
+}
+
+.bg-color-trans-90 {
+  background-color: $bg-color-trans-90;
+}
+
 // Misc
 .flex {
   display: flex;

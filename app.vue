@@ -7,9 +7,8 @@
 <script lang="ts" setup></script>
 
 <style lang="scss">
-// TODO move some of this to a different file
 body {
-  background-color: black;
+  background-color: green;
 }
 
 .page-enter-active,

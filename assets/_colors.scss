@@ -1,3 +1,12 @@
+@use "sass:color";
+
+// Main colors
 $primary: blue;
-$secondary: #E4A79D;
+$secondary: #e4a79d;
+
+// Text colors
 $text-color: #fff;
+
+// Background colors
+$bg-color: #000;
+$bg-color-trans-90: color.change($bg-color, $alpha: 0.9);
