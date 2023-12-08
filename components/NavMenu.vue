@@ -1,11 +1,9 @@
 <template>
   <nav class="nav full-width flex justify-space-around mono-font lowercase">
     <template v-for="({ label, href }, i) in items" :key="i">
-      <div class="flex justify-center align-center">
-        <NuxtLink :to="href">
-          {{ label }}
-        </NuxtLink>
-      </div>
+      <NuxtLink class="flex justify-center align-center" :to="href" active-class="active">
+        {{ label }}
+      </NuxtLink>
     </template>
   </nav>
 </template>
@@ -41,6 +39,14 @@ const items = [
       flex: 1 1 100%;
       padding: 0.9rem 0;
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.nav {
+  .active {
+    text-decoration: underline !important;
   }
 }
 </style>
