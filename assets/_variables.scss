@@ -37,8 +37,11 @@ $text-sizes: (
   ),
 );
 
+// Fonts
 // prettier-ignore
-$title-font: #{"Roboto Mono", Arial, Helvetica, sans-serif};
+$regular-font: #{Roboto, Arial, Helvetica, sans-serif};
 
 // prettier-ignore
-$content-font: #{Roboto, Arial, Helvetica, sans-serif};
+$mono-font: #{"Roboto Mono", Arial, Helvetica, sans-serif};
+$title-font: $mono-font;
+$content-font: $regular-font;

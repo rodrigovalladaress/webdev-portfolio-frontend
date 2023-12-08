@@ -8,6 +8,8 @@
       </h1>
     </header>
 
+    <NavMenu></NavMenu>
+
     <slot />
 
     <!-- <footer>Footer</footer> -->

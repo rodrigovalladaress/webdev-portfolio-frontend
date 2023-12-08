@@ -4,30 +4,60 @@
 
 // Spacing
 @each $size-name, $child in $spacing {
-    .p-#{$size-name} {
-        @each $breakpoint, $size-value in $child {
-            @include media($breakpoint) {
-                padding: $size-value;
-            }
-        }
+  .p-#{$size-name} {
+    @each $breakpoint, $size-value in $child {
+      @include media($breakpoint) {
+        padding: $size-value;
+      }
     }
+  }
 }
 
 // Text sizes
 @each $size-name, $child in $text-sizes {
-    .#{$size-name} {
-        @each $breakpoint, $size-value in $child {
-            @include media($breakpoint) {
-                font-size: $size-value;
-            }
-        }
+  .#{$size-name} {
+    @each $breakpoint, $size-value in $child {
+      @include media($breakpoint) {
+        font-size: $size-value;
+      }
     }
+  }
 }
 
+// Text
 .text-regular {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .text-medium {
-    font-weight: 600;
+  font-weight: 600;
+}
+
+.mono-font {
+  font-family: $mono-font;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+// Misc
+.flex {
+  display: flex;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
 }
