@@ -1,6 +1,33 @@
 @use "./variables" as *;
 @use "./colors" as *;
+@use "./mixins" as *;
 
-// .p1 {
-//     padding: $spacing-1;
-// }
+// Spacing
+@each $size-name, $child in $spacing {
+    .p-#{$size-name} {
+        @each $breakpoint, $size-value in $child {
+            @include media($breakpoint) {
+                padding: $size-value;
+            }
+        }
+    }
+}
+
+// Text sizes
+@each $size-name, $child in $text-sizes {
+    .#{$size-name} {
+        @each $breakpoint, $size-value in $child {
+            @include media($breakpoint) {
+                font-size: $size-value;
+            }
+        }
+    }
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-medium {
+    font-weight: 600;
+}
