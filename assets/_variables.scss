@@ -1,40 +1,44 @@
 $breakpoint-map: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1200px,
-    xxl: 1400px,
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
 );
 
 // spacing
 $spacing: (
-    1: (
-        xs: 1.6rem,
-        sm: 1.6rem,
-        md: 1.6rem,
-        lg: 3.3rem,
-        xl: 3.3rem,
-        xxl: 3.3rem,            
-    ),
+  1: (
+    xs: 1.6rem,
+    sm: 1.6rem,
+    md: 1.6rem,
+    lg: 3.3rem,
+    xl: 3.3rem,
+    xxl: 3.3rem,
+  ),
 );
 $text-sizes: (
-    h1: (
-        xs: 3.318rem,
-        sm: 3.318rem,
-        md: 3.318rem,
-        lg: 4.778rem,
-        xl: 4.778rem,
-        xxl: 4.778rem,            
-    ),
-    h2: (
-        xs: 2.304rem,
-        sm: 2.304rem,
-        md: 2.304rem,
-        lg: 3.318rem,
-        xl: 3.318rem,
-        xxl: 3.318rem,   
-    )
+  h1: (
+    xs: 3.318rem,
+    sm: 3.318rem,
+    md: 3.318rem,
+    lg: 4.778rem,
+    xl: 4.778rem,
+    xxl: 4.778rem,
+  ),
+  h2: (
+    xs: 2.304rem,
+    sm: 2.304rem,
+    md: 2.304rem,
+    lg: 3.318rem,
+    xl: 3.318rem,
+    xxl: 3.318rem,
+  ),
 );
 
-// $spacing-xs-1: 1.6rem;
+// prettier-ignore
+$title-font: #{"Roboto Mono", Arial, Helvetica, sans-serif};
+
+// prettier-ignore
+$content-font: #{Roboto, Arial, Helvetica, sans-serif};

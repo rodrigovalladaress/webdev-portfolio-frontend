@@ -20,6 +20,7 @@ export default defineNuxtConfig({
         scss: {
           additionalData: `
             @use 'sass:math';
+            @use "@/assets/_fixes.scss" as *;
             @use "@/assets/_mixins.scss" as *;
             @use "@/assets/_colors.scss" as *;
             @use "@/assets/_variables.scss" as *;
