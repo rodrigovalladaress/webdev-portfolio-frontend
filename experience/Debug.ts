@@ -1,35 +1,43 @@
 import Gui from "lil-gui";
 
 export default class Debug {
-  private _isActive: boolean;
-  private instance: Gui | null;
+  private static _isActive: boolean;
+  private static _instance: Gui | null = null;
+
+  public static get instance() {
+    return Debug._instance;
+  }
+
+  private static set instance(value: Gui | null) {
+    Debug._instance = value;
+  }
 
   public constructor() {
-    this._isActive = window.location.hash === "#debug";
+    Debug._isActive = window.location.hash === "#debug";
 
-    if (this.isActive) {
+    if (Debug.isActive) {
       // Prevent nuxt adding another instance of lil-gui when the code changes
       if ((window as any).__lilGui) {
-        this.instance = (window as any).__lilGui as Gui;
+        Debug.instance = (window as any).__lilGui as Gui;
 
         return;
       }
 
-      this.instance = new Gui({});
+      Debug.instance = new Gui({});
 
-      this.instance.open();
+      Debug.instance.open();
 
-      this.instance.domElement.style.top = "inherit";
-      this.instance.domElement.style.right = "0";
-      this.instance.domElement.style.bottom = "0";
+      Debug.instance.domElement.style.top = "inherit";
+      Debug.instance.domElement.style.right = "0";
+      Debug.instance.domElement.style.bottom = "0";
 
-      (window as any).__lilGui = this.instance;
+      (window as any).__lilGui = Debug.instance;
     } else {
-      this.instance = null;
+      Debug.instance = null;
     }
   }
 
-  public get isActive() {
-    return this._isActive;
+  public static get isActive() {
+    return Debug._isActive;
   }
 }
