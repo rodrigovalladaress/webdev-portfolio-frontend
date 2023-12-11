@@ -6,7 +6,7 @@ export default class EventEmitter<T extends object> {
   }
 
   public dispatch(data: T) {
-    window.dispatchEvent(this.createEvent(data));
+    return window.dispatchEvent(this.createEvent(data));
   }
 
   private createEvent(data: T) {

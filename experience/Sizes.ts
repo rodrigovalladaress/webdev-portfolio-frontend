@@ -10,10 +10,15 @@ export default class Sizes {
     this.event = new EventEmitter(Sizes.EVENT_NAME);
 
     window.addEventListener("resize", () => {
-      console.log("resize");
-
-      this.event.dispatch(Sizes.getSizes());
+      this.dispatchEvent();
     });
+
+    // Simulate first resize
+    this.dispatchEvent();
+  }
+
+  private dispatchEvent() {
+    this.event.dispatch(Sizes.getSizes());
   }
 
   public static getSizes(): ResizeEvent {
@@ -25,6 +30,7 @@ export default class Sizes {
   }
 
   public static getPixelRatio() {
+    // Three JS Journey recommends limiting the pixel ratio to 2
     return Math.min(window.devicePixelRatio, 2);
   }
 }
