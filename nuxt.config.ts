@@ -1,4 +1,5 @@
-import glsl from "vite-plugin-glsl";
+// eslint-disable-next-line import/no-named-as-default
+import glslify from "vite-plugin-glslify";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [glsl()],
+    plugins: [glslify()],
   },
   googleFonts: {
     display: "swap",
