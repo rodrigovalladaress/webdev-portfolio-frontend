@@ -45,9 +45,9 @@ export default class ThreeExperience {
     this.renderer.resize(resizeData);
   }
 
-  private update({ delta }: TimeTickEventDetail) {
+  private update(time: TimeTickEventDetail) {
     this.camera.update();
-    this.world.update(delta);
+    this.world.update(time);
     this.renderer.update(this.scene, this.camera.instance);
   }
 }

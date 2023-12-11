@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 import Sea from "./Sea";
+import type { TimeTickEventDetail } from "./types/time";
 
 export default class World {
   private sea: Sea;
@@ -9,7 +10,7 @@ export default class World {
     this.sea = new Sea(scene);
   }
 
-  public update(deltaTime: number) {
-    this.sea.update(deltaTime);
+  public update(time: TimeTickEventDetail) {
+    this.sea.update(time);
   }
 }

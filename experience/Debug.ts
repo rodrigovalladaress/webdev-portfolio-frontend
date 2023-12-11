@@ -16,6 +16,8 @@ export default class Debug {
     Debug._isActive = window.location.hash === "#debug";
 
     if (Debug.isActive) {
+      Debug.initializeSpectorJS();
+
       // Prevent nuxt adding another instance of lil-gui when the code changes
       if ((window as any).__lilGui) {
         Debug.instance = (window as any).__lilGui as Gui;
@@ -35,6 +37,31 @@ export default class Debug {
     } else {
       Debug.instance = null;
     }
+  }
+
+  private static initializeSpectorJS() {
+    const id = "__SPECTOR_JS__";
+
+    if (document.querySelector(`#${id}`)) {
+      Debug.onSpectorJsLoaded();
+
+      return;
+    }
+
+    const s = document.createElement("script");
+    s.id = id;
+    s.src = "https://spectorcdn.babylonjs.com/spector.bundle.js";
+
+    document.head.appendChild(s);
+
+    s.addEventListener("load", () => {
+      this.onSpectorJsLoaded();
+    });
+  }
+
+  private static onSpectorJsLoaded() {
+    const spector = new (window as any).SPECTOR.Spector();
+    spector.displayUI();
   }
 
   public static get isActive() {
