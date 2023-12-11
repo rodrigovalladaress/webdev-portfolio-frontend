@@ -7,7 +7,7 @@ export default class Camera {
   public static readonly FOV = 35;
   public static readonly NEAR = 0.1;
   public static readonly FAR = 100;
-  public static readonly POSITION = Object.freeze(new THREE.Vector3(6, 4, 8));
+  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, 0, 6));
 
   private camera: THREE.PerspectiveCamera;
   private controls: OrbitControls;

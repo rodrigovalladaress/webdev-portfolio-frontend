@@ -1,31 +1,28 @@
 import * as THREE from "three";
 import Size from "./Size";
 import type { ResizeEventDetail } from "./types/resize";
+import type { TimeTickEventDetail } from "./types/time";
 import Time from "./Time";
 import Camera from "./Camera";
 import Renderer from "./Renderer";
-import type { TimeTickEventDetail } from "./types/time";
+import World from "./World";
 
 export default class ThreeExperience {
-  private canvas: HTMLCanvasElement;
   private scene: THREE.Scene;
   private size: Size;
   private time: Time;
   private camera: Camera;
+  private world: World;
   private renderer: Renderer;
 
   public constructor(canvas: HTMLCanvasElement) {
-    this.canvas = canvas;
-
     this.size = new Size();
     this.time = new Time();
 
     this.scene = new THREE.Scene();
     this.camera = new Camera(canvas, this.scene, Size.data);
+    this.world = new World(this.scene);
     this.renderer = new Renderer(canvas, Size.data);
-
-    // TODO remove, test that the camera works
-    this.scene.add(new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial({ color: "green" })));
 
     window.addEventListener(Size.RESIZE_EVENT_NAME, ((e: CustomEvent<ResizeEventDetail>) => {
       this.resize(e.detail);
@@ -40,14 +37,13 @@ export default class ThreeExperience {
   }
 
   private resize(resizeData: ResizeEventDetail) {
-    console.log("resize");
-
     this.camera.resize(resizeData);
     this.renderer.resize(resizeData);
   }
 
-  private update(_timeTickData: TimeTickEventDetail) {
+  private update({ delta }: TimeTickEventDetail) {
     this.camera.update();
+    this.world.update(delta);
     this.renderer.update(this.scene, this.camera.instance);
   }
 }
