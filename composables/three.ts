@@ -1,7 +1,12 @@
-import { initializeThree } from "~/three/three";
+import ThreeExperience from "~/experience/ThreeExperience";
 
 export const useThree = (canvasSelector = "#three") => {
-  initializeThree(canvasSelector);
+  const canvas = document.querySelector<HTMLCanvasElement>(canvasSelector);
+  if (!canvas) {
+    throw new Error(`Canvas with query selector '${canvasSelector}' not found`);
+  }
 
-  return ref();
+  const threeExperience = new ThreeExperience(canvas);
+
+  return threeExperience;
 };
