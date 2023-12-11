@@ -1,5 +1,8 @@
 import * as THREE from "three";
 
+import vertexShader from "./shaders/wireframe-sea.vert.glsl";
+import fragmentShader from "./shaders/wireframe-sea.frag.glsl";
+
 export default class Sea {
   public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.02194, -0.15155, -2.35985));
 
@@ -7,7 +10,10 @@ export default class Sea {
 
   public constructor(scene: THREE.Scene) {
     const geometry = new THREE.PlaneGeometry(50, 25, 150, 150);
-    const material = new THREE.MeshBasicMaterial({ color: "red" });
+    const material = new THREE.RawShaderMaterial({
+      vertexShader,
+      fragmentShader,
+    });
     this.mesh = new THREE.Mesh(geometry, material);
 
     this.mesh.rotation.x = Sea.ROTATION.x;

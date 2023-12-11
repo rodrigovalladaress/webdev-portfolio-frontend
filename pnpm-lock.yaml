@@ -70,6 +70,9 @@ devDependencies:
   stylelint-config-standard-vue:
     specifier: ^1.0.0
     version: 1.0.0(postcss-html@1.5.0)(stylelint@15.11.0)
+  vite-plugin-glsl:
+    specifier: ^1.2.1
+    version: 1.2.1(vite@4.5.0)
   vue:
     specifier: ^3.3.8
     version: 3.3.9(typescript@5.3.2)
@@ -8871,6 +8874,18 @@ packages:
       eslint: 8.55.0
       rollup: 2.79.1
       vite: 4.5.0(sass@1.69.5)
+    dev: true
+
+  /vite-plugin-glsl@1.2.1(vite@4.5.0):
+    resolution: {integrity: sha512-yBpBHWfdiRVMxN3yIKx4qmwuqMwoMAnEMipVI0NbdIieyRFO8hpW8VTFHYi3W75h7CkvsotteP9C4pln51OE0A==}
+    engines: {node: '>= 16.15.1', npm: '>= 8.11.0'}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.6.1)
+      vite: 4.5.0(sass@1.69.5)
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /vite-plugin-inspect@0.7.42(@nuxt/kit@3.8.2)(vite@4.5.0):
