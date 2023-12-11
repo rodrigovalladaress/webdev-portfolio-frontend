@@ -6,8 +6,10 @@ import Time from "./Time";
 import Camera from "./Camera";
 import Renderer from "./Renderer";
 import World from "./World";
+import Debug from "./Debug";
 
 export default class ThreeExperience {
+  private debug: Debug;
   private scene: THREE.Scene;
   private size: Size;
   private time: Time;
@@ -16,6 +18,8 @@ export default class ThreeExperience {
   private renderer: Renderer;
 
   public constructor(canvas: HTMLCanvasElement) {
+    this.debug = new Debug();
+
     this.size = new Size();
     this.time = new Time();
 
