@@ -24,6 +24,7 @@ uniform float _smallWavesFrequency;
 uniform float _smallWavesElevation;
 
 varying vec2 _uv;
+varying vec3 _position;
 varying float _elevation;
 
 /**
@@ -55,5 +56,6 @@ void main() {
 
   // Varying
   _uv = uv;
+  _position = position;
   _elevation = elevation;
 }

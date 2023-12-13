@@ -6,7 +6,8 @@ import type { TimeTickEventDetail } from "./types/time";
 import Debug from "./Debug";
 
 export default class Sea {
-  public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.02194, -0.15155, -2.35985));
+  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
+  public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
 
   private mesh: THREE.Mesh<THREE.PlaneGeometry, THREE.RawShaderMaterial, THREE.Object3DEventMap>;
   private debugObject = {
@@ -15,7 +16,6 @@ export default class Sea {
     },
     foam: {
       color: 0x82ff82,
-      intensity: 6,
     },
     depth: {
       color: 0x01c28d,
@@ -43,6 +43,9 @@ export default class Sea {
     _surfaceColor: { value: new THREE.Color(this.debugObject.surface.color) },
     _colorOffset: { value: 0.08 },
     _colorMultiplier: { value: 5 },
+
+    _fogColor: { value: new THREE.Color(this.debugObject.fog.color) },
+    _fogDistance: { value: 8.5 },
   };
 
   public constructor(scene: THREE.Scene) {
@@ -59,6 +62,10 @@ export default class Sea {
       fragmentShader,
     });
     this.mesh = new THREE.Mesh(geometry, material);
+
+    this.mesh.position.x = Sea.POSITION.x;
+    this.mesh.position.y = Sea.POSITION.y;
+    this.mesh.position.z = Sea.POSITION.z;
 
     this.mesh.rotation.x = Sea.ROTATION.x;
     this.mesh.rotation.y = Sea.ROTATION.y;
@@ -81,21 +88,27 @@ export default class Sea {
       return;
     }
 
-    const folder = gui.addFolder("Sea");
+    const uniforms = this.mesh.material.uniforms as typeof this.uniforms;
 
-    folder.add(this.mesh.material.uniforms._colorOffset, "value").name("Color offset").min(0).max(1).step(0.001);
-    folder
-      .add(this.mesh.material.uniforms._colorMultiplier, "value")
-      .name("Color multiplier")
-      .min(0)
-      .max(10)
-      .step(0.001);
+    const folder = gui.addFolder("Sea");
+    folder.add(uniforms._colorOffset, "value").name("Color offset").min(0).max(1).step(0.001);
+    folder.add(uniforms._colorMultiplier, "value").name("Color multiplier").min(0).max(10).step(0.001);
+
+    const position = folder.addFolder("Position");
+    position.add(this.mesh.position, "x").min(-10).max(10).step(0.001);
+    position.add(this.mesh.position, "y").min(-10).max(10).step(0.001);
+    position.add(this.mesh.position, "z").min(-10).max(10).step(0.001);
+
+    const rotation = folder.addFolder("Rotation");
+    rotation.add(this.mesh.rotation, "x").min(-Math.PI).max(0).step(0.001);
+    rotation.add(this.mesh.rotation, "y").min(-Math.PI).max(0).step(0.001);
+    rotation.add(this.mesh.rotation, "z").min(-Math.PI).max(0).step(0.001);
 
     const foam = folder.addFolder("Foam");
     foam.addColor(this.debugObject.foam, "color").onChange(() => {
       this.updateUniform("_foamColor", this.debugObject.foam.color);
     });
-    foam.add(this.debugObject.foam, "intensity").min(0).max(20).step(0.001);
+    foam.add(uniforms._foamIntensity, "value").name("Intensity").min(0).max(20).step(0.001);
 
     const depth = folder.addFolder("Depth");
     depth.addColor(this.debugObject.depth, "color").onChange(() => {
@@ -106,6 +119,12 @@ export default class Sea {
     surface.addColor(this.debugObject.surface, "color").onChange(() => {
       this.updateUniform("_surfaceColor", this.debugObject.surface.color);
     });
+
+    const fog = folder.addFolder("Fog");
+    fog.addColor(this.debugObject.fog, "color").onChange(() => {
+      this.updateUniform("_fogColor", this.debugObject.fog.color);
+    });
+    fog.add(uniforms._fogDistance, "value").name("Distance").min(0).max(200).step(0.001);
   }
 
   private updateUniform(name: keyof typeof this.uniforms, color: any) {

@@ -63,8 +63,8 @@ export default class Debug {
     Debug.guiInstance.open();
 
     Debug.guiInstance.domElement.style.top = "inherit";
-    Debug.guiInstance.domElement.style.right = "0";
-    Debug.guiInstance.domElement.style.bottom = "0";
+    // Debug.guiInstance.domElement.style.right = "0";
+    Debug.guiInstance.domElement.style.bottom = "2px";
   }
 
   public static restorePreviousGuiValues() {
