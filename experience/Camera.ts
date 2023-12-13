@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import type { ResizeEventDetail as ScreenSize } from "./types/resize";
 
@@ -10,10 +10,10 @@ export default class Camera {
   public static readonly POSITION = Object.freeze(new THREE.Vector3(0, 0, 6));
 
   private camera: THREE.PerspectiveCamera;
-  private controls: OrbitControls;
+  // private controls: OrbitControls;
   private size: ScreenSize;
 
-  public constructor(canvas: HTMLCanvasElement, scene: THREE.Scene, size: ScreenSize) {
+  public constructor(_canvas: HTMLCanvasElement, scene: THREE.Scene, size: ScreenSize) {
     this.size = { ...size };
 
     this.camera = new THREE.PerspectiveCamera(Camera.FOV, this.aspect, Camera.NEAR, Camera.FAR);
@@ -21,8 +21,8 @@ export default class Camera {
 
     scene.add(this.camera);
 
-    this.controls = new OrbitControls(this.camera, canvas);
-    this.controls.enableDamping = true;
+    // this.controls = new OrbitControls(this.camera, canvas);
+    // this.controls.enableDamping = true;
   }
 
   public resize(sizeData: ScreenSize) {
@@ -33,7 +33,7 @@ export default class Camera {
   }
 
   public update() {
-    this.controls.update();
+    // this.controls.update();
   }
 
   public get instance() {

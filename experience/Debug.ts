@@ -2,11 +2,16 @@ import Gui from "lil-gui";
 
 export default class Debug {
   private static _isActive: boolean;
+  // private static _isAlreadyInitialized: boolean;
   private static _instance: Gui | null = null;
 
   public static get instance() {
     return Debug._instance;
   }
+
+  // public static get isAlreadyInitialized() {
+  //   return Debug._isAlreadyInitialized;
+  // }
 
   private static set instance(value: Gui | null) {
     Debug._instance = value;
@@ -14,15 +19,15 @@ export default class Debug {
 
   public constructor() {
     Debug._isActive = window.location.hash === "#debug";
+    // Debug._isAlreadyInitialized = false;
 
     if (Debug.isActive) {
       Debug.initializeSpectorJS();
 
       // Prevent nuxt adding another instance of lil-gui when the code changes
       if ((window as any).__lilGui) {
-        Debug.instance = (window as any).__lilGui as Gui;
-
-        return;
+        (window as any).__lilGui.destroy();
+        (window as any).__lilGui = null;
       }
 
       Debug.instance = new Gui({});

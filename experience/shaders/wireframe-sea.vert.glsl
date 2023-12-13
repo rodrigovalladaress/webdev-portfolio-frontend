@@ -24,6 +24,7 @@ uniform float _smallWavesFrequency;
 uniform float _smallWavesElevation;
 
 varying vec2 _uv;
+varying float _elevation;
 
 /**
  * glslify imports
@@ -54,4 +55,5 @@ void main() {
 
   // Varying
   _uv = uv;
+  _elevation = elevation;
 }
