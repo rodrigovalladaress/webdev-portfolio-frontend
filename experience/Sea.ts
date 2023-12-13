@@ -70,8 +70,9 @@ export default class Sea {
         // #extension GL_OES_standard_derivatives : enable
         derivatives: true,
       },
-      transparent: true,
-      depthWrite: false,
+      // transparent: true,
+      // depthWrite: false,
+      // depthTest: false,
       side: THREE.DoubleSide,
       defines: {
         SMALL_WAVES_ITERATIONS: 11,
