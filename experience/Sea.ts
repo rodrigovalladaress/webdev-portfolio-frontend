@@ -6,8 +6,10 @@ import type { TimeTickEventDetail } from "./types/time";
 import Debug from "./Debug";
 
 export default class Sea {
-  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
-  public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
+  // public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
+  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.733, 0));
+  // public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
+  public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.192, -0.123, -3.125));
 
   private mesh: THREE.Mesh<THREE.PlaneGeometry, THREE.RawShaderMaterial, THREE.Object3DEventMap>;
   private debugObject = {
@@ -45,7 +47,8 @@ export default class Sea {
     _colorMultiplier: { value: 5 },
 
     _fogColor: { value: new THREE.Color(this.debugObject.fog.color) },
-    _fogDistance: { value: 8.5 },
+    // _fogDistance: { value: 8.5 },
+    _fogDistance: { value: 14.136 },
   };
 
   public constructor(scene: THREE.Scene) {
@@ -119,6 +122,17 @@ export default class Sea {
     surface.addColor(this.debugObject.surface, "color").onChange(() => {
       this.updateUniform("_surfaceColor", this.debugObject.surface.color);
     });
+
+    const bigWaves = folder.addFolder("Big waves");
+    bigWaves.add(uniforms._bigWavesElevation, "value").name("Elevation").min(0).max(3).step(0.001);
+    bigWaves.add(uniforms._bigWavesFrequency.value, "x").name("Frequency x").min(0).max(10).step(0.001);
+    bigWaves.add(uniforms._bigWavesFrequency.value, "y").name("Frequency y").min(0).max(10).step(0.001);
+    bigWaves.add(uniforms._bigWavesSpeed, "value").name("Speed").min(0).max(10).step(0.001);
+
+    const smallWaves = folder.addFolder("Small waves");
+    smallWaves.add(uniforms._smallWavesElevation, "value").name("Elevation").min(0).max(3).step(0.001);
+    smallWaves.add(uniforms._smallWavesFrequency, "value").name("Frequency").min(0).max(6).step(0.001);
+    smallWaves.add(uniforms._smallWavesSpeed, "value").name("Speed").min(0).max(3).step(0.001);
 
     const fog = folder.addFolder("Fog");
     fog.addColor(this.debugObject.fog, "color").onChange(() => {
