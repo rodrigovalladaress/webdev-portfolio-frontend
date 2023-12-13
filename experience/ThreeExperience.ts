@@ -1,4 +1,5 @@
 import * as THREE from "three";
+
 import Size from "./Size";
 import type { ResizeEventDetail } from "./types/resize";
 import type { TimeTickEventDetail } from "./types/time";
@@ -7,6 +8,7 @@ import Camera from "./Camera";
 import Renderer from "./Renderer";
 import World from "./World";
 import Debug from "./Debug";
+import EventListener from "./EventListener";
 
 export default class ThreeExperience {
   private debug: Debug;
@@ -28,19 +30,24 @@ export default class ThreeExperience {
     this.world = new World(this.scene);
     this.renderer = new Renderer(canvas, Size.data);
 
-    window.addEventListener(Size.RESIZE_EVENT_NAME, ((e: CustomEvent<ResizeEventDetail>) => {
-      this.resize(e.detail);
-    }) as EventListener);
-
-    window.addEventListener(Time.TICK_EVENT_NAME, ((e: CustomEvent<TimeTickEventDetail>) => {
-      this.update(e.detail);
-    }) as EventListener);
+    EventListener.add(Size.RESIZE_EVENT_NAME, this.onResize.bind(this));
+    EventListener.add(Time.TICK_EVENT_NAME, this.onTick.bind(this));
 
     this.resize(Size.data);
     this.update(this.time.data);
   }
 
+  private onResize(e: CustomEvent<ResizeEventDetail>) {
+    this.resize(e.detail);
+  }
+
+  private onTick(e: CustomEvent<TimeTickEventDetail>) {
+    this.update(e.detail);
+  }
+
   private resize(resizeData: ResizeEventDetail) {
+    console.log("resize callback listener");
+
     this.camera.resize(resizeData);
     this.renderer.resize(resizeData);
   }
@@ -49,5 +56,28 @@ export default class ThreeExperience {
     this.camera.update();
     this.world.update(time);
     this.renderer.update(this.scene, this.camera.instance);
+  }
+
+  public destroy() {
+    this.scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        (child.geometry as THREE.BufferGeometry).dispose();
+
+        for (const key in child.material) {
+          const value = child.material[key];
+
+          // Test if there is a dispose function
+          if (value && typeof value.dispose === "function") {
+            value.dispose();
+          }
+        }
+      }
+    });
+
+    this.renderer.dispose();
+
+    EventListener.removeAll();
+
+    Debug.destroy();
   }
 }

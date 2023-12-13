@@ -3,7 +3,11 @@
 </template>
 
 <script lang="ts" setup>
-useThree();
+const experience = useThree();
+
+onBeforeUnmount(() => {
+  experience.destroy();
+});
 </script>
 
 <style lang="scss">

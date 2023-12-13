@@ -1,4 +1,5 @@
 import EventEmitter from "./EventEmitter";
+import EventListener from "./EventListener";
 import type { ResizeEventDetail } from "./types/resize";
 
 export default class Size {
@@ -9,7 +10,7 @@ export default class Size {
   public constructor() {
     this.event = new EventEmitter(Size.RESIZE_EVENT_NAME);
 
-    window.addEventListener("resize", () => {
+    EventListener.add("resize", () => {
       this.dispatchEvent();
     });
   }

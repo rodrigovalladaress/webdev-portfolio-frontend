@@ -25,4 +25,8 @@ export default class Renderer {
   public update(scene: THREE.Scene, camera: THREE.Camera) {
     this.renderer.render(scene, camera);
   }
+
+  public dispose() {
+    this.renderer.dispose();
+  }
 }
