@@ -1,19 +1,9 @@
-precision mediump float;
-
-/**
- * Data from Three.js
- */ 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
-
-attribute vec3 position;
-attribute vec2 uv;
-
 /**
  * Own data
  */ 
 const float _smallWavesIterations = 4.0;
+
+attribute vec3 barycentric;
 
 uniform float _time;
 uniform vec2 _bigWavesFrequency;
@@ -26,6 +16,7 @@ uniform float _smallWavesElevation;
 varying vec2 _uv;
 varying vec3 _position;
 varying float _elevation;
+varying vec3 _barycentric;
 
 /**
  * glslify imports
@@ -58,4 +49,5 @@ void main() {
   _uv = uv;
   _position = position;
   _elevation = elevation;
+  _barycentric = barycentric;
 }

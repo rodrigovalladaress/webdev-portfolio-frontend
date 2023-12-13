@@ -7,11 +7,16 @@ import Debug from "./Debug";
 
 export default class Sea {
   // public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
-  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.733, 0));
+  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.471, 0));
   // public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
   public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.192, -0.123, -3.125));
 
-  private mesh: THREE.Mesh<THREE.PlaneGeometry, THREE.RawShaderMaterial, THREE.Object3DEventMap>;
+  private mesh: THREE.Mesh<
+    THREE.BufferGeometry<THREE.NormalBufferAttributes>,
+    THREE.RawShaderMaterial,
+    THREE.Object3DEventMap
+  >;
+
   private debugObject = {
     fog: {
       color: 0x000000,
@@ -48,12 +53,23 @@ export default class Sea {
 
     _fogColor: { value: new THREE.Color(this.debugObject.fog.color) },
     // _fogDistance: { value: 8.5 },
-    _fogDistance: { value: 14.136 },
+    // _fogDistance: { value: 14.136 },
+    _fogDistance: { value: 9 },
+
+    _wireframeThickness: { value: 0.02 },
   };
 
   public constructor(scene: THREE.Scene) {
-    const geometry = new THREE.PlaneGeometry(50, 25, 150, 150);
-    const material = new THREE.RawShaderMaterial({
+    // The mesh needs to be non indexed...
+    const geometry = new THREE.PlaneGeometry(50, 25, 150, 150).toNonIndexed();
+    // ... so we can add the barycentric coordinates
+    this.addBarycentricCoordinates(geometry, true);
+
+    const material = new THREE.ShaderMaterial({
+      extensions: {
+        // #extension GL_OES_standard_derivatives : enable
+        derivatives: true,
+      },
       transparent: true,
       depthWrite: false,
       side: THREE.DoubleSide,
@@ -83,6 +99,32 @@ export default class Sea {
 
   public update(time: TimeTickEventDetail) {
     this.mesh.material.uniforms._time.value = time.elapsed;
+  }
+
+  /*
+   * Adds an attribute called "barycentric" to the geometry
+   * Edited from https://github.com/mattdesl/webgl-wireframes/blob/gh-pages/lib/geom.js
+   */
+  private addBarycentricCoordinates(geometry: THREE.BufferGeometry<THREE.NormalBufferAttributes>, removeEdge = false) {
+    const attrib = geometry.getIndex() || geometry.getAttribute("position");
+    const count = attrib.count / 3;
+    const barycentric: number[] = [];
+
+    // for each triangle in the geometry, add the barycentric coordinates
+    for (let i = 0; i < count; i++) {
+      const even = i % 2 === 0;
+      const Q = removeEdge ? 1 : 0;
+      if (even) {
+        barycentric.push(0, 0, 1, 0, 1, 0, 1, 0, Q);
+      } else {
+        barycentric.push(0, 1, 0, 0, 0, 1, 1, 0, Q);
+      }
+    }
+
+    // add the attribute to the geometry
+    const arrayAttribute = new Float32Array(barycentric);
+    // https://stackoverflow.com/questions/67245991/three-bufferattribute-setarray-has-been-removed-use-buffergeometry-setattrib
+    geometry.setAttribute("barycentric", new THREE.BufferAttribute(arrayAttribute, 3));
   }
 
   private addDebugOptions() {
@@ -139,6 +181,9 @@ export default class Sea {
       this.updateUniform("_fogColor", this.debugObject.fog.color);
     });
     fog.add(uniforms._fogDistance, "value").name("Distance").min(0).max(200).step(0.001);
+
+    const wireframe = folder.addFolder("Wireframe");
+    wireframe.add(uniforms._wireframeThickness, "value").name("Thickness").min(0).max(1).step(0.001);
   }
 
   private updateUniform(name: keyof typeof this.uniforms, color: any) {
