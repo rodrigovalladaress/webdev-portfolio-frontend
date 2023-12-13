@@ -46,7 +46,7 @@ const items = [
     @include media(lg) {
       $x-spacing: 0.5rem;
 
-      font-size: $t-h3;
+      font-size: $t-h5;
       padding: 0 $x-spacing;
 
       &:last-child {
