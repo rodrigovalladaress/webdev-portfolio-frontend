@@ -47,7 +47,10 @@ void main() {
   // float edge = 1.0 - step(_wireframeThickness, d);
 
   // Combine the sea color with the edge
-  vec4 outColor = vec4(seaColor, edge);
+  // vec4 outColor = vec4(seaColor, edge);
+  // Use black colour for the edge instead of alpha
+  vec3 outColor = seaColor * edge;
 
-  gl_FragColor = vec4(outColor);
+  // gl_FragColor = vec4(outColor);
+  gl_FragColor = vec4(outColor, 1.0);
 }
