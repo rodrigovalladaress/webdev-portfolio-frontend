@@ -63,16 +63,11 @@ export default class ThreeExperience {
   public destroy() {
     this.scene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        (child.geometry as THREE.BufferGeometry).dispose();
+        const material = child.material as THREE.Material;
+        material.dispose();
 
-        for (const key in child.material) {
-          const value = child.material[key];
-
-          // Test if there is a dispose function
-          if (value && typeof value.dispose === "function") {
-            value.dispose();
-          }
-        }
+        const geometry = child.geometry as THREE.BufferGeometry;
+        geometry.dispose();
       }
     });
 

@@ -3,10 +3,13 @@
 </template>
 
 <script lang="ts" setup>
-const experience = useThree();
+import type ThreeExperience from "~/experience/ThreeExperience";
+
+let experience: ThreeExperience | null = useThree();
 
 onBeforeUnmount(() => {
-  experience.destroy();
+  experience?.destroy();
+  experience = null;
 });
 </script>
 

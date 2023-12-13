@@ -26,6 +26,10 @@ export default class Renderer {
     this.renderer.render(scene, camera);
   }
 
+  public get info() {
+    return this.renderer.info;
+  }
+
   public dispose() {
     this.renderer.dispose();
   }
