@@ -76,17 +76,10 @@ export default class Sea {
   }
 
   private addDebugOptions() {
-    const gui = Debug.instance;
+    const gui = Debug.guiInstance;
     if (!gui) {
       return;
     }
-
-    // fog: {
-    //   color: 0x000000,
-    // },
-    // surface: {
-    //   color: 0x00ff00,
-    // },
 
     const folder = gui.addFolder("Sea");
 

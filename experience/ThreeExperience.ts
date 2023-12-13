@@ -11,7 +11,6 @@ import Debug from "./Debug";
 import EventListener from "./EventListener";
 
 export default class ThreeExperience {
-  private debug: Debug;
   private scene: THREE.Scene;
   private size: Size;
   private time: Time;
@@ -20,7 +19,7 @@ export default class ThreeExperience {
   private renderer: Renderer;
 
   public constructor(canvas: HTMLCanvasElement) {
-    this.debug = new Debug();
+    Debug.initialize();
 
     this.size = new Size();
     this.time = new Time();
@@ -35,6 +34,11 @@ export default class ThreeExperience {
 
     this.resize(Size.data);
     this.update(this.time.data);
+
+    // Keep GUI values between Nuxt reloads
+    // This needs to be called after all the other classes add their elements
+    // to the GUI, so they can be overriden here
+    Debug.restorePreviousGuiValues();
   }
 
   private onResize(e: CustomEvent<ResizeEventDetail>) {
@@ -46,8 +50,6 @@ export default class ThreeExperience {
   }
 
   private resize(resizeData: ResizeEventDetail) {
-    console.log("resize callback listener");
-
     this.camera.resize(resizeData);
     this.renderer.resize(resizeData);
   }
