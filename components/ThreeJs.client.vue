@@ -5,16 +5,14 @@
 <script lang="ts" setup>
 import type ThreeExperience from "~/experience/ThreeExperience";
 
-let experience: ThreeExperience | null = useThree();
+const emit = defineEmits(["loaded"]);
+
+let experience: ThreeExperience | null = useThree("#three", () => {
+  emit("loaded");
+});
 
 onBeforeUnmount(() => {
   experience?.destroy();
   experience = null;
 });
 </script>
-
-<style lang="scss">
-#three {
-  z-index: -1;
-}
-</style>

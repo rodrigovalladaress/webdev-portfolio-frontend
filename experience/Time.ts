@@ -4,6 +4,7 @@ import type { TimeTickEventDetail } from "./types/time";
 
 export default class Time {
   public static readonly TICK_EVENT_NAME = "threeExperience:tick";
+  public static readonly FIRST_TICK_EVENT_NAME = "threeExperience:firstTick";
 
   private start: number;
   private current: number;
@@ -12,7 +13,8 @@ export default class Time {
   private delta: number;
   private deltaMs: number;
 
-  private event: EventEmitter<TimeTickEventDetail>;
+  private tickEvent: EventEmitter<TimeTickEventDetail>;
+  private firstTickEvent: EventEmitter<{}>;
 
   public constructor() {
     this.start = Date.now();
@@ -24,15 +26,21 @@ export default class Time {
     this.deltaMs = 1000 / OPTIONS.targetFPS;
     this.delta = Time.toSeconds(this.deltaMs);
 
-    this.event = new EventEmitter(Time.TICK_EVENT_NAME);
+    this.firstTickEvent = new EventEmitter(Time.FIRST_TICK_EVENT_NAME);
+    this.tickEvent = new EventEmitter(Time.TICK_EVENT_NAME);
 
     window.requestAnimationFrame(() => {
+      this.dispatchFirstTickEvent();
       this.tick();
     });
   }
 
-  private dispatchEvent() {
-    this.event.dispatch(this.data);
+  private dispatchFirstTickEvent() {
+    this.firstTickEvent.dispatch({});
+  }
+
+  private dispatchTickEvent() {
+    this.tickEvent.dispatch(this.data);
   }
 
   private tick() {
@@ -46,7 +54,7 @@ export default class Time {
 
     this.current = currentTime;
 
-    this.dispatchEvent();
+    this.dispatchTickEvent();
 
     window.requestAnimationFrame(() => {
       this.tick();

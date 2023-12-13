@@ -17,9 +17,12 @@ export default class ThreeExperience {
   private camera: Camera;
   private world: World;
   private renderer: Renderer;
+  private firstTickCallback: (() => void) | null;
 
-  public constructor(canvas: HTMLCanvasElement) {
+  public constructor(canvas: HTMLCanvasElement, firstTickCallback: ThreeExperience["firstTickCallback"] = null) {
     Debug.initialize();
+
+    this.firstTickCallback = firstTickCallback;
 
     this.size = new Size();
     this.time = new Time();
@@ -30,6 +33,7 @@ export default class ThreeExperience {
     this.renderer = new Renderer(canvas, Size.data);
 
     EventListener.add(Size.RESIZE_EVENT_NAME, this.onResize.bind(this));
+    EventListener.add(Time.FIRST_TICK_EVENT_NAME, this.onFirstTick.bind(this));
     EventListener.add(Time.TICK_EVENT_NAME, this.onTick.bind(this));
 
     this.resize(Size.data);
@@ -43,6 +47,10 @@ export default class ThreeExperience {
 
   private onResize(e: CustomEvent<ResizeEventDetail>) {
     this.resize(e.detail);
+  }
+
+  private onFirstTick(_e: CustomEvent<{}>) {
+    this.firstTickCallback?.();
   }
 
   private onTick(e: CustomEvent<TimeTickEventDetail>) {
