@@ -1,6 +1,6 @@
 <template>
-  <header class="d-flex-lg justify-space-between bg-black-a-80-lg p-1">
-    <h1 class="lowercase p-r-lg-1">
+  <header class="d-flex-lg justify-space-between">
+    <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1">
       <div class="h1 text-medium">
         Rodrigo <br class="d-none d-block-lg" />
         Valladares Santana
@@ -9,7 +9,7 @@
       <div class="h2">Full-stack developer</div>
     </h1>
 
-    <NavMenu></NavMenu>
+    <NavMenu class="p-1"></NavMenu>
   </header>
 
   <div class="layout p-1">
