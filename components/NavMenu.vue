@@ -3,7 +3,7 @@
     class="nav full-width width-inherit-lg d-flex justify-space-around align-items-center mono-font lowercase bg-black-a-90 bg-trans-lg"
   >
     <template v-for="({ label, href }, i) in items" :key="i">
-      <NuxtLink class="d-flex justify-center align-items-center text-medium" :to="href" active-class="active">
+      <NuxtLink class="d-flex justify-content-center align-items-center text-medium" :to="href" active-class="active">
         {{ label }}
       </NuxtLink>
 
@@ -103,8 +103,8 @@ const items = [
 
 <style lang="scss">
 .nav {
-  .active {
-    text-decoration: underline !important;
+  a.active {
+    text-decoration: underline;
 
     @include media(lg) {
       pointer-events: none;
