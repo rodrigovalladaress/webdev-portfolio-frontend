@@ -23,26 +23,30 @@ a.card {
   color: $primary;
   background-color: $bg-black-a-90;
   transform: scale(1);
-  transition:
-    color $transition-duration ease-in-out,
-    background-color 400ms ease-in-out,
-    outline $transition-duration ease-in-out,
-    transform $transition-duration ease-in-out;
+  z-index: 0;
 
-  &:hover,
-  &:active,
-  &:focus {
-    color: color.change($bg-black, $lightness: 10%);
-    background-color: color.change($primary, $saturation: 80%);
-    outline: color.change($primary, $alpha: 0.95);
-    transform: scale(1.06);
-    z-index: 1;
-  }
+  @include media(lg) {
+    transition:
+      color $transition-duration ease-in-out,
+      background-color 400ms ease-in-out,
+      outline $transition-duration ease-in-out,
+      transform $transition-duration ease-in-out;
 
-  &:active {
-    color: $bg-black;
-    background-color: color.change($primary, $saturation: 100%);
-    transform: scale(1.04);
+    &:hover,
+    &:active,
+    &:focus {
+      color: color.change($bg-black, $lightness: 10%);
+      background-color: color.change($primary, $saturation: 80%);
+      outline: color.change($primary, $alpha: 0.95);
+      transform: scale(1.06);
+      z-index: 1;
+    }
+
+    &:active {
+      color: $bg-black;
+      background-color: color.change($primary, $saturation: 100%);
+      transform: scale(1.04);
+    }
   }
 }
 </style>

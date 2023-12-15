@@ -41,6 +41,7 @@ if (process.client) {
 <style lang="scss" scoped>
 header {
   transition: background-color 200ms ease-in-out;
+  z-index: 10;
 }
 
 .layout {
