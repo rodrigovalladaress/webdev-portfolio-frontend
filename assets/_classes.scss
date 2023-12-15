@@ -91,6 +91,10 @@
   text-transform: lowercase;
 }
 
+.text-color-primary {
+  color: $primary;
+}
+
 // Background
 .bg-black {
   background-color: $bg-black;
@@ -114,7 +118,7 @@
 
 // Borders
 .border-white {
-  border: $text-color 1px solid;
+  outline: $text-color 1px solid;
 }
 
 // Flex
