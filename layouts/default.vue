@@ -1,9 +1,9 @@
 <template>
   <header class="d-flex-lg justify-space-between">
-    <h1 class="h1 lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
-      <div class="h1 text-medium">
+    <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
+      <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
         Rodrigo <br class="d-none d-block-lg" />
-        Valladares Santana
+        <span class="surname">Valladares Santana</span>
       </div>
 
       <div class="h2">Full-stack developer</div>
@@ -14,12 +14,15 @@
 
   <div class="layout p-1 p-lg-2">
     <slot />
-
-    <!-- <footer>Footer</footer> -->
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const route = useRoute();
+// Make the title one line on projects and contact so there's more
+// space for the content (only on mobile)
+const isOneLineTitle = computed(() => route.path !== "/");
+</script>
 
 <style lang="scss" scoped>
 .h1 {
@@ -27,9 +30,41 @@
 
   // Correct the line height top spacing
   margin-top: -0.2rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  .surname {
+    height: 8.81rem;
+    opacity: 1;
+    display: block;
+    transition:
+      height 400ms ease-in-out,
+      opacity 400ms ease-in-out;
+  }
+
+  &.one-line {
+    .surname {
+      height: 0;
+      opacity: 0;
+    }
+  }
 
   @include media("lg") {
     line-height: 1.1;
+    margin-top: 0;
+    white-space: normal;
+    overflow: inherit;
+
+    .surname {
+      height: auto;
+      display: inline;
+    }
+
+    &.one-line {
+      .surname {
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -40,9 +75,5 @@
   @include media("lg") {
     margin-top: 2rem;
   }
-}
-
-.layout {
-  // padding: 1.6rem;
 }
 </style>
