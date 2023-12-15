@@ -1,5 +1,5 @@
 <template>
-  <header class="d-flex-lg justify-space-between">
+  <header class="d-flex-lg justify-space-between sticky" :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }">
     <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
       <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
         Rodrigo <br class="d-none d-block-lg" />
@@ -19,12 +19,36 @@
 
 <script lang="ts" setup>
 const route = useRoute();
+
+const hasScrolled = ref(false);
+
 // Make the title one line on projects and contact so there's more
 // space for the content (only on mobile)
 const isOneLineTitle = computed(() => route.path !== "/");
+
+if (process.client) {
+  const updateHasScrolled = () => {
+    hasScrolled.value = window.scrollY > 0;
+  };
+
+  window.addEventListener("scroll", updateHasScrolled);
+  // Call the function immediately to update the ref in case
+  // the page has been loaded with a scroll
+  updateHasScrolled();
+}
 </script>
 
 <style lang="scss" scoped>
+header {
+  transition: background-color 400ms ease-in-out;
+}
+
+.layout {
+  @include media-max(lg) {
+    padding-bottom: 8rem;
+  }
+}
+
 .h1 {
   line-height: 1.2;
 

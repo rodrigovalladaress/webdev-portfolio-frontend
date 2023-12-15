@@ -15,6 +15,16 @@
   }
 }
 
+@mixin media-max($breakpoint) {
+  @if $breakpoint != "xxl" {
+    @media screen and (max-width: #{get-breakpoint($breakpoint) }) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
 @mixin generate-class-by-breakpoint($prefix) {
   .#{$prefix} {
     @content;

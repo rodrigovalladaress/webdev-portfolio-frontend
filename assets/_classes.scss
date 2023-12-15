@@ -38,6 +38,10 @@
   display: flex;
 }
 
+@include generate-class-by-breakpoint(d-grid) {
+  display: grid;
+}
+
 @include generate-class-by-breakpoint(d-none) {
   display: none;
 }
@@ -52,6 +56,11 @@
 
 @include generate-class-by-breakpoint(d-inherit) {
   display: inherit;
+}
+
+@include generate-class-by-breakpoint(sticky) {
+  position: sticky;
+  top: 0;
 }
 
 // Text
@@ -83,7 +92,7 @@
 }
 
 // Background
-.bg-color {
+.bg-black {
   background-color: $bg-black;
 }
 
@@ -103,7 +112,16 @@
   background-color: transparent;
 }
 
+// Borders
+.border-white {
+  border: $text-color 1px solid;
+}
+
 // Flex
+.column {
+  flex-direction: column;
+}
+
 .justify-space-around {
   justify-content: space-around;
 }
@@ -112,7 +130,7 @@
   justify-content: space-between;
 }
 
-.justify-center {
+.justify-content-center {
   justify-content: center;
 }
 
