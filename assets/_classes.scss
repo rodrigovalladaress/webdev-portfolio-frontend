@@ -1,15 +1,16 @@
 @use "sass:string";
+@use "sass:map";
 @use "./variables" as *;
 @use "./colors" as *;
 @use "./mixins" as *;
 
 // Spacing
 @each $size-name, $child in $spacing {
-  @each $breakpoint, $size-value in $child {
-    .p-#{$size-name} {
-      padding: $size-value;
-    }
+  .p-#{$size-name} {
+    padding: map.get($child, "xs");
+  }
 
+  @each $breakpoint, $size-value in $child {
     @include media($breakpoint) {
       .p-#{$breakpoint}-#{$size-name} {
         padding: $size-value;
@@ -86,12 +87,16 @@
   background-color: $bg-black;
 }
 
+@include generate-class-by-breakpoint(bg-black-a-90) {
+  background-color: $bg-black-a-90;
+}
+
 @include generate-class-by-breakpoint(bg-black-a-80) {
   background-color: $bg-black-a-80;
 }
 
-@include generate-class-by-breakpoint(bg-black-a-90) {
-  background-color: $bg-black-a-90;
+@include generate-class-by-breakpoint(bg-black-a-50) {
+  background-color: $bg-black-a-50;
 }
 
 @include generate-class-by-breakpoint(bg-trans) {
