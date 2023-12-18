@@ -1,16 +1,32 @@
 <!-- https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0 -->
 <template>
-  <div class="carousel">
-    <div ref="inner" class="inner" :style="innerStyle">
-      <div v-for="({ src, alt }, i) in items" :key="i" class="item">
-        <NuxtImg :src="src" :alt="alt" />
+  <div class="carousel-and-controls">
+    <div class="carousel">
+      <div ref="inner" class="inner" :style="innerStyle">
+        <div v-for="({ src, alt }, i) in items" :key="i" class="item">
+          <NuxtImg :src="src" :alt="alt" />
+        </div>
+      </div>
+    </div>
+
+    <div class="controls d-flex justify-space-between">
+      <div class="progress d-flex">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      </div>
+
+      <div class="actions">
+        <button :disabled="isTransitioning" class="mono" @click="showPrevious">
+          <div class="text">&lt;</div>
+        </button>
+
+        <button :disabled="isTransitioning" class="mono" @click="showNext">
+          <div class="text">&gt;</div>
+        </button>
       </div>
     </div>
   </div>
-
-  <button :disabled="isTransitioning" @click="showPrevious">prev</button>
-
-  <button :disabled="isTransitioning" @click="showNext">next</button>
 </template>
 
 <script lang="ts" setup>
@@ -172,6 +188,7 @@ watch([props], () => {
 .carousel {
   width: 100%;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
 }
 
 .inner {
@@ -182,7 +199,7 @@ watch([props], () => {
 
 .item {
   width: 100%;
-  margin-right: 1rem;
+  margin-right: 1.6rem;
   display: inline-flex;
   aspect-ratio: 1 / 1;
 
@@ -196,8 +213,31 @@ img {
   height: auto;
 }
 
+.controls {
+  background-color: red;
+}
+
 button {
+  margin: 0;
   margin-right: 0.5rem;
-  margin-top: 1rem;
+  font-size: 2.4rem;
+  font-weight: bold;
+  background-color: transparent;
+  color: $text-color;
+  border: none;
+  line-height: 1;
+  padding: 0.1rem 0.45rem 0.45rem;
+  transition:
+    background-color 200ms ease-in-out,
+    color 200ms ease-in-out;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    background-color: $text-color;
+    color: $bg-black;
+  }
 }
 </style>
