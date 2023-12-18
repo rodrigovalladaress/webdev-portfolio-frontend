@@ -21,6 +21,7 @@
 <style lang="scss" scoped>
 .projects-wrapper {
   padding-top: 2rem;
+  background-color: green;
 
   @include media(lg) {
     padding: 4rem;

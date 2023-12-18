@@ -43,6 +43,7 @@ const props = defineProps({
 const inner = ref<HTMLDivElement | null>(null);
 const innerStyle = ref<CSSProperties>({});
 const step = ref("");
+const stepNegative = ref("");
 const isTransitioning = ref(false);
 
 const items = [
@@ -60,21 +61,31 @@ const items = [
   },
 ];
 
+const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
+  if (items.length === 0) {
+    // eslint-disable-next-line no-console
+    console.warn("The items array is empty");
+    return "";
+  }
+
+  return `calc(${sign}1 * (${innerWidth}px + ${rightSpacing}) / ${items.length})`;
+};
+
 const calculateStep = () => {
   if (!inner.value) {
     // eslint-disable-next-line no-console
     console.warn("inner reference was null");
-    return;
-  }
-
-  if (items.length === 0) {
-    // eslint-disable-next-line no-console
-    console.warn("The items array is empty");
-    return;
+    return "";
   }
 
   const innerWidth = inner.value.scrollWidth;
-  step.value = `${innerWidth / items.length}px`;
+
+  // Get the margin right of the first .item to calculate the correct translate
+  // value that needs to be applied to .inner
+  const { marginRight } = window.getComputedStyle(inner.value.children[0]);
+
+  step.value = getStep(innerWidth, marginRight);
+  stepNegative.value = getStep(innerWidth, marginRight, "-");
 };
 
 const showNext = () => {
@@ -123,12 +134,12 @@ const showPrevious = () => {
 
 const moveLeft = () => {
   // The first translate sets the x position so we can keep an item on the left of the carousel
-  innerStyle.value = { transform: `translateX(-${step.value}) translateX(-${step.value})` };
+  innerStyle.value = { transform: `translateX(${stepNegative.value}) translateX(${stepNegative.value})` };
 };
 
 const moveRight = () => {
   // The first translate sets the x position so we can keep an item on the left of the carousel
-  innerStyle.value = { transform: `translateX(${step.value}) translateX(-${step.value})` };
+  innerStyle.value = { transform: `translateX(${step.value}) translateX(${stepNegative.value})` };
 };
 
 const addTransitionEndListener = (callback: Function) => {
@@ -155,7 +166,7 @@ const resetStyles = () => {
   innerStyle.value = {
     transition: "none",
     // Keep an item on the left of the carousel
-    transform: `translateX(-${step.value})`,
+    transform: `translateX(${stepNegative.value})`,
   };
 };
 
@@ -199,9 +210,9 @@ watch([props], () => {
 
 .item {
   width: 100%;
-  margin-right: 1.6rem;
   display: inline-flex;
   aspect-ratio: 1 / 1;
+  margin-right: 1.6rem;
 
   @include media(lg) {
     width: 28.8rem;
