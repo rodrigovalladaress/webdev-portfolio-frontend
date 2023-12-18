@@ -4,11 +4,11 @@ import glslify from "vite-plugin-glslify";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    // Simple usage
     "@nuxtjs/eslint-module",
     "@nuxtjs/stylelint-module",
     "@nuxtjs/google-fonts",
     "@nuxtjs/apollo",
+    "@nuxt/image",
   ],
   devtools: { enabled: true },
   app: {

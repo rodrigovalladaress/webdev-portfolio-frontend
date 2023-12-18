@@ -5,7 +5,7 @@
       "/^border/": ["px"],
       "/^padding|^gap/": ["rem"]
     },
-    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "fr"],
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "fr", "vh", "vw"],
     "no-empty-source": null
   }
 }

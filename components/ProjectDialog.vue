@@ -1,10 +1,12 @@
 <template>
   <dialog ref="dialog">
     <div class="header d-flex justify-space-between">
-      <div class="title">{{ project.name }}</div>
+      <div class="title h2 mono">{{ project.name }}</div>
 
-      <div @click="onClose">x</div>
+      <div @click="onCloseClicked">x</div>
     </div>
+
+    <!-- <ImageCarousel :inner-key="`${carouselKey}`"></ImageCarousel> -->
 
     <div class="description">
       {{ project.description }}
@@ -26,14 +28,27 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(["closed"]);
 
+// Prop sent to the carousel to force the calculation of its
+// step when the dialog is shown
+const carouselKey = ref(0);
 const dialog = ref<HTMLDialogElement | null>(null);
 
-const onClose = () => {
+const show = () => {
+  dialog.value?.showModal();
+  carouselKey.value += 1;
+};
+
+const close = () => {
+  dialog.value?.close();
+};
+
+const onCloseClicked = () => {
   if (!dialog.value) {
     return;
   }
 
-  dialog.value.close();
+  // dialog.value.close();
+  close();
   emit("closed");
 };
 
@@ -45,11 +60,24 @@ watch([props], () => {
   const { isVisible } = props;
 
   if (isVisible) {
-    dialog.value.showModal();
+    show();
   } else {
-    dialog.value.close();
+    close();
   }
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scopes>
+dialog {
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 2rem;
+  border: 2px solid $text-color;
+
+  .title {
+    margin-top: -0.4rem;
+    margin-bottom: 3rem;
+  }
+}
+</style>
