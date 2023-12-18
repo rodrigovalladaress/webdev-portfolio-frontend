@@ -11,9 +11,9 @@
 
     <div class="controls d-flex justify-space-between">
       <div class="progress d-flex">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
+        <div v-for="(index, i) in indexes" :key="i" :class="`progress-${i + 1}`">
+          {{ index + 1 }}
+        </div>
       </div>
 
       <div class="actions">
@@ -48,18 +48,22 @@ const isTransitioning = ref(false);
 
 const items = [
   {
+    index: 0,
     src: "TestImage1.jpg",
     alt: "A test image",
   },
   {
+    index: 1,
     src: "TestImage2.jpg",
     alt: "A test image",
   },
   {
+    index: 2,
     src: "TestImage3.jpg",
     alt: "A test image",
   },
 ];
+const indexes: number[] = items.map(({ index }) => index);
 
 const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
   if (items.length === 0) {
@@ -200,6 +204,11 @@ watch([props], () => {
   width: 100%;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+
+  @include media(sm) {
+    aspect-ratio: auto;
+    aspect-ratio: 2 / 1;
+  }
 }
 
 .inner {
@@ -214,8 +223,8 @@ watch([props], () => {
   aspect-ratio: 1 / 1;
   margin-right: 1.6rem;
 
-  @include media(lg) {
-    width: 28.8rem;
+  @include media(sm) {
+    width: 50%;
   }
 }
 
@@ -229,6 +238,8 @@ img {
 }
 
 button {
+  $y-padding: 0.45rem;
+
   margin: 0;
   margin-right: 0.5rem;
   font-size: 2.4rem;
@@ -237,12 +248,13 @@ button {
   color: $text-color;
   border: none;
   line-height: 1;
-  padding: 0.1rem 0.45rem 0.45rem;
+  padding: 0.1rem $y-padding 0.45rem;
   transition:
     background-color 200ms ease-in-out,
     color 200ms ease-in-out;
 
   &:last-child {
+    // margin-right: -$y-padding;
     margin-right: 0;
   }
 
