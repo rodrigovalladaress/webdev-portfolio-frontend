@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     shim: false,
   },
   vite: {
+    define: {
+      __VUE_PROD_DEVTOOLS__: true,
+    },
     css: {
       preprocessorOptions: {
         scss: {
