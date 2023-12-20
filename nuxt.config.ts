@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-named-as-default
 import glslify from "vite-plugin-glslify";
+import svgLoader from "vite-svg-loader";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -35,7 +36,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [glslify()],
+    plugins: [glslify(), svgLoader()],
   },
   googleFonts: {
     display: "swap",

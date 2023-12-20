@@ -15,8 +15,8 @@
       </div>
     </div>
 
-    <div class="controls d-flex justify-space-between">
-      <div class="progress d-flex">
+    <div class="controls d-flex justify-space-between align-items-center">
+      <div class="progress mono text-medium d-flex">
         <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
           {{ id + 1 }}
         </div>
@@ -24,11 +24,11 @@
 
       <div class="actions">
         <button :disabled="isTransitioning" class="mono" @click="showPrevious">
-          <div class="text">&lt;</div>
+          <div class="icon d-flex align-items-center"><AngleLeft view-box=""></AngleLeft></div>
         </button>
 
         <button :disabled="isTransitioning" class="mono" @click="showNext">
-          <div class="text">&gt;</div>
+          <div class="icon d-flex align-items-center rotate-180"><AngleLeft></AngleLeft></div>
         </button>
       </div>
     </div>
@@ -37,6 +37,9 @@
 
 <script lang="ts" setup>
 import type { CSSProperties } from "vue";
+import AngleLeft from "~/assets/images/AngleLeft.svg?component";
+
+// console.log("angle left", AngleLeft);
 
 /**
  * Slide item that comes from props
@@ -308,6 +311,8 @@ watch([breakpoint], () => {
 </script>
 
 <style lang="scss" scoped>
+$transition-duration: 350ms;
+
 .carousel {
   width: 100%;
   overflow: hidden;
@@ -322,7 +327,7 @@ watch([breakpoint], () => {
 .inner {
   // Prevent the inline-flex from wrapping once .carousel has been filled
   white-space: nowrap;
-  transition: transform 350ms ease-in-out;
+  transition: transform $transition-duration ease-in-out;
 }
 
 .item {
@@ -342,39 +347,58 @@ img {
 }
 
 .controls {
-  // background-color: red;
+  padding: 0.5rem 0;
 }
 
 .progress {
-  .active {
+  font-size: $t-h6;
+  line-height: 1;
+  align-self: flex-start;
+  margin-top: 0.525rem;
+
+  > * {
+    margin-right: 0.5rem;
     text-decoration: underline;
+    text-decoration-thickness: 0.1rem;
+    text-underline-offset: 0.7rem;
+    transition:
+      text-decoration-thickness $transition-duration,
+      text-underline-offset $transition-duration;
+
+    &.active {
+      text-decoration-thickness: 0.4rem;
+      text-underline-offset: 0.4rem;
+    }
   }
 }
 
 button {
-  $y-padding: 0.45rem;
-
   margin: 0;
-  margin-right: 0.5rem;
-  font-size: 2.4rem;
-  font-weight: bold;
+  margin-right: 0.8rem;
+  padding: 0.5rem;
   background-color: transparent;
-  color: $text-color;
   border: none;
-  line-height: 1;
-  padding: 0.1rem $y-padding 0.45rem;
+  cursor: pointer;
   transition:
     background-color 200ms ease-in-out,
     color 200ms ease-in-out;
 
+  .icon {
+    color: $text-color;
+    width: 2.8rem;
+    height: auto;
+  }
+
   &:last-child {
-    // margin-right: -$y-padding;
     margin-right: 0;
   }
 
   &:hover {
     background-color: $text-color;
-    color: $bg-black;
+
+    .icon {
+      color: $bg-black;
+    }
   }
 }
 </style>
