@@ -4,11 +4,11 @@
     <div class="carousel">
       <div ref="innerRef" class="inner" :style="innerStyle">
         <div
-          v-for="({ __id: id, src, alt }, key) in items"
+          v-for="({ __carousel_id: id, src, alt }, key) in ownItems"
           :key="key"
           class="item"
           :class="`item-${id}`"
-          :data-__id="id"
+          :data-id="id"
         >
           <NuxtImg :src="src" :alt="alt" />
         </div>
@@ -38,6 +38,16 @@
 <script lang="ts" setup>
 import type { CSSProperties } from "vue";
 
+type SlideItem = {
+  src: string;
+  alt: string;
+};
+
+type OwnSlideItem = SlideItem & {
+  __carousel_id: number;
+  isDuplicate?: boolean;
+};
+
 const props = defineProps({
   innerKey: {
     type: String,
@@ -47,6 +57,25 @@ const props = defineProps({
 });
 
 const { breakpoint } = useBreakpoint();
+
+// TODO move this to props
+const items = [
+  {
+    src: "TestImage1.jpg",
+    alt: "A test image",
+  },
+  {
+    src: "TestImage2.jpg",
+    alt: "A test image",
+  },
+  {
+    src: "TestImage3.jpg",
+    alt: "A test image",
+  },
+];
+
+const itemsWithId: OwnSlideItem[] = addIdKey(items, "__carousel_id");
+const ids: number[] = itemsWithId.map(({ __carousel_id: id }) => id);
 
 /**
  * The index of the carousel.
@@ -63,34 +92,16 @@ const step = ref("");
 const stepNegative = ref("");
 const isTransitioning = ref(false);
 const isItemVisible = ref<Record<number, boolean>>({});
-const items = ref([
-  {
-    __id: 0,
-    src: "TestImage1.jpg",
-    alt: "A test image",
-  },
-  {
-    __id: 1,
-    src: "TestImage2.jpg",
-    alt: "A test image",
-  },
-  {
-    __id: 2,
-    src: "TestImage3.jpg",
-    alt: "A test image",
-  },
-]);
-
-const ids: number[] = items.value.map(({ __id }) => __id);
+const ownItems = ref<OwnSlideItem[]>([...itemsWithId]);
 
 const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
-  if (items.value.length === 0) {
+  if (ownItems.value.length === 0) {
     // eslint-disable-next-line no-console
     console.warn("The items array is empty");
     return "";
   }
 
-  return `calc(${sign}1 * (${innerWidth}px + ${rightSpacing}) / ${items.value.length})`;
+  return `calc(${sign}1 * (${innerWidth}px + ${rightSpacing}) / ${ownItems.value.length})`;
 };
 
 const calculateStep = () => {
@@ -111,9 +122,9 @@ const calculateStep = () => {
 };
 
 const addIndex = (delta: number) => {
-  index.value = (index.value + delta) % items.value.length;
+  index.value = (index.value + delta) % ownItems.value.length;
   if (index.value === -1) {
-    index.value = items.value.length - 1;
+    index.value = ownItems.value.length - 1;
   }
 
   calculateVisibleItems();
@@ -128,13 +139,12 @@ const calculateVisibleItems = () => {
       }
       break;
 
-    // TODO Fix visible items for tablet + desktiop
     case "md":
     case "lg":
     case "xl":
     case "xxl":
       for (const id of ids) {
-        isItemVisible.value[id] = id === index.value || id === (index.value + 1) % items.value.length;
+        isItemVisible.value[id] = id === index.value || id === (index.value + 1) % ownItems.value.length;
       }
       break;
 
@@ -143,6 +153,19 @@ const calculateVisibleItems = () => {
       console.error(`Breakpoint '${breakpoint.value}' not implemented`);
       break;
   }
+};
+
+const copyFirstItemToTheEnd = () => {
+  ownItems.value.push({ ...ownItems.value[0], isDuplicate: true });
+};
+
+const removeDuplicates = () => {
+  const duplicateIndex = ownItems.value.findIndex(({ isDuplicate }) => isDuplicate);
+  if (duplicateIndex === -1) {
+    return;
+  }
+
+  ownItems.value.splice(duplicateIndex, 1);
 };
 
 const showNext = () => {
@@ -155,16 +178,23 @@ const showNext = () => {
   moveLeft();
   addIndex(+1);
 
+  // Do this so the next visible item is added to the DOM before the
+  // translate happens
+  copyFirstItemToTheEnd();
+
   addTransitionEndListener(() => {
-    const item = items.value.shift();
+    const item = ownItems.value.shift();
     if (!item) {
       // eslint-disable-next-line no-console
       console.warn("item was undefined");
       return;
     }
 
-    items.value.push(item);
+    ownItems.value.push(item);
     resetStyles();
+
+    // Remove duplicates as they aren't necessary anymore
+    removeDuplicates();
   });
 };
 
@@ -179,14 +209,14 @@ const showPrevious = () => {
   addIndex(-1);
 
   addTransitionEndListener(() => {
-    const item = items.value.pop();
+    const item = ownItems.value.pop();
     if (!item) {
       // eslint-disable-next-line no-console
       console.warn("item was undefined");
       return;
     }
 
-    items.value.unshift(item);
+    ownItems.value.unshift(item);
     resetStyles();
   });
 };
@@ -229,26 +259,41 @@ const resetStyles = () => {
   };
 };
 
+const getOwnItems = () => {
+  const newItems = addIdKey(items, "__carousel_id");
+
+  // Move the last item to the beginning of the array so the first element
+  // that is shown in the carousel is the initial 0 element
+  const lastItem = newItems.pop();
+  if (!lastItem) {
+    // eslint-disable-next-line no-console
+    console.warn("Item was not defined. Array is empty?");
+    return [];
+  }
+  newItems.unshift(lastItem);
+
+  return newItems;
+};
+
+const buildOwnItems = () => {
+  ownItems.value = getOwnItems();
+};
+
 const initialize = () => {
   calculateStep();
   resetStyles();
+  buildOwnItems();
+  calculateVisibleItems();
 };
 
 onMounted(() => {
   initialize();
-  window.addEventListener("resize", initialize);
 
-  // Move the last item to the beginning of the array so the first element
-  // that is shown in the carousel is the initial 0 element
-  const item = items.value.pop();
-  if (!item) {
-    // eslint-disable-next-line no-console
-    console.warn("item was not defined");
-    return;
-  }
-  items.value.unshift(item);
+  window.addEventListener("resize", () => {
+    initialize();
+  });
 
-  calculateVisibleItems();
+  // calculateVisibleItems();
 });
 
 watch([props], () => {
