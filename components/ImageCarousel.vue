@@ -1,4 +1,4 @@
-<!-- https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0 -->
+<!-- Based on https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0 -->
 <template>
   <div class="carousel-and-controls">
     <div class="carousel">
@@ -38,11 +38,17 @@
 <script lang="ts" setup>
 import type { CSSProperties } from "vue";
 
-type SlideItem = {
+/**
+ * Slide item that comes from props
+ */
+export type SlideItem = {
   src: string;
   alt: string;
 };
 
+/**
+ * Slide item that is used internally by the carousel
+ */
 type OwnSlideItem = SlideItem & {
   __carousel_id: number;
   isDuplicate?: boolean;
@@ -85,7 +91,7 @@ const ids: number[] = itemsWithId.map(({ __carousel_id: id }) => id);
  * (The index will be always between 0 and items.length - 1,
  * so an index value of -1 would be items.length -1 instead)
  */
-const index = ref(0);
+const slideIndex = ref(0);
 const innerRef = ref<HTMLDivElement | null>(null);
 const innerStyle = ref<CSSProperties>({});
 const step = ref("");
@@ -106,8 +112,6 @@ const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+"
 
 const calculateStep = () => {
   if (!innerRef.value) {
-    // eslint-disable-next-line no-console
-    console.warn("inner reference was null");
     return "";
   }
 
@@ -121,10 +125,10 @@ const calculateStep = () => {
   stepNegative.value = getStep(innerWidth, marginRight, "-");
 };
 
-const addIndex = (delta: number) => {
-  index.value = (index.value + delta) % ownItems.value.length;
-  if (index.value === -1) {
-    index.value = ownItems.value.length - 1;
+const addSlideIndex = (delta: number) => {
+  slideIndex.value = (slideIndex.value + delta) % ownItems.value.length;
+  if (slideIndex.value === -1) {
+    slideIndex.value = ownItems.value.length - 1;
   }
 
   calculateVisibleItems();
@@ -135,7 +139,7 @@ const calculateVisibleItems = () => {
     case "xs":
     case "sm":
       for (const id of ids) {
-        isItemVisible.value[id] = id === index.value;
+        isItemVisible.value[id] = id === slideIndex.value;
       }
       break;
 
@@ -144,7 +148,7 @@ const calculateVisibleItems = () => {
     case "xl":
     case "xxl":
       for (const id of ids) {
-        isItemVisible.value[id] = id === index.value || id === (index.value + 1) % ownItems.value.length;
+        isItemVisible.value[id] = id === slideIndex.value || id === (slideIndex.value + 1) % ownItems.value.length;
       }
       break;
 
@@ -176,7 +180,7 @@ const showNext = () => {
   isTransitioning.value = true;
 
   moveLeft();
-  addIndex(+1);
+  addSlideIndex(+1);
 
   // Do this so the next visible item is added to the DOM before the
   // translate happens
@@ -206,7 +210,7 @@ const showPrevious = () => {
   isTransitioning.value = true;
 
   moveRight();
-  addIndex(-1);
+  addSlideIndex(-1);
 
   addTransitionEndListener(() => {
     const item = ownItems.value.pop();
@@ -292,8 +296,6 @@ onMounted(() => {
   window.addEventListener("resize", () => {
     initialize();
   });
-
-  // calculateVisibleItems();
 });
 
 watch([props], () => {
@@ -340,7 +342,7 @@ img {
 }
 
 .controls {
-  background-color: red;
+  // background-color: red;
 }
 
 .progress {
