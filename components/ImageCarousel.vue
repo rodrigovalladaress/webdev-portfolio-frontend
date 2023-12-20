@@ -2,8 +2,14 @@
 <template>
   <div class="carousel-and-controls">
     <div class="carousel">
-      <div ref="inner" class="inner" :style="innerStyle">
-        <div v-for="({ src, alt }, i) in items" :key="i" class="item">
+      <div ref="innerRef" class="inner" :style="innerStyle">
+        <div
+          v-for="({ __id: id, src, alt }, key) in items"
+          :key="key"
+          class="item"
+          :class="`item-${id}`"
+          :data-__id="id"
+        >
           <NuxtImg :src="src" :alt="alt" />
         </div>
       </div>
@@ -11,8 +17,8 @@
 
     <div class="controls d-flex justify-space-between">
       <div class="progress d-flex">
-        <div v-for="(index, i) in indexes" :key="i" :class="`progress-${i + 1}`">
-          {{ index + 1 }}
+        <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
+          {{ id + 1 }}
         </div>
       </div>
 
@@ -40,56 +46,103 @@ const props = defineProps({
   },
 });
 
-const inner = ref<HTMLDivElement | null>(null);
+const { breakpoint } = useBreakpoint();
+
+/**
+ * The index of the carousel.
+ * When the user clicks on next -> index += 1
+ * When the user clicks on previous -> index -= 1
+ *
+ * (The index will be always between 0 and items.length - 1,
+ * so an index value of -1 would be items.length -1 instead)
+ */
+const index = ref(0);
+const innerRef = ref<HTMLDivElement | null>(null);
 const innerStyle = ref<CSSProperties>({});
 const step = ref("");
 const stepNegative = ref("");
 const isTransitioning = ref(false);
-
-const items = [
+const isItemVisible = ref<Record<number, boolean>>({});
+const items = ref([
   {
-    index: 0,
+    __id: 0,
     src: "TestImage1.jpg",
     alt: "A test image",
   },
   {
-    index: 1,
+    __id: 1,
     src: "TestImage2.jpg",
     alt: "A test image",
   },
   {
-    index: 2,
+    __id: 2,
     src: "TestImage3.jpg",
     alt: "A test image",
   },
-];
-const indexes: number[] = items.map(({ index }) => index);
+]);
+
+const ids: number[] = items.value.map(({ __id }) => __id);
 
 const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
-  if (items.length === 0) {
+  if (items.value.length === 0) {
     // eslint-disable-next-line no-console
     console.warn("The items array is empty");
     return "";
   }
 
-  return `calc(${sign}1 * (${innerWidth}px + ${rightSpacing}) / ${items.length})`;
+  return `calc(${sign}1 * (${innerWidth}px + ${rightSpacing}) / ${items.value.length})`;
 };
 
 const calculateStep = () => {
-  if (!inner.value) {
+  if (!innerRef.value) {
     // eslint-disable-next-line no-console
     console.warn("inner reference was null");
     return "";
   }
 
-  const innerWidth = inner.value.scrollWidth;
+  const innerWidth = innerRef.value.scrollWidth;
 
   // Get the margin right of the first .item to calculate the correct translate
   // value that needs to be applied to .inner
-  const { marginRight } = window.getComputedStyle(inner.value.children[0]);
+  const { marginRight } = window.getComputedStyle(innerRef.value.children[0]);
 
   step.value = getStep(innerWidth, marginRight);
   stepNegative.value = getStep(innerWidth, marginRight, "-");
+};
+
+const addIndex = (delta: number) => {
+  index.value = (index.value + delta) % items.value.length;
+  if (index.value === -1) {
+    index.value = items.value.length - 1;
+  }
+
+  calculateVisibleItems();
+};
+
+const calculateVisibleItems = () => {
+  switch (breakpoint.value) {
+    case "xs":
+    case "sm":
+      for (const id of ids) {
+        isItemVisible.value[id] = id === index.value;
+      }
+      break;
+
+    // TODO Fix visible items for tablet + desktiop
+    case "md":
+    case "lg":
+    case "xl":
+    case "xxl":
+      for (const id of ids) {
+        isItemVisible.value[id] = id === index.value || id === (index.value + 1) % items.value.length;
+      }
+      break;
+
+    default:
+      // eslint-disable-next-line no-console
+      console.error(`Breakpoint '${breakpoint.value}' not implemented`);
+      break;
+  }
 };
 
 const showNext = () => {
@@ -100,16 +153,17 @@ const showNext = () => {
   isTransitioning.value = true;
 
   moveLeft();
+  addIndex(+1);
 
   addTransitionEndListener(() => {
-    const item = items.shift();
+    const item = items.value.shift();
     if (!item) {
       // eslint-disable-next-line no-console
       console.warn("item was undefined");
       return;
     }
 
-    items.push(item);
+    items.value.push(item);
     resetStyles();
   });
 };
@@ -122,16 +176,17 @@ const showPrevious = () => {
   isTransitioning.value = true;
 
   moveRight();
+  addIndex(-1);
 
   addTransitionEndListener(() => {
-    const item = items.pop();
+    const item = items.value.pop();
     if (!item) {
       // eslint-disable-next-line no-console
       console.warn("item was undefined");
       return;
     }
 
-    items.unshift(item);
+    items.value.unshift(item);
     resetStyles();
   });
 };
@@ -147,23 +202,23 @@ const moveRight = () => {
 };
 
 const addTransitionEndListener = (callback: Function) => {
-  if (!inner.value) {
+  if (!innerRef.value) {
     return;
   }
 
   const ownCallback = () => {
-    if (!inner.value) {
+    if (!innerRef.value) {
       // eslint-disable-next-line no-console
       console.error("Error while calling transitionend callback: inner reference was null");
       return;
     }
 
     callback();
-    inner.value.removeEventListener("transitionend", ownCallback);
+    innerRef.value.removeEventListener("transitionend", ownCallback);
     isTransitioning.value = false;
   };
 
-  inner.value.addEventListener("transitionend", ownCallback);
+  innerRef.value.addEventListener("transitionend", ownCallback);
 };
 
 const resetStyles = () => {
@@ -185,17 +240,23 @@ onMounted(() => {
 
   // Move the last item to the beginning of the array so the first element
   // that is shown in the carousel is the initial 0 element
-  const item = items.pop();
+  const item = items.value.pop();
   if (!item) {
     // eslint-disable-next-line no-console
     console.warn("item was not defined");
     return;
   }
-  items.unshift(item);
+  items.value.unshift(item);
+
+  calculateVisibleItems();
 });
 
 watch([props], () => {
   initialize();
+});
+
+watch([breakpoint], () => {
+  calculateVisibleItems();
 });
 </script>
 
@@ -235,6 +296,12 @@ img {
 
 .controls {
   background-color: red;
+}
+
+.progress {
+  .active {
+    text-decoration: underline;
+  }
 }
 
 button {
