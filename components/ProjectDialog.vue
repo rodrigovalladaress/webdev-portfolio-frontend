@@ -1,7 +1,7 @@
 <template>
   <dialog ref="dialog" class="bg-black text-color-regular">
     <div class="header d-flex justify-space-between">
-      <div class="title h2 mono">{{ project.name }}</div>
+      <h2 class="title h2 mono">{{ project.name }}</h2>
 
       <div @click="onCloseClicked">x</div>
     </div>
@@ -11,6 +11,14 @@
     <div class="description">
       {{ project.description }}
     </div>
+
+    <template v-if="project.skills?.length">
+      <h3 class="h3 mono lowercase skills">Skills</h3>
+
+      <div class="tags">
+        <div v-for="(skill, key) in project.skills" :key="key" class="tag">{{ skill }}</div>
+      </div>
+    </template>
   </dialog>
 </template>
 
@@ -82,6 +90,15 @@ dialog {
   .title {
     margin-top: -0.4rem;
     margin-bottom: 3rem;
+  }
+
+  .description {
+    font-size: 1.8rem;
+    line-height: 1.167;
+  }
+
+  .skills {
+    margin: 3rem 0 1rem;
   }
 }
 </style>

@@ -385,11 +385,14 @@ button {
 
   .icon {
     color: $text-color;
-    width: 2.8rem;
+
+    // width: 2.8rem;
+    width: 2rem;
     height: auto;
 
     @include media(lg) {
-      width: 2.4rem;
+      // width: 2.4rem;
+      width: 1.8rem;
     }
   }
 
