@@ -1,0 +1,13 @@
+// https://www.lullabot.com/articles/importing-css-breakpoints-into-javascript
+@use "./mixins" as *;
+@use "./variables" as *;
+
+body::before {
+  @each $breakpoint, $value in $breakpoint-map {
+    @include media($breakpoint) {
+      content: "#{$breakpoint}";
+      width: $value;
+      display: none;
+    }
+  }
+}
