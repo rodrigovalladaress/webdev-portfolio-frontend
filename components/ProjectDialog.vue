@@ -1,12 +1,12 @@
 <template>
-  <dialog ref="dialog">
+  <dialog ref="dialog" class="bg-black text-color-regular">
     <div class="header d-flex justify-space-between">
       <div class="title h2 mono">{{ project.name }}</div>
 
       <div @click="onCloseClicked">x</div>
     </div>
 
-    <!-- <ImageCarousel :inner-key="`${carouselKey}`"></ImageCarousel> -->
+    <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`"></ImageCarousel>
 
     <div class="description">
       {{ project.description }}
@@ -74,6 +74,10 @@ dialog {
   min-width: 100vw;
   padding: 2rem;
   border: 2px solid $text-color;
+
+  .project-carousel {
+    margin-bottom: 2.8rem;
+  }
 
   .title {
     margin-top: -0.4rem;

@@ -2,8 +2,6 @@
   <div class="projects-wrapper">
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
-    <ImageCarousel></ImageCarousel>
-
     <div class="cards-wrapper d-grid">
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>

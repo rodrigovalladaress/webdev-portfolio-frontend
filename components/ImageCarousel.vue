@@ -24,11 +24,11 @@
 
       <div class="actions">
         <button :disabled="isTransitioning" class="mono" @click="showPrevious">
-          <div class="icon d-flex align-items-center"><AngleLeft view-box=""></AngleLeft></div>
+          <div class="icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
         </button>
 
         <button :disabled="isTransitioning" class="mono" @click="showNext">
-          <div class="icon d-flex align-items-center rotate-180"><AngleLeft></AngleLeft></div>
+          <div class="icon d-flex align-items-center rotate-180"><ButtonIcon></ButtonIcon></div>
         </button>
       </div>
     </div>
@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import type { CSSProperties } from "vue";
-import AngleLeft from "~/assets/images/AngleLeft.svg?component";
+import ButtonIcon from "~/assets/images/AngleLeftThinner.svg?component";
 
 // console.log("angle left", AngleLeft);
 
@@ -140,12 +140,12 @@ const addSlideIndex = (delta: number) => {
 const calculateVisibleItems = () => {
   switch (breakpoint.value) {
     case "xs":
-    case "sm":
       for (const id of ids) {
         isItemVisible.value[id] = id === slideIndex.value;
       }
       break;
 
+    case "sm":
     case "md":
     case "lg":
     case "xl":
@@ -387,6 +387,10 @@ button {
     color: $text-color;
     width: 2.8rem;
     height: auto;
+
+    @include media(lg) {
+      width: 2.4rem;
+    }
   }
 
   &:last-child {
