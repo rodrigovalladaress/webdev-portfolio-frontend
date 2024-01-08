@@ -83,12 +83,20 @@
   font-weight: 600;
 }
 
+.text-bold {
+  font-weight: 700;
+}
+
 .mono-font {
   font-family: $mono-font;
 }
 
 .lowercase {
   text-transform: lowercase;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .text-color-primary {
@@ -165,6 +173,10 @@
 // Misc
 .pointer-events-none {
   pointer-events: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .rotate-180 {
