@@ -16,18 +16,18 @@
     </div>
 
     <div class="controls d-flex justify-space-between align-items-center">
-      <div class="progress mono text-medium d-flex">
+      <div class="progress mono-font text-medium d-flex">
         <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
           {{ id + 1 }}
         </div>
       </div>
 
       <div class="actions">
-        <button :disabled="isTransitioning" class="mono" @click="showPrevious">
+        <button :disabled="isTransitioning" class="mono-font" @click="showPrevious">
           <div class="icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
         </button>
 
-        <button :disabled="isTransitioning" class="mono" @click="showNext">
+        <button :disabled="isTransitioning" class="mono-font" @click="showNext">
           <div class="icon d-flex align-items-center rotate-180"><ButtonIcon></ButtonIcon></div>
         </button>
       </div>

@@ -146,6 +146,10 @@
   align-items: center;
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
+
 // Sizing
 @include generate-class-by-breakpoint(full-width) {
   width: 100%;

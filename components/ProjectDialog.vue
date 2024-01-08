@@ -1,7 +1,7 @@
 <template>
   <dialog ref="dialog" class="bg-black text-color-regular">
     <div class="header d-flex justify-space-between">
-      <h2 class="title h2 mono">{{ project.name }}</h2>
+      <h2 class="title h2 mono-font">{{ project.name }}</h2>
 
       <div @click="onCloseClicked">x</div>
     </div>
@@ -13,10 +13,10 @@
     </div>
 
     <template v-if="project.skills?.length">
-      <h3 class="h3 mono lowercase skills">Skills</h3>
+      <h3 class="h3 mono-font lowercase skills">Skills</h3>
 
-      <div class="tags">
-        <div v-for="(skill, key) in project.skills" :key="key" class="tag">{{ skill }}</div>
+      <div class="tags d-flex wrap">
+        <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font">{{ skill }}</div>
       </div>
     </template>
   </dialog>
@@ -75,7 +75,7 @@ watch([props], () => {
 });
 </script>
 
-<style lang="scss" scopes>
+<style lang="scss" scope>
 dialog {
   margin: 0;
   min-height: 100vh;
@@ -99,6 +99,17 @@ dialog {
 
   .skills {
     margin: 3rem 0 1rem;
+  }
+
+  .tags {
+    gap: 1.3rem 1rem;
+  }
+
+  .tag {
+    padding: 0.2rem 1rem;
+    border: 1px solid $text-color;
+    border-radius: 10px;
+    font-size: 1.4rem;
   }
 }
 </style>
