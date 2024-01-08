@@ -373,18 +373,19 @@ img {
 }
 
 button {
+  $transition-duration: 200ms;
+
   margin: 0;
   margin-right: 0.8rem;
   padding: 0.5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition:
-    background-color 200ms ease-in-out,
-    color 200ms ease-in-out;
+  transition: background-color $transition-duration ease-in-out;
 
   .icon {
     color: $text-color;
+    transition: color $transition-duration ease-in-out;
 
     // width: 2.8rem;
     width: 2rem;
