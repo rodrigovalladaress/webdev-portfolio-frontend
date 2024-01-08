@@ -111,7 +111,6 @@ dialog {
     flex-grow: 1;
     border: 2px solid $text-color;
     padding: 2rem;
-    transition: opacity 100ms ease-in-out;
 
     @include media(md) {
       flex-grow: 0;
@@ -169,50 +168,50 @@ dialog {
   }
 }
 
-$open-animation-duration: 1000ms;
+$open-animation-duration: 500ms;
+$close-animation-duration: 300ms;
 
 // Animate the dialog
 // https://codepen.io/fmontes/pen/yLveywJ
 // Opened dialog
 dialog[open] {
   .backdrop {
-    animation: show-backdrop $open-animation-duration ease-in-out normal;
+    background-color: transparent;
+    backdrop-filter: blur(0);
+    animation: show-backdrop #{$open-animation-duration * 0.65} ease-in-out normal forwards;
+    animation-delay: #{$open-animation-duration};
   }
 
   .content {
-    animation: show-dialog $open-animation-duration ease-in-out normal;
+    animation: show-dialog $open-animation-duration ease-in-out normal forwards;
   }
 
   // Play the animation on the children of content so the border is visible
   // from the beginning of the animation
   .content > * {
-    animation: show-content $open-animation-duration ease-in-out normal;
+    opacity: 0;
+    background-color: transparent;
+    animation: show-content #{$open-animation-duration * 0.65} ease-in-out normal forwards;
+    animation-delay: $open-animation-duration * 0.65;
   }
 }
 
 // Closed dialog
 dialog:not([open]) {
   pointer-events: none;
-  animation: hide 500ms forwards;
 
-  // .backdrop {
-  //   background-color: transparent;
-  //   backdrop-filter: blur(0);
-  //   animation: show-backdrop $open-animation-duration ease-in-out reverse;
-  // }
+  .backdrop {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
 
-  // .content {
-  //   opacity: 0;
-  //   transform: translateY(-100%) scale(0%);
-  //   animation: translate-dialog $open-animation-duration ease-in-out reverse;
-  // }
+  .content {
+    animation: hide-dialog $close-animation-duration ease-in-out reverse forwards;
+  }
 
-  // // Play the animation on the children of content so the border is visible
-  // // from the beginning of the animation
-  // .content > * {
-  //   opacity: 0;
-  //   animation: show-content-children $open-animation-duration ease-in-out reverse;
-  // }
+  .content > * {
+    opacity: 0;
+  }
 }
 
 @keyframes show-dialog {
@@ -247,15 +246,6 @@ dialog:not([open]) {
     backdrop-filter: blur(0);
   }
 
-  5% {
-    background-color: $bg-black-a-10;
-  }
-
-  40% {
-    background-color: $bg-black-a-10;
-    backdrop-filter: blur(0);
-  }
-
   100% {
     background-color: $bg-black-a-90;
     backdrop-filter: blur(3px);
@@ -265,24 +255,41 @@ dialog:not([open]) {
 @keyframes show-content {
   0% {
     opacity: 0;
-  }
-
-  90% {
-    opacity: 0;
+    background-color: transparent;
   }
 
   100% {
     opacity: 1;
+    background-color: $bg-black;
   }
 }
 
-@keyframes hide {
+// This animation is reversed
+@keyframes hide-dialog {
   0% {
+    transform: translateY(-75%) scale(0%);
+    opacity: 0;
+  }
+
+  33% {
+    transform: translateY(-75%) scale(50%);
     opacity: 1;
   }
 
+  34% {
+    transform: translateY(-37.5%) scale(75%);
+  }
+
+  66% {
+    transform: translateY(-37.5%) scale(75%);
+  }
+
+  67% {
+    transform: translateY(0%) scale(100%);
+  }
+
   100% {
-    opacity: 0;
+    transform: translateY(0%) scale(100%);
   }
 }
 </style>
