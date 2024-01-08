@@ -63,6 +63,11 @@ const props = defineProps({
     default: "",
     required: false,
   },
+  isEnabled: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 const { breakpoint } = useBreakpoint();
@@ -101,7 +106,10 @@ const step = ref("");
 const stepNegative = ref("");
 const isTransitioning = ref(false);
 const isItemVisible = ref<Record<number, boolean>>({});
+// TODO Change this to a computed property?
 const ownItems = ref<OwnSlideItem[]>([...itemsWithId]);
+
+const ownIsEnabled = computed(() => props.isEnabled);
 
 const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
   if (ownItems.value.length === 0) {
@@ -293,12 +301,28 @@ const initialize = () => {
   calculateVisibleItems();
 };
 
+const onResize = () => {
+  initialize();
+};
+
+const onEnabled = () => {
+  window.addEventListener("resize", onResize);
+};
+
+const onDisabled = () => {
+  window.removeEventListener("resize", onResize);
+};
+
 onMounted(() => {
   initialize();
 
-  window.addEventListener("resize", () => {
-    initialize();
-  });
+  if (ownIsEnabled.value) {
+    onEnabled();
+  }
+});
+
+onUnmounted(() => {
+  onDisabled();
 });
 
 watch([props], () => {
@@ -307,6 +331,14 @@ watch([props], () => {
 
 watch([breakpoint], () => {
   calculateVisibleItems();
+});
+
+watch([ownIsEnabled], () => {
+  if (ownIsEnabled.value) {
+    onEnabled();
+  } else {
+    onDisabled();
+  }
 });
 </script>
 

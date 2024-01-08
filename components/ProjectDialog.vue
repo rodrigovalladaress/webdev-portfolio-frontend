@@ -6,7 +6,7 @@
       <div @click="onCloseClicked">x</div>
     </div>
 
-    <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`"></ImageCarousel>
+    <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`" :is-enabled="isVisible"></ImageCarousel>
 
     <div class="description">
       {{ project.description }}
