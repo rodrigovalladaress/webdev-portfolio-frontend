@@ -1,12 +1,12 @@
 <template>
   <dialog
     ref="dialog"
-    :class="{ 'd-flex': isVisible, 'd-none': !isVisible }"
-    class="column justify-content-center align-items-center bg-trans"
+    class="d-flex column justify-content-center align-items-center bg-trans"
+    :class="{ opened: isVisible, closed: !isVisible }"
   >
     <div class="backdrop bg-black-a-90"></div>
 
-    <div class="content bg-black text-color-regular">
+    <div class="content text-color-regular">
       <div class="header d-flex justify-space-between">
         <h2 class="title h2 mono-font">{{ project.name }}</h2>
 
@@ -69,7 +69,7 @@ const show = () => {
 };
 
 const close = () => {
-  dialog.value?.close();
+  dialog.value?.close("dismiss");
 };
 
 const onCloseClicked = () => {
@@ -92,16 +92,18 @@ watch([props, dialog], () => {
 
 <style lang="scss" scope>
 dialog {
+  position: absolute;
+  inset: 0;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   min-width: 100vw;
-  position: relative;
 
   .backdrop {
     position: absolute;
     inset: 0;
     z-index: -1;
+    backdrop-filter: blur(3px);
   }
 
   .content {
@@ -109,6 +111,7 @@ dialog {
     flex-grow: 1;
     border: 2px solid $text-color;
     padding: 2rem;
+    transition: opacity 100ms ease-in-out;
 
     @include media(md) {
       flex-grow: 0;
@@ -163,6 +166,123 @@ dialog {
     border: 1px solid $text-color;
     border-radius: 10px;
     font-size: 1.4rem;
+  }
+}
+
+$open-animation-duration: 1000ms;
+
+// Animate the dialog
+// https://codepen.io/fmontes/pen/yLveywJ
+// Opened dialog
+dialog[open] {
+  .backdrop {
+    animation: show-backdrop $open-animation-duration ease-in-out normal;
+  }
+
+  .content {
+    animation: show-dialog $open-animation-duration ease-in-out normal;
+  }
+
+  // Play the animation on the children of content so the border is visible
+  // from the beginning of the animation
+  .content > * {
+    animation: show-content $open-animation-duration ease-in-out normal;
+  }
+}
+
+// Closed dialog
+dialog:not([open]) {
+  pointer-events: none;
+  animation: hide 500ms forwards;
+
+  // .backdrop {
+  //   background-color: transparent;
+  //   backdrop-filter: blur(0);
+  //   animation: show-backdrop $open-animation-duration ease-in-out reverse;
+  // }
+
+  // .content {
+  //   opacity: 0;
+  //   transform: translateY(-100%) scale(0%);
+  //   animation: translate-dialog $open-animation-duration ease-in-out reverse;
+  // }
+
+  // // Play the animation on the children of content so the border is visible
+  // // from the beginning of the animation
+  // .content > * {
+  //   opacity: 0;
+  //   animation: show-content-children $open-animation-duration ease-in-out reverse;
+  // }
+}
+
+@keyframes show-dialog {
+  0% {
+    transform: translateY(-75%) scale(50%);
+  }
+
+  33% {
+    transform: translateY(-75%) scale(50%);
+  }
+
+  34% {
+    transform: translateY(-37.5%) scale(75%);
+  }
+
+  66% {
+    transform: translateY(-37.5%) scale(75%);
+  }
+
+  67% {
+    transform: translateY(0%) scale(100%);
+  }
+
+  100% {
+    transform: translateY(0%) scale(100%);
+  }
+}
+
+@keyframes show-backdrop {
+  0% {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
+
+  5% {
+    background-color: $bg-black-a-10;
+  }
+
+  40% {
+    background-color: $bg-black-a-10;
+    backdrop-filter: blur(0);
+  }
+
+  100% {
+    background-color: $bg-black-a-90;
+    backdrop-filter: blur(3px);
+  }
+}
+
+@keyframes show-content {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 </style>
