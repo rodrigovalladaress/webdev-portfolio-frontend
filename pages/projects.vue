@@ -3,13 +3,13 @@
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
     <div class="cards-wrapper d-grid">
+      <ProjectCard is-visible></ProjectCard>
+      <!-- <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
+      <ProjectCard></ProjectCard> -->
     </div>
   </div>
 </template>

@@ -13,7 +13,9 @@
 <script lang="ts" setup>
 import type { Project } from "~/types/project";
 
-const isDialogVisible = ref(false);
+const props = withDefaults(defineProps<{ isVisible?: boolean }>(), { isVisible: false });
+
+const isDialogVisible = ref(!!props.isVisible);
 
 const testProject: Project = {
   name: "Portfolio",

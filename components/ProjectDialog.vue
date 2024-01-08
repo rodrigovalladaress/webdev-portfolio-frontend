@@ -1,24 +1,32 @@
 <template>
-  <dialog ref="dialog" class="bg-black text-color-regular">
-    <div class="header d-flex justify-space-between">
-      <h2 class="title h2 mono-font">{{ project.name }}</h2>
+  <dialog
+    ref="dialog"
+    :class="{ 'd-flex': isVisible, 'd-none': !isVisible }"
+    class="column justify-content-center align-items-center bg-trans"
+  >
+    <div class="backdrop bg-black-a-90"></div>
 
-      <div class="close mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</div>
-    </div>
+    <div class="content bg-black text-color-regular">
+      <div class="header d-flex justify-space-between">
+        <h2 class="title h2 mono-font">{{ project.name }}</h2>
 
-    <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`" :is-enabled="isVisible"></ImageCarousel>
-
-    <div class="description">
-      {{ project.description }}
-    </div>
-
-    <template v-if="project.skills?.length">
-      <h3 class="h3 mono-font lowercase skills">Skills</h3>
-
-      <div class="tags d-flex wrap">
-        <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font">{{ skill }}</div>
+        <div class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</div>
       </div>
-    </template>
+
+      <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`" :is-enabled="isVisible"></ImageCarousel>
+
+      <div class="description">
+        {{ project.description }}
+      </div>
+
+      <template v-if="project.skills?.length">
+        <h3 class="h3 mono-font lowercase skills">Skills</h3>
+
+        <div class="tags d-flex wrap">
+          <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font">{{ skill }}</div>
+        </div>
+      </template>
+    </div>
   </dialog>
 </template>
 
@@ -41,6 +49,20 @@ const emit = defineEmits(["closed"]);
 const carouselKey = ref(0);
 const dialog = ref<HTMLDialogElement | null>(null);
 
+const updateVisibility = () => {
+  if (!dialog.value) {
+    return;
+  }
+
+  const { isVisible } = props;
+
+  if (isVisible) {
+    show();
+  } else {
+    close();
+  }
+};
+
 const show = () => {
   dialog.value?.showModal();
   carouselKey.value += 1;
@@ -55,35 +77,46 @@ const onCloseClicked = () => {
     return;
   }
 
-  // dialog.value.close();
   close();
   emit("closed");
 };
 
-watch([props], () => {
-  if (!dialog.value) {
-    return;
-  }
+onMounted(() => {
+  updateVisibility();
+});
 
-  const { isVisible } = props;
-
-  if (isVisible) {
-    show();
-  } else {
-    close();
-  }
+watch([props, dialog], () => {
+  updateVisibility();
 });
 </script>
 
 <style lang="scss" scope>
 dialog {
   margin: 0;
+  padding: 0;
   min-height: 100vh;
   min-width: 100vw;
-  padding: 2rem;
-  border: 2px solid $text-color;
+  position: relative;
 
-  .close {
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .content {
+    width: 100%;
+    flex-grow: 1;
+    border: 2px solid $text-color;
+    padding: 2rem;
+
+    @include media(md) {
+      flex-grow: 0;
+      max-width: 608px;
+    }
+  }
+
+  .close-btn {
     $right-spacing: 0.4rem;
     $transition-duration: 250ms;
 
