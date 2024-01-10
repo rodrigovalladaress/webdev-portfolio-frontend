@@ -68,6 +68,14 @@ body:has(dialog[open]) {
     position: absolute;
     top: calc(var(--scroll-y-fix, 0) - var(--header-height, 0));
     width: 100%;
+    background-color: $bg-black;
+
+    @include media(lg) {
+      // Hide the navbar because it's positioned weirdly when opening the dialog for some reason
+      nav {
+        opacity: 0;
+      }
+    }
   }
 }
 
