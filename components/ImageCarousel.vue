@@ -16,20 +16,23 @@
     </div>
 
     <div class="controls d-flex justify-space-between align-items-center">
-      <div class="progress mono-font text-medium d-flex">
-        <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
-          {{ id + 1 }}
-        </div>
-      </div>
-
       <div class="actions">
         <button :disabled="isTransitioning" class="mono-font" @click="showPrevious">
           <div class="icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
         </button>
 
-        <button :disabled="isTransitioning" class="mono-font" @click="showNext">
-          <div class="icon d-flex align-items-center rotate-180"><ButtonIcon></ButtonIcon></div>
+        <!-- This element has autofocus so it's focused when the project dialog is opened -->
+        <button ref="nextButton" :disabled="isTransitioning" class="mono-font" autofocus @click="showNext">
+          <div class="icon d-flex align-items-center rotate-180">
+            <ButtonIcon></ButtonIcon>
+          </div>
         </button>
+      </div>
+
+      <div class="progress mono-font text-medium d-flex">
+        <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
+          {{ id + 1 }}
+        </div>
       </div>
     </div>
   </div>
@@ -104,6 +107,7 @@ const step = ref("");
 const stepNegative = ref("");
 const isTransitioning = ref(false);
 const isItemVisible = ref<Record<number, boolean>>({});
+const nextButton = ref<HTMLButtonElement | null>(null);
 // TODO Change this to a computed property?
 const ownItems = ref<OwnSlideItem[]>([...itemsWithId]);
 
@@ -208,6 +212,12 @@ const showNext = () => {
 
     // Remove duplicates as they aren't necessary anymore
     removeDuplicates();
+
+    // Force the next button to gain focus again, as for some reason
+    // is losing focus after the animation is complete
+    window.setTimeout(() => {
+      focusNextButton();
+    });
   });
 };
 
@@ -290,6 +300,12 @@ const getOwnItems = () => {
 
 const buildOwnItems = () => {
   ownItems.value = getOwnItems();
+};
+
+const focusNextButton = () => {
+  if (nextButton.value) {
+    nextButton.value.focus();
+  }
 };
 
 const initialize = () => {
