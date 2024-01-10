@@ -1,0 +1,20 @@
+:root {
+  --scroll-y-fix: 0px;
+
+  // The header is sticky, so its height is necessary to calculate the position
+  // of the page and the header itself when applying the fix
+  --header-height: 0px;
+  --scrollbar-width: 0px;
+}
+
+// Prevents a layout shift (the page to scrolls to the top) when a dialog is opened.
+// See dialogScrollFix.ts composable too.
+// https://stackoverflow.com/questions/55979512/html-dialog-element-scroll-content-independently-of-background
+// https://www.reddit.com/r/css/comments/137kr90/is_there_a_way_to_prevent_scrollthrough_when/
+body:has(dialog[open]) {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: calc(100% - var(--scrollbar-width, 0));
+  top: calc((var(--header-height, 0) - var(--scroll-y-fix, 0)));
+}

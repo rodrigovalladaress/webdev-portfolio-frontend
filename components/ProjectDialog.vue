@@ -58,6 +58,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(["closed"]);
 
+const { saveScroll, injectScroll, restoreScroll } = useDialogScrollFix();
+
 // Prop sent to the carousel to force the calculation of its
 // step when the dialog is shown
 const carouselKey = ref(0);
@@ -91,12 +93,22 @@ const removeBackdropEventListener = () => {
 };
 
 const show = () => {
-  dialog.value?.showModal();
-  carouselKey.value += 1;
+  if (dialog.value) {
+    saveScroll();
+
+    dialog.value.showModal();
+    carouselKey.value += 1;
+
+    injectScroll();
+  }
 };
 
 const close = () => {
-  dialog.value?.close("dismiss");
+  if (dialog.value) {
+    dialog.value.close("dismiss");
+
+    restoreScroll();
+  }
 };
 
 const onCloseClicked = () => {
@@ -138,7 +150,8 @@ watch([backdrop], () => {
 
 <style lang="scss" scope>
 dialog {
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   inset: 0;
   margin: 0;
   padding: 0;
@@ -149,7 +162,9 @@ dialog {
   overflow-x: hidden;
 
   .backdrop {
-    position: absolute;
+    // position: absolute;
+    // position: ;
+    position: fixed;
     inset: 0;
     z-index: -1;
     backdrop-filter: blur(3px);
@@ -162,11 +177,11 @@ dialog {
     border: 2px solid $text-color;
     padding: 2rem;
     overflow-y: auto;
-    overscroll-behavior: contain;
 
     @include media(md) {
       flex-grow: 0;
       max-width: 608px;
+      height: fit-content;
     }
   }
 
@@ -227,6 +242,7 @@ dialog {
 
   .links {
     margin-top: 1.64rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -237,14 +253,20 @@ $close-animation-duration: 300ms;
 // https://codepen.io/fmontes/pen/yLveywJ
 // Opened dialog
 dialog[open] {
+  // overscroll-behavior: contain;
+
   .backdrop {
     background-color: transparent;
     backdrop-filter: blur(0);
     animation: show-backdrop #{$open-animation-duration * 0.65} ease-in-out normal forwards;
+
+    // animation: show-backdrop 50ms ease-in-out normal forwards;
+
     animation-delay: #{$open-animation-duration};
   }
 
   .content {
+    // overscroll-behavior: contain;
     animation: show-dialog $open-animation-duration ease-in-out normal forwards;
   }
 
@@ -309,6 +331,11 @@ dialog:not([open]) {
     background-color: transparent;
     backdrop-filter: blur(0);
   }
+
+  // 5% {
+  //   background-color: $bg-black-a-90;
+  //   backdrop-filter: blur(3px);
+  // }
 
   100% {
     background-color: $bg-black-a-90;

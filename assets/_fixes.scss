@@ -20,11 +20,6 @@ body {
   font-family: $content-font;
 }
 
-// https://stackoverflow.com/questions/55979512/html-dialog-element-scroll-content-independently-of-background
-// body:has(dialog[open]) {
-//   overflow: hidden;
-// }
-
 // https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
 *,
 *::before,

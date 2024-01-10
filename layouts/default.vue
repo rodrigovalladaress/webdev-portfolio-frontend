@@ -1,5 +1,9 @@
 <template>
-  <header class="d-flex-lg justify-space-between sticky" :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }">
+  <header
+    ref="header"
+    class="d-flex-lg justify-space-between sticky"
+    :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
+  >
     <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
       <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
         Rodrigo <br class="d-none d-block-lg" />
@@ -19,7 +23,9 @@
 
 <script lang="ts" setup>
 const route = useRoute();
+const { injectHeaderHeight, updateHeaderElement } = useDialogScrollFix();
 
+const header = ref<HTMLElement | null>(null);
 const hasScrolled = ref(false);
 
 // Make the title one line on projects and contact so there's more
@@ -35,13 +41,34 @@ if (process.client) {
   // Call the function immediately to update the ref in case
   // the page has been loaded with a scroll
   updateHasScrolled();
+
+  window.addEventListener("resize", injectHeaderHeight);
 }
+
+onMounted(() => {
+  injectHeaderHeight();
+});
+
+watch([header], () => {
+  updateHeaderElement(header.value);
+
+  injectHeaderHeight();
+});
 </script>
 
 <style lang="scss" scoped>
 header {
   transition: background-color 200ms ease-in-out;
   z-index: 10;
+}
+
+// Dialog scroll fix (see _dialog-scroll-fix.scss and dialogScrollFix.ts)
+body:has(dialog[open]) {
+  header {
+    position: absolute;
+    top: calc(var(--scroll-y-fix, 0) - var(--header-height, 0));
+    width: 100%;
+  }
 }
 
 .layout {
