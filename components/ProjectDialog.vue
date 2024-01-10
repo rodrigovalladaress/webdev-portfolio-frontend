@@ -144,6 +144,7 @@ dialog {
   padding: 0;
   min-height: 100vh;
   min-width: 100vw;
+  height: 100%;
 
   .backdrop {
     position: absolute;
@@ -155,8 +156,10 @@ dialog {
   .content {
     width: 100%;
     flex-grow: 1;
+    height: 100%;
     border: 2px solid $text-color;
     padding: 2rem;
+    overflow-y: auto;
 
     @include media(md) {
       flex-grow: 0;
