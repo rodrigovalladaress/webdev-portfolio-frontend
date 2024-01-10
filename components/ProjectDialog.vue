@@ -283,10 +283,12 @@ dialog:not([open]) {
 
   67% {
     transform: translateY(0%) scale(100%);
+    background-color: transparent;
   }
 
   100% {
     transform: translateY(0%) scale(100%);
+    background-color: $bg-black;
   }
 }
 
