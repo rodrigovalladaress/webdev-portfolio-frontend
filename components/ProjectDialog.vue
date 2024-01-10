@@ -10,7 +10,7 @@
       <div class="header d-flex justify-space-between">
         <h2 class="title h2 mono-font">{{ project.name }}</h2>
 
-        <div class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</div>
+        <button class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</button>
       </div>
 
       <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`" :is-enabled="isVisible"></ImageCarousel>
@@ -174,6 +174,7 @@ dialog {
     $right-spacing: 0.4rem;
     $transition-duration: 250ms;
 
+    border: none;
     height: fit-content;
     padding: 0.1rem $right-spacing 0.245rem 0.295rem;
     margin-right: -$right-spacing;
@@ -184,9 +185,14 @@ dialog {
       color $transition-duration ease-in-out,
       background-color $transition-duration ease-in-out;
 
-    &:hover {
+    &:hover,
+    &:active {
       color: $bg-black;
       background-color: $text-color;
+    }
+
+    &:active {
+      outline: 2px white dashed;
     }
   }
 
