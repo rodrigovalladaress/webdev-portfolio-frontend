@@ -4,12 +4,12 @@
 
     <div class="cards-wrapper d-grid">
       <ProjectCard></ProjectCard>
-      <!-- <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard> -->
+      <ProjectCard></ProjectCard>
+      <ProjectCard></ProjectCard>
     </div>
   </div>
 </template>
