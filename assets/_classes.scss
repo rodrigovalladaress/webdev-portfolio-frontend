@@ -167,8 +167,41 @@
   width: inherit;
 }
 
-// .full-width {
-// }
+// Button
+.btn {
+  $transition-duration: 150ms;
+
+  color: $bg-black;
+  background-color: $primary;
+  font-family: $mono-font;
+  font-weight: 500;
+  font-size: 1.8rem;
+  padding: 0.5rem 1rem;
+  outline: 1px $primary solid;
+  transition:
+    background-color $transition-duration ease-in-out,
+    color $transition-duration ease-in-out,
+    outline-color $transition-duration ease-in-out;
+
+  &:hover {
+    color: $primary;
+    background-color: $bg-black;
+  }
+
+  &:active,
+  &:focus {
+    color: $bg-black;
+    background-color: $primary;
+  }
+
+  &:focus {
+    outline: 2px white dashed;
+  }
+
+  .icon {
+    margin-left: 0.25rem;
+  }
+}
 
 // Misc
 .pointer-events-none {

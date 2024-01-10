@@ -26,12 +26,26 @@
           <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font">{{ skill }}</div>
         </div>
       </template>
+
+      <template v-if="project.links?.length">
+        <h3 class="h3 mono-font lowercase skills">Links</h3>
+
+        <div class="links">
+          <a v-for="({ label, href }, key) in project.links" :key="key" class="btn" :href="href" target="_blank">
+            {{ label }}
+
+            <LinkIcon class="icon"></LinkIcon>
+          </a>
+        </div>
+      </template>
     </div>
   </dialog>
 </template>
 
 <script lang="ts" setup>
 import type { Project } from "~/types/project";
+
+import LinkIcon from "~/assets/images/Link.svg?component";
 
 export type Props = {
   isVisible: boolean;
@@ -197,6 +211,10 @@ dialog {
     border: 1px solid $text-color;
     border-radius: 10px;
     font-size: 1.4rem;
+  }
+
+  .links {
+    margin-top: 1.64rem;
   }
 }
 

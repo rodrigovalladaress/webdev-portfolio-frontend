@@ -38,6 +38,12 @@ const testProject: Project = {
     "Three.js",
     "Python",
   ],
+  links: [
+    {
+      label: "Check code",
+      href: "https://www.mozilla.org/en-GB/",
+    },
+  ],
 };
 
 const onCardClick = () => (isDialogVisible.value = !isDialogVisible.value);

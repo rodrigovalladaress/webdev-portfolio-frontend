@@ -39,8 +39,6 @@
 import type { CSSProperties } from "vue";
 import ButtonIcon from "~/assets/images/AngleLeftThinner.svg?component";
 
-// console.log("angle left", AngleLeft);
-
 /**
  * Slide item that comes from props
  */
@@ -439,6 +437,18 @@ button {
     .icon {
       color: $bg-black;
     }
+  }
+
+  &:active {
+    background-color: $bg-black;
+
+    .icon {
+      color: $text-color;
+    }
+  }
+
+  &:focus {
+    outline: 2px white dashed;
   }
 }
 </style>
