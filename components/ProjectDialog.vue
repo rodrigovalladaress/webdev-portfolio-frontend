@@ -4,7 +4,7 @@
     class="d-flex column justify-content-center align-items-center bg-trans"
     :class="{ opened: isVisible, closed: !isVisible }"
   >
-    <div class="backdrop bg-black-a-90"></div>
+    <div ref="backdrop" class="backdrop cursor-pointer bg-black-a-90"></div>
 
     <div class="content text-color-regular">
       <div class="header d-flex justify-space-between">
@@ -48,6 +48,7 @@ const emit = defineEmits(["closed"]);
 // step when the dialog is shown
 const carouselKey = ref(0);
 const dialog = ref<HTMLDialogElement | null>(null);
+const backdrop = ref<HTMLDivElement | null>(null);
 
 const updateVisibility = () => {
   if (!dialog.value) {
@@ -60,6 +61,18 @@ const updateVisibility = () => {
     show();
   } else {
     close();
+  }
+};
+
+const addBackdropEventListener = () => {
+  if (backdrop.value) {
+    backdrop.value.addEventListener("click", onBackdropClicked);
+  }
+};
+
+const removeBackdropEventListener = () => {
+  if (backdrop.value) {
+    backdrop.value.removeEventListener("click", onBackdropClicked);
   }
 };
 
@@ -81,12 +94,31 @@ const onCloseClicked = () => {
   emit("closed");
 };
 
+const onBackdropClicked = () => {
+  close();
+  emit("closed");
+};
+
 onMounted(() => {
   updateVisibility();
+
+  // Remove event listener before adding it in case it was added already
+  removeBackdropEventListener();
+  addBackdropEventListener();
+});
+
+onUnmounted(() => {
+  removeBackdropEventListener();
 });
 
 watch([props, dialog], () => {
   updateVisibility();
+});
+
+watch([backdrop], () => {
+  // Remove event listener before adding it in case it was added already
+  removeBackdropEventListener();
+  addBackdropEventListener();
 });
 </script>
 
