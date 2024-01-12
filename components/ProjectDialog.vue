@@ -58,7 +58,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(["closed"]);
 
-const { saveScroll, injectScroll, restoreScroll } = useDialogLayoutShiftFix();
+const { saveScroll, injectScroll, restoreScroll, recalculateScrollbarWidth } = useDialogLayoutShiftFix();
 
 // Prop sent to the carousel to force the calculation of its
 // step when the dialog is shown
@@ -95,6 +95,7 @@ const removeBackdropEventListener = () => {
 const show = () => {
   if (dialog.value) {
     saveScroll();
+    recalculateScrollbarWidth();
 
     dialog.value.showModal();
     carouselKey.value += 1;

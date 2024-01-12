@@ -17,7 +17,6 @@ export const useDialogLayoutShiftFix = () => {
     return window.innerWidth - document.documentElement.clientWidth;
   };
 
-  // TODO Do this work even if there's no scrollbar present when the page loads?
   const injectScrollbarWidth = () => {
     if (!process.client || !root) {
       return;
@@ -63,6 +62,10 @@ export const useDialogLayoutShiftFix = () => {
 
     updateHeaderElement: (headerElement: HTMLElement | null) => {
       ownHeaderElement = headerElement;
+    },
+
+    recalculateScrollbarWidth: () => {
+      injectScrollbarWidth();
     },
   };
 };
