@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 const route = useRoute();
-const { injectHeaderHeight, updateHeaderElement } = useDialogScrollFix();
+const { injectHeaderHeight, updateHeaderElement } = useDialogLayoutShiftFix();
 
 const header = ref<HTMLElement | null>(null);
 const hasScrolled = ref(false);

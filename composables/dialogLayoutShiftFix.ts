@@ -1,9 +1,9 @@
 // Prevents a layout shift (the page to scrolls to the top) when a dialog is opened.
-// See _dialog-scrollf-ix.scss too.
+// See _dialog-layout-shift-fix.scss too.
 // https://stackoverflow.com/questions/55979512/html-dialog-element-scroll-content-independently-of-background
 // https://www.reddit.com/r/css/comments/137kr90/is_there_a_way_to_prevent_scrollthrough_when/
 
-export const useDialogScrollFix = () => {
+export const useDialogLayoutShiftFix = () => {
   const root = process.client ? document.documentElement : null;
 
   let verticalScroll = 0;
@@ -19,7 +19,7 @@ export const useDialogScrollFix = () => {
 
   // TODO Do this work even if there's no scrollbar present when the page loads?
   const injectScrollbarWidth = () => {
-    if (!process.client) {
+    if (!process.client || !root) {
       return;
     }
 

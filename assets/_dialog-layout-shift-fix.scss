@@ -8,7 +8,7 @@
 }
 
 // Prevents a layout shift (the page to scrolls to the top) when a dialog is opened.
-// See dialogScrollFix.ts composable too.
+// See dialogLayoutShiftFix.ts composable too.
 // https://stackoverflow.com/questions/55979512/html-dialog-element-scroll-content-independently-of-background
 // https://www.reddit.com/r/css/comments/137kr90/is_there_a_way_to_prevent_scrollthrough_when/
 body:has(dialog[open]) {
