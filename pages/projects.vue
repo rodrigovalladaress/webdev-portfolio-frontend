@@ -2,18 +2,8 @@
   <div class="projects-wrapper">
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
-    <div v-for="(p, key) in projects" :key="key">
-      {{ p.name }}
-    </div>
-
     <div class="cards-wrapper d-grid">
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
-      <ProjectCard></ProjectCard>
+      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p"></ProjectCard>
     </div>
   </div>
 </template>
@@ -22,8 +12,6 @@
 const { data } = await useFetch("/api/project");
 
 const projects = ref(data.value);
-
-console.log("projects data", data.value);
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +39,8 @@ console.log("projects data", data.value);
     $card-size: 28.8rem;
 
     grid-template-columns: repeat(auto-fit, minmax($card-size, auto));
+
+    // grid-template-columns: repeat(auto-fit, $card-size);
     grid-auto-rows: $card-size;
     gap: 0.9rem;
   }

@@ -1,32 +1,45 @@
-export default defineEventHandler((_event) => {
-  return [
-    {
-      name: "Portfolio test",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-        " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
-        "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non" +
-        " proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      skills: [
-        "Node.js",
-        "HTML",
-        "CSS",
-        "React",
-        "Vue",
-        "SQL",
-        "SCSS",
-        "JavaScript",
-        "TypeScript",
-        "Express",
-        "Three.js",
-        "Python",
-      ],
-      links: [
-        {
-          label: "Check code",
-          href: "https://www.mozilla.org/en-GB/",
-        },
-      ],
-    },
-  ];
+import fs from "fs/promises";
+
+import { Project } from "~/types/project";
+
+const PROJECT_DATA_PATH = "server/data/project";
+
+export default defineEventHandler(async (_event) => {
+  let files;
+  try {
+    files = await fs.readdir(PROJECT_DATA_PATH);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error getting files in data/project");
+    throw err;
+  }
+
+  const projects = [];
+  for (const fileName of files) {
+    const filePath = `${PROJECT_DATA_PATH}/${fileName}`;
+
+    let projectJson;
+    try {
+      projectJson = await fs.readFile(filePath);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(`Error getting project file at ${filePath}`);
+      throw err;
+    }
+
+    let project: Project;
+    try {
+      project = JSON.parse(`${projectJson}`);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(`Error parsing JSON at ${filePath}`);
+      throw err;
+    }
+
+    project.id = fileName.replace(".json", "");
+
+    projects.push(project);
+  }
+
+  return projects;
 });

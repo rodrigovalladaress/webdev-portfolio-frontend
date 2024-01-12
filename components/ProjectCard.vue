@@ -4,47 +4,20 @@
     href="#"
     @click="onCardClick"
   >
-    Portfolio
+    <div class="name">
+      {{ project.name }}
+    </div>
   </a>
 
-  <ProjectDialog :is-visible="isDialogVisible" :project="testProject" @closed="onDialogClosed"></ProjectDialog>
+  <ProjectDialog :is-visible="isDialogVisible" :project="project" @closed="onDialogClosed"></ProjectDialog>
 </template>
 
 <script lang="ts" setup>
 import type { Project } from "~/types/project";
 
-const props = withDefaults(defineProps<{ isVisible?: boolean }>(), { isVisible: false });
+const props = withDefaults(defineProps<{ project: Project; isVisible?: boolean }>(), { isVisible: false });
 
 const isDialogVisible = ref(!!props.isVisible);
-
-const testProject: Project = {
-  name: "Portfolio",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
-    " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure " +
-    "dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non" +
-    " proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  skills: [
-    "Node.js",
-    "HTML",
-    "CSS",
-    "React",
-    "Vue",
-    "SQL",
-    "SCSS",
-    "JavaScript",
-    "TypeScript",
-    "Express",
-    "Three.js",
-    "Python",
-  ],
-  links: [
-    {
-      label: "Check code",
-      href: "https://www.mozilla.org/en-GB/",
-    },
-  ],
-};
 
 const onCardClick = () => (isDialogVisible.value = !isDialogVisible.value);
 const onDialogClosed = () => {
@@ -69,6 +42,7 @@ a.card {
   color: $primary;
   background-color: $bg-black-a-90;
   transform: scale(1);
+  text-align: center;
   z-index: 0;
 
   @include media(lg) {
@@ -92,6 +66,10 @@ a.card {
       color: $bg-black;
       background-color: color.change($primary, $saturation: 100%);
       transform: scale(1.04);
+    }
+
+    .name {
+      max-width: 28.8rem;
     }
   }
 }
