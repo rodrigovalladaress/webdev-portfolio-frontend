@@ -2,6 +2,10 @@
   <div class="projects-wrapper">
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
+    <div v-for="(p, key) in projects" :key="key">
+      {{ p.name }}
+    </div>
+
     <div class="cards-wrapper d-grid">
       <ProjectCard></ProjectCard>
       <ProjectCard></ProjectCard>
@@ -14,7 +18,13 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { data } = await useFetch("/api/project");
+
+const projects = ref(data.value);
+
+console.log("projects data", data.value);
+</script>
 
 <style lang="scss" scoped>
 .projects-wrapper {
