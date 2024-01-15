@@ -40,4 +40,9 @@ export default defineNuxtConfig({
       "Roboto+Mono": true,
     },
   },
+  runtimeConfig: {
+    public: {
+      web3FormsKey: "5d398354-082e-4158-81ef-a3dc11e41fe7",
+    },
+  },
 });

@@ -4,13 +4,13 @@
       <div class="form-wrapper border-2-white">
         <h1 class="h2 lowercase text-bold">Contact</h1>
 
-        <form action="">
+        <form :class="{ loading: isLoading }" action="#" method="post" @submit.prevent="onFormSubmit">
           <div class="two-columns d-flex-md">
             <div class="form-group">
               <label class="flex wrap mono-font">
                 <div class="lowercase">Name</div>
 
-                <input name="name" type="text" placeholder="write your name" />
+                <input v-model="formData.name" name="name" type="text" placeholder="write your name" required />
               </label>
             </div>
 
@@ -18,7 +18,7 @@
               <label class="flex wrap mono-font">
                 <div class="lowercase">Email</div>
 
-                <input name="email" type="email" placeholder="write your name" />
+                <input v-model="formData.email" name="email" type="email" placeholder="write your name" required />
               </label>
             </div>
           </div>
@@ -27,12 +27,20 @@
             <label class="flex wrap mono-font">
               <div class="lowercase">message</div>
 
-              <textarea name="message" placeholder="write your message" rows="5"></textarea>
+              <textarea v-model="formData.message" name="message" placeholder="write your message" rows="5"></textarea>
             </label>
           </div>
 
-          <div class="form-group">
-            <input type="submit" class="btn" value="Send message" />
+          <div class="form-group submit-form-group d-flex align-items-center">
+            <input type="submit" class="btn" value="Send message" required :disabled="isLoading" />
+
+            <div class="icon d-flex align-items-center">
+              <LoadingIcon view-box=""></LoadingIcon>
+            </div>
+          </div>
+
+          <div class="error">
+            {{ errorMessage }}
           </div>
         </form>
       </div>
@@ -45,7 +53,50 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import LoadingIcon from "~/assets/images/Loading.svg?component";
+
+const config = useRuntimeConfig();
+const { isDevelopment: dev } = useEnvironment();
+
+const errorMessage = ref("");
+const sucessMessage = ref("");
+const isLoading = ref(false);
+
+const formData = {
+  name: dev ? "Test" : "",
+  email: dev ? "test@email.com" : "",
+  message: dev ? "Godzilla" : "",
+};
+
+const onFormSubmit = async (_payload: Event) => {
+  if (isLoading.value) {
+    return;
+  }
+
+  isLoading.value = true;
+  errorMessage.value = "";
+
+  const { data, status, error } = await useFetch("https://api.web3forms.com/submit", {
+    method: "post",
+    body: { access_key: config.public.web3FormsKey, ...formData },
+  });
+
+  switch (status.value) {
+    case "success":
+      sucessMessage.value = `${data}`;
+      break;
+
+    case "error":
+      // eslint-disable-next-line no-console
+      console.error(error.value);
+      errorMessage.value = "Something wrong happened, please try again later or use the links below";
+      break;
+  }
+
+  isLoading.value = false;
+};
+</script>
 
 <style lang="scss" scoped>
 h1 {
@@ -118,8 +169,32 @@ textarea {
   }
 }
 
+.submit-form-group {
+  margin-top: 3.6rem;
+  gap: 1rem;
+}
+
 [type="submit"] {
-  margin-top: 2.6rem;
+  // margin-top: 2.6rem;
+  margin: 0;
+}
+
+.icon {
+  width: 3rem;
+  height: auto;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+}
+
+.error {
+  margin-top: 2rem;
+  color: $error;
+}
+
+form.loading {
+  .icon {
+    opacity: 1;
+  }
 }
 
 .additional-contact {

@@ -33,7 +33,14 @@
   }
 
   &:focus {
-    outline: 2px white dashed;
+    outline: 2px $text-color dashed;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    outline-color: $disabled;
+    background-color: $disabled;
+    color: $bg-black;
   }
 
   .icon {
