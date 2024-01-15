@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-wrapper">
+  <div class="projects-wrapper p-1 p-lg-2">
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
     <div class="cards-wrapper d-grid">

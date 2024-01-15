@@ -10,10 +10,18 @@
     padding: map.get($child, "xs");
   }
 
+  .m-#{$size-name} {
+    padding: map.get($child, "xs");
+  }
+
   @each $breakpoint, $size-value in $child {
     @include media($breakpoint) {
       .p-#{$breakpoint}-#{$size-name} {
         padding: $size-value;
+      }
+
+      .m-#{$breakpoint}-#{$size-name} {
+        margin: $size-value;
       }
     }
 
@@ -24,9 +32,17 @@
         padding-#{$side}: $size-value;
       }
 
+      .m-#{$s}-#{$size-name} {
+        margin-#{$side}: $size-value;
+      }
+
       @include media($breakpoint) {
         .p-#{$s}-#{$breakpoint}-#{$size-name} {
           padding-#{$side}: $size-value;
+        }
+
+        .m-#{$s}-#{$breakpoint}-#{$size-name} {
+          margin-#{$side}: $size-value;
         }
       }
     }
@@ -186,6 +202,7 @@
   font-size: 1.8rem;
   padding: 0.5rem 1rem;
   outline: 1px $primary solid;
+  cursor: pointer;
   transition:
     background-color $transition-duration ease-in-out,
     color $transition-duration ease-in-out,
@@ -208,6 +225,28 @@
 
   .icon {
     margin-left: 0.25rem;
+  }
+}
+
+// Link
+.link {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: $primary;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    // border-style: dashed solid;
+    border: 1px solid $primary;
+    padding: 0.1rem;
+    outline: none;
+    text-decoration: none;
   }
 }
 

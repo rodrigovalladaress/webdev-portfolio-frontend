@@ -16,7 +16,7 @@
     <NavMenu class="p-lg-2"></NavMenu>
   </header>
 
-  <div class="layout p-1 p-lg-2">
+  <div class="layout">
     <slot />
   </div>
 </template>
