@@ -4,6 +4,62 @@
 @use "./colors" as *;
 @use "./mixins" as *;
 
+// Button
+.btn {
+  $transition-duration: 150ms;
+
+  color: $bg-black;
+  background-color: $primary;
+  font-family: $mono-font;
+  font-weight: 500;
+  font-size: 1.8rem;
+  padding: 0.5rem 1rem;
+  outline: 1px $primary solid;
+  cursor: pointer;
+  transition:
+    background-color $transition-duration ease-in-out,
+    color $transition-duration ease-in-out,
+    outline-color $transition-duration ease-in-out;
+
+  &:hover {
+    color: $primary;
+    background-color: $bg-black;
+  }
+
+  &:active,
+  &:focus {
+    color: $bg-black;
+    background-color: $primary;
+  }
+
+  &:focus {
+    outline: 2px white dashed;
+  }
+
+  .icon {
+    margin-left: 0.25rem;
+  }
+}
+
+// Link
+.link {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    color: $primary;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 1px solid $primary;
+    text-decoration: none;
+  }
+}
+
 // Spacing
 @each $size-name, $child in $spacing {
   .p-#{$size-name} {
@@ -189,62 +245,6 @@
 
 @include generate-class-by-breakpoint(width-inherit) {
   width: inherit;
-}
-
-// Button
-.btn {
-  $transition-duration: 150ms;
-
-  color: $bg-black;
-  background-color: $primary;
-  font-family: $mono-font;
-  font-weight: 500;
-  font-size: 1.8rem;
-  padding: 0.5rem 1rem;
-  outline: 1px $primary solid;
-  cursor: pointer;
-  transition:
-    background-color $transition-duration ease-in-out,
-    color $transition-duration ease-in-out,
-    outline-color $transition-duration ease-in-out;
-
-  &:hover {
-    color: $primary;
-    background-color: $bg-black;
-  }
-
-  &:active,
-  &:focus {
-    color: $bg-black;
-    background-color: $primary;
-  }
-
-  &:focus {
-    outline: 2px white dashed;
-  }
-
-  .icon {
-    margin-left: 0.25rem;
-  }
-}
-
-// Link
-.link {
-  &,
-  &:hover,
-  &:active,
-  &:focus {
-    color: $primary;
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  &:focus {
-    outline: 1px solid $primary;
-    text-decoration: none;
-  }
 }
 
 // Misc

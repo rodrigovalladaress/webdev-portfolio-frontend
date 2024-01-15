@@ -2,15 +2,25 @@
   <div class="contact-wrapper d-flex justify-content-center">
     <div class="background-wrapper bg-black-a-80">
       <div class="form-wrapper border-2-white">
-        <h1 class="h1 lowercase text-bold">Contact</h1>
+        <h1 class="h2 lowercase text-bold">Contact</h1>
 
         <form action="">
-          <div class="form-group">
-            <label class="flex wrap mono-font">
-              <div class="lowercase">Name</div>
+          <div class="two-columns d-flex-md">
+            <div class="form-group">
+              <label class="flex wrap mono-font">
+                <div class="lowercase">Name</div>
 
-              <input name="name" type="text" placeholder="write your name" />
-            </label>
+                <input name="name" type="text" placeholder="write your name" />
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label class="flex wrap mono-font">
+                <div class="lowercase">Email</div>
+
+                <input name="email" type="email" placeholder="write your name" />
+              </label>
+            </div>
           </div>
 
           <div class="form-group">
@@ -38,6 +48,10 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
+h1 {
+  line-height: 1;
+}
+
 .background-wrapper {
   backdrop-filter: blur(2px);
 
@@ -51,8 +65,26 @@
   padding: 3.6rem;
 }
 
+form {
+  margin-top: 3.8rem;
+
+  @include media(md) {
+    margin-top: 2.3rem;
+  }
+}
+
 .form-group {
   margin-top: 3rem;
+}
+
+.two-columns {
+  @include media(md) {
+    gap: 2rem;
+
+    > * {
+      width: 50%;
+    }
+  }
 }
 
 label {
@@ -87,7 +119,7 @@ textarea {
 }
 
 [type="submit"] {
-  margin-top: 3.8rem;
+  margin-top: 2.6rem;
 }
 
 .additional-contact {
