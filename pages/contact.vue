@@ -1,34 +1,36 @@
 <template>
-  <div class="contact-wrapper bg-black-a-80">
-    <div class="form-wrapper border-2-white">
-      <h1 class="h1 lowercase text-bold">Contact</h1>
+  <div class="contact-wrapper d-flex justify-content-center">
+    <div class="background-wrapper bg-black-a-80">
+      <div class="form-wrapper border-2-white">
+        <h1 class="h1 lowercase text-bold">Contact</h1>
 
-      <form action="">
-        <div class="form-group">
-          <label class="flex wrap mono-font">
-            <div class="lowercase">Name</div>
+        <form action="">
+          <div class="form-group">
+            <label class="flex wrap mono-font">
+              <div class="lowercase">Name</div>
 
-            <input name="name" type="text" placeholder="write your name" />
-          </label>
-        </div>
+              <input name="name" type="text" placeholder="write your name" />
+            </label>
+          </div>
 
-        <div class="form-group">
-          <label class="flex wrap mono-font">
-            <div class="lowercase">message</div>
+          <div class="form-group">
+            <label class="flex wrap mono-font">
+              <div class="lowercase">message</div>
 
-            <textarea name="message" placeholder="write your message" rows="5"></textarea>
-          </label>
-        </div>
+              <textarea name="message" placeholder="write your message" rows="5"></textarea>
+            </label>
+          </div>
 
-        <div class="form-group">
-          <input type="submit" class="btn" value="Send message" />
-        </div>
-      </form>
-    </div>
+          <div class="form-group">
+            <input type="submit" class="btn" value="Send message" />
+          </div>
+        </form>
+      </div>
 
-    <div class="additional-contact">
-      You can also contanct me on <a href="#" class="link">LinkedIn</a> or email me at
-      <a href="#" class="link">rodriv_tf@hotmail.com</a>
+      <div class="additional-contact">
+        You can also contanct me on <a href="#" class="link" target="_blank">LinkedIn</a> or email me at
+        <a href="#" class="link" target="_blank">rodriv_tf@hotmail.com</a>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +38,15 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
+.background-wrapper {
+  backdrop-filter: blur(2px);
+
+  @include media(md) {
+    max-width: 67.6rem;
+    padding: 3rem;
+  }
+}
+
 .form-wrapper {
   padding: 3.6rem;
 }
@@ -81,5 +92,11 @@ textarea {
 
 .additional-contact {
   padding: 1rem 2rem;
+
+  @include media(md) {
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+  }
 }
 </style>
