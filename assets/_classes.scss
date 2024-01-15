@@ -129,8 +129,16 @@
 }
 
 // Borders
-.border-white {
+.outline-white {
   outline: $text-color 1px solid;
+}
+
+.border-white {
+  border: $text-color 1px solid;
+}
+
+.border-2-white {
+  border: $text-color 2px solid;
 }
 
 // Flex

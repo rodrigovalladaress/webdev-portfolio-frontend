@@ -6,7 +6,7 @@
   >
     <div ref="backdrop" class="backdrop cursor-pointer bg-black-a-90"></div>
 
-    <div class="content text-color-regular">
+    <div class="content text-color-regular border-2-white">
       <div class="header d-flex justify-space-between">
         <h2 class="title h2 mono-font">{{ project.name }}</h2>
 
@@ -29,7 +29,7 @@
         <h3 class="h3 mono-font lowercase skills">Skills</h3>
 
         <div class="tags d-flex wrap">
-          <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font">{{ skill }}</div>
+          <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font border-white">{{ skill }}</div>
         </div>
       </template>
 
@@ -181,7 +181,6 @@ dialog {
     width: 100%;
     flex-grow: 1;
     height: 100%;
-    border: 2px solid $text-color;
     padding: 2rem;
     overflow-y: auto;
 
@@ -242,7 +241,6 @@ dialog {
 
   .tag {
     padding: 0.2rem 1rem;
-    border: 1px solid $text-color;
     border-radius: 10px;
     font-size: 1.4rem;
   }
