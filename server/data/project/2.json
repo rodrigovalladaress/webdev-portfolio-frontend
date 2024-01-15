@@ -7,5 +7,19 @@
       "label": "Check Wordpress site",
       "href": "https://www.mozilla.org/en-GB/"
     }
+  ],
+  "images": [
+    {
+      "src": "TestImage1.jpg",
+      "alt": "A test image"
+    },
+    {
+      "src": "TestImage2.jpg",
+      "alt": "A test image"
+    },
+    {
+      "src": "TestImage3.jpg",
+      "alt": "A test image"
+    }
   ]
 }

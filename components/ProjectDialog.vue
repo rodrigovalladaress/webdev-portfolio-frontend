@@ -13,7 +13,13 @@
         <button class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</button>
       </div>
 
-      <ImageCarousel class="project-carousel" :inner-key="`${carouselKey}`" :is-enabled="isVisible"></ImageCarousel>
+      <ImageCarousel
+        v-if="project.images?.length"
+        class="project-carousel"
+        :inner-key="`${carouselKey}`"
+        :items="project.images || []"
+        :is-enabled="isVisible"
+      ></ImageCarousel>
 
       <div class="description">
         {{ project.description }}

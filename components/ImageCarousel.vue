@@ -58,39 +58,13 @@ type OwnSlideItem = SlideItem & {
   isDuplicate?: boolean;
 };
 
-const props = defineProps({
-  innerKey: {
-    type: String,
-    default: "",
-    required: false,
-  },
-  isEnabled: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
+const props = withDefaults(defineProps<{ items: SlideItem[]; innerKey: string; isEnabled: boolean }>(), {
+  items: () => [],
+  innerKey: "",
+  isEnabled: false,
 });
 
 const { breakpoint } = useBreakpoint();
-
-// TODO move this to props
-const items = [
-  {
-    src: "TestImage1.jpg",
-    alt: "A test image",
-  },
-  {
-    src: "TestImage2.jpg",
-    alt: "A test image",
-  },
-  {
-    src: "TestImage3.jpg",
-    alt: "A test image",
-  },
-];
-
-const itemsWithId: OwnSlideItem[] = addIdKey(items, "__carousel_id");
-const ids: number[] = itemsWithId.map(({ __carousel_id: id }) => id);
 
 /**
  * The index of the carousel.
@@ -108,9 +82,10 @@ const stepNegative = ref("");
 const isTransitioning = ref(false);
 const isItemVisible = ref<Record<number, boolean>>({});
 const nextButton = ref<HTMLButtonElement | null>(null);
-// TODO Change this to a computed property?
-const ownItems = ref<OwnSlideItem[]>([...itemsWithId]);
+const ownItems = ref<OwnSlideItem[]>([]);
 
+const itemsWithId = computed<OwnSlideItem[]>(() => addIdKey(props.items, "__carousel_id"));
+const ids = computed(() => itemsWithId.value.map(({ __carousel_id: id }) => id));
 const ownIsEnabled = computed(() => props.isEnabled);
 
 const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+") => {
@@ -124,7 +99,7 @@ const getStep = (innerWidth: number, rightSpacing: string, sign: "+" | "-" = "+"
 };
 
 const calculateStep = () => {
-  if (!innerRef.value) {
+  if (!innerRef.value || !innerRef.value.children.length) {
     return "";
   }
 
@@ -150,7 +125,7 @@ const addSlideIndex = (delta: number) => {
 const calculateVisibleItems = () => {
   switch (breakpoint.value) {
     case "xs":
-      for (const id of ids) {
+      for (const id of ids.value) {
         isItemVisible.value[id] = id === slideIndex.value;
       }
       break;
@@ -160,7 +135,7 @@ const calculateVisibleItems = () => {
     case "lg":
     case "xl":
     case "xxl":
-      for (const id of ids) {
+      for (const id of ids.value) {
         isItemVisible.value[id] = id === slideIndex.value || id === (slideIndex.value + 1) % ownItems.value.length;
       }
       break;
@@ -283,7 +258,7 @@ const resetStyles = () => {
 };
 
 const getOwnItems = () => {
-  const newItems = addIdKey(items, "__carousel_id");
+  const newItems = addIdKey(props.items, "__carousel_id");
 
   // Move the last item to the beginning of the array so the first element
   // that is shown in the carousel is the initial 0 element
