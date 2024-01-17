@@ -5,6 +5,8 @@
         <h1 class="h2 lowercase text-bold">Contact</h1>
 
         <form :class="{ loading: isLoading }" action="#" method="post" @submit.prevent="onFormSubmit">
+          <input v-model="formData.botcheck" type="checkbox" name="contact-by-phone" style="display: none" />
+
           <div class="two-columns d-flex-md">
             <div class="form-group">
               <label class="flex wrap mono-font">
@@ -46,8 +48,7 @@
       </div>
 
       <div class="additional-contact">
-        You can also contanct me on <a href="#" class="link" target="_blank">LinkedIn</a> or email me at
-        <a href="#" class="link" target="_blank">rodriv_tf@hotmail.com</a>
+        You can also contanct me on <a href="#" class="link" target="_blank">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -64,6 +65,7 @@ const sucessMessage = ref("");
 const isLoading = ref(false);
 
 const formData = {
+  botcheck: false,
   name: dev ? "Test" : "",
   email: dev ? "test@email.com" : "",
   message: dev ? "Godzilla" : "",
@@ -77,9 +79,17 @@ const onFormSubmit = async (_payload: Event) => {
   isLoading.value = true;
   errorMessage.value = "";
 
+  let responseErrorMessage = "";
   const { data, status, error } = await useFetch("https://api.web3forms.com/submit", {
     method: "post",
     body: { access_key: config.public.web3FormsKey, ...formData },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    onResponseError({ response }) {
+      responseErrorMessage = (response._data as { message?: string })?.message || "";
+    },
   });
 
   switch (status.value) {
@@ -89,8 +99,10 @@ const onFormSubmit = async (_payload: Event) => {
 
     case "error":
       // eslint-disable-next-line no-console
-      console.error(error.value);
-      errorMessage.value = "Something wrong happened, please try again later or use the links below";
+      console.error(error.value, responseErrorMessage);
+      errorMessage.value =
+        `Something wrong happened. Please try again later or use the link below. ` +
+        (responseErrorMessage ? `The error message was: ${responseErrorMessage}` : "");
       break;
   }
 
