@@ -3,15 +3,19 @@
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
     <div class="cards-wrapper d-grid">
-      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p"></ProjectCard>
+      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p" :is-visible="id === p.id"></ProjectCard>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+const route = useRoute();
+
 const { data } = await useFetch("/api/project");
 
 const projects = ref(data.value);
+
+const id = computed(() => assureNotArray(route.params.id));
 </script>
 
 <style lang="scss" scoped>
