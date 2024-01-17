@@ -4,6 +4,7 @@
     class="d-flex column justify-content-center align-items-center bg-trans"
     :class="{ opened: isVisible, closed: !isVisible }"
   >
+    <!-- // 'd-none': !isInitialized  -->
     <div ref="backdrop" class="backdrop cursor-pointer bg-black-a-90"></div>
 
     <div class="content text-color-regular border-2-white">
@@ -71,6 +72,7 @@ const { saveScroll, injectScroll, restoreScroll, recalculateScrollbarWidth } = u
 const carouselKey = ref(0);
 const dialog = ref<HTMLDialogElement | null>(null);
 const backdrop = ref<HTMLDivElement | null>(null);
+// const isInitialized = ref(false);
 
 const updateVisibility = () => {
   if (!dialog.value) {
@@ -138,6 +140,10 @@ onMounted(() => {
   // Remove event listener before adding it in case it was added already
   removeBackdropEventListener();
   addBackdropEventListener();
+
+  // Allow the close animation to have enough duration to be animated
+  // (it's 0ms by default so it's not animated on page load)
+  injectCssVariable("--project-dialog-close-duration", "500ms");
 });
 
 onUnmounted(() => {
@@ -155,9 +161,19 @@ watch([backdrop], () => {
 });
 </script>
 
-<style lang="scss" scope>
+<style lans="scss">
+:root {
+  /* 
+  This is used by the close dialog animation.
+  By default is 0 so the dialog is not animated on page load,
+  but it's updated on onMounted so it's animated afterwards.
+  */
+  --project-dialog-close-duration: 0ms;
+}
+</style>
+
+<style lang="scss" scoped>
 dialog {
-  // position: absolute;
   position: fixed;
   inset: 0;
   margin: 0;
@@ -169,8 +185,6 @@ dialog {
   overflow-x: hidden;
 
   .backdrop {
-    // position: absolute;
-    // position: ;
     position: fixed;
     inset: 0;
     z-index: -1;
@@ -251,32 +265,13 @@ dialog {
   }
 }
 
-$open-animation-duration: 500ms;
-$close-animation-duration: 500ms;
-
-// Closed dialog
-dialog:not([open]) {
-  pointer-events: none;
-
-  .backdrop {
-    background-color: transparent;
-    backdrop-filter: blur(0);
-  }
-
-  .content {
-    animation: hide-dialog $close-animation-duration ease-in-out reverse forwards;
-  }
-
-  .content > * {
-    opacity: 0;
-  }
-}
-
 // Animate the dialog
 // https://codepen.io/fmontes/pen/yLveywJ
 // Opened dialog
 // dialog[open] {
 dialog.opened {
+  $open-animation-duration: 500ms;
+
   .backdrop {
     background-color: transparent;
     backdrop-filter: blur(0);
@@ -295,6 +290,24 @@ dialog.opened {
     background-color: transparent;
     animation: show-content #{$open-animation-duration * 0.65} ease-in-out normal forwards;
     animation-delay: $open-animation-duration * 0.65;
+  }
+}
+
+// Closed dialog
+dialog.closed {
+  pointer-events: none;
+
+  .backdrop {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
+
+  .content {
+    animation: hide-dialog var(--project-dialog-close-duration, 0ms) ease-in-out reverse forwards;
+  }
+
+  .content > * {
+    opacity: 0;
   }
 }
 

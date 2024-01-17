@@ -4,7 +4,7 @@
 // https://www.reddit.com/r/css/comments/137kr90/is_there_a_way_to_prevent_scrollthrough_when/
 
 export const useDialogLayoutShiftFix = () => {
-  const root = process.client ? document.documentElement : null;
+  // const root = process.client ? document.documentElement : null;
 
   let verticalScroll = 0;
   let ownHeaderElement: HTMLElement | null = null;
@@ -18,11 +18,13 @@ export const useDialogLayoutShiftFix = () => {
   };
 
   const injectScrollbarWidth = () => {
-    if (!process.client || !root) {
-      return;
-    }
+    // if (!process.client || !root) {
+    //   return;
+    // }
 
-    root.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
+    // root.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
+
+    injectCssVariable("--scrollbar-width", `${getScrollbarWidth()}px`);
   };
 
   injectScrollbarWidth();
@@ -37,11 +39,14 @@ export const useDialogLayoutShiftFix = () => {
     },
 
     injectScroll: () => {
-      if (!process.client || !document.scrollingElement || !root) {
+      // if (!process.client || !document.scrollingElement || !root) {
+      if (!document.scrollingElement) {
         return;
       }
 
-      root.style.setProperty("--scroll-y-fix", `${verticalScroll}px`);
+      // root.style.setProperty("--scroll-y-fix", `${verticalScroll}px`);
+
+      injectCssVariable("--scroll-y-fix", `${verticalScroll}px`);
     },
 
     restoreScroll: () => {
@@ -53,11 +58,13 @@ export const useDialogLayoutShiftFix = () => {
     },
 
     injectHeaderHeight: () => {
-      if (!process.client || !root || !ownHeaderElement) {
+      // if (!process.client || !root || !ownHeaderElement) {
+      if (!ownHeaderElement) {
         return;
       }
 
-      root.style.setProperty("--header-height", `${ownHeaderElement.getBoundingClientRect().height}px`);
+      // root.style.setProperty("--header-height", `${ownHeaderElement.getBoundingClientRect().height}px`);
+      injectCssVariable("--header-height", `${ownHeaderElement.getBoundingClientRect().height}px`);
     },
 
     updateHeaderElement: (headerElement: HTMLElement | null) => {
