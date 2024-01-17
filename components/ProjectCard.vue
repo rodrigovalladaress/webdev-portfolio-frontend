@@ -13,12 +13,10 @@
 <script lang="ts" setup>
 import type { Project } from "~/types/project";
 
-const props = withDefaults(defineProps<{ project: Project; isVisible: boolean }>(), {
+withDefaults(defineProps<{ project: Project; isDialogVisible: boolean }>(), {
   project: () => ({ id: "", name: "", description: "" }),
-  isVisible: false,
+  isDialogVisible: false,
 });
-
-const isDialogVisible = computed(() => !!props.isVisible);
 </script>
 
 <style lang="scss" scoped>

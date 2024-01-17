@@ -252,38 +252,7 @@ dialog {
 }
 
 $open-animation-duration: 500ms;
-$close-animation-duration: 300ms;
-
-// Animate the dialog
-// https://codepen.io/fmontes/pen/yLveywJ
-// Opened dialog
-dialog[open] {
-  // overscroll-behavior: contain;
-
-  .backdrop {
-    background-color: transparent;
-    backdrop-filter: blur(0);
-    animation: show-backdrop #{$open-animation-duration * 0.65} ease-in-out normal forwards;
-
-    // animation: show-backdrop 50ms ease-in-out normal forwards;
-
-    animation-delay: #{$open-animation-duration};
-  }
-
-  .content {
-    // overscroll-behavior: contain;
-    animation: show-dialog $open-animation-duration ease-in-out normal forwards;
-  }
-
-  // Play the animation on the children of content so the border is visible
-  // from the beginning of the animation
-  .content > * {
-    opacity: 0;
-    background-color: transparent;
-    animation: show-content #{$open-animation-duration * 0.65} ease-in-out normal forwards;
-    animation-delay: $open-animation-duration * 0.65;
-  }
-}
+$close-animation-duration: 500ms;
 
 // Closed dialog
 dialog:not([open]) {
@@ -300,6 +269,32 @@ dialog:not([open]) {
 
   .content > * {
     opacity: 0;
+  }
+}
+
+// Animate the dialog
+// https://codepen.io/fmontes/pen/yLveywJ
+// Opened dialog
+// dialog[open] {
+dialog.opened {
+  .backdrop {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+    animation: show-backdrop #{$open-animation-duration * 0.65} ease-in-out normal forwards;
+    animation-delay: #{$open-animation-duration};
+  }
+
+  .content {
+    animation: show-dialog $open-animation-duration ease-in-out normal forwards;
+  }
+
+  // Play the animation on the children of content so the border is visible
+  // from the beginning of the animation
+  .content > * {
+    opacity: 0;
+    background-color: transparent;
+    animation: show-content #{$open-animation-duration * 0.65} ease-in-out normal forwards;
+    animation-delay: $open-animation-duration * 0.65;
   }
 }
 

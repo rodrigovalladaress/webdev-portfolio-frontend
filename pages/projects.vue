@@ -3,7 +3,7 @@
     <h1 class="h2 lowercase p-b-2">Projects</h1>
 
     <div class="cards-wrapper d-grid">
-      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p" :is-visible="id === p.id"></ProjectCard>
+      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p" :is-dialog-visible="id === p.id"></ProjectCard>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ const route = useRoute();
 
 const { data } = await useFetch("/api/project");
 
-const projects = ref(data.value);
+const projects = ref(data.value?.slice(0, 1));
 
 const id = computed(() => assureNotArray(route.query.id) ?? "");
 </script>
