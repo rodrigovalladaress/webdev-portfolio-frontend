@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
     class="card lowercase mono-font display-flex justify-content-center align-items-center text-medium outline-white bg-black-a-90 p-1"
-    :to="`/projects/${project.id}`"
+    :to="`/projects?id=${project.id}`"
   >
     <div class="name">
       {{ project.name }}

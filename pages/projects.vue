@@ -15,7 +15,7 @@ const { data } = await useFetch("/api/project");
 
 const projects = ref(data.value);
 
-const id = computed(() => assureNotArray(route.params.id));
+const id = computed(() => assureNotArray(route.query.id) ?? "");
 </script>
 
 <style lang="scss" scoped>

@@ -62,7 +62,7 @@ const props = withDefaults(defineProps<Props>(), {
   isVisible: false,
 });
 
-const emit = defineEmits(["closed"]);
+const router = useRouter();
 
 const { saveScroll, injectScroll, restoreScroll, recalculateScrollbarWidth } = useDialogLayoutShiftFix();
 
@@ -116,6 +116,8 @@ const close = () => {
 
     restoreScroll();
   }
+
+  router.push("/projects");
 };
 
 const onCloseClicked = () => {
@@ -124,12 +126,10 @@ const onCloseClicked = () => {
   }
 
   close();
-  emit("closed");
 };
 
 const onBackdropClicked = () => {
   close();
-  emit("closed");
 };
 
 onMounted(() => {
