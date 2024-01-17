@@ -67,6 +67,13 @@ const router = useRouter();
 
 const { saveScroll, injectScroll, restoreScroll, recalculateScrollbarWidth } = useDialogLayoutShiftFix();
 
+// Flag that stores if the dialog has been closed once.
+// The dialog is closed automatically on page load (on onMounted),
+// and when that happens, the close animation is not played. When
+// the dialog closes again later, the animation should play though,
+// and having this flag helps the algorithm that does that.
+let hasBeenClosedOnce = false;
+
 // Prop sent to the carousel to force the calculation of its
 // step when the dialog is shown
 const carouselKey = ref(0);
@@ -100,6 +107,14 @@ const removeBackdropEventListener = () => {
   }
 };
 
+const injectDialogCloseDurationVariable = () => {
+  injectCssVariable("--project-dialog-close-duration", "500ms");
+};
+
+const clearDialogCloseDurationVariable = () => {
+  injectCssVariable("--project-dialog-close-duration", null);
+};
+
 const show = () => {
   if (dialog.value) {
     saveScroll();
@@ -114,6 +129,15 @@ const show = () => {
 
 const close = () => {
   if (dialog.value) {
+    if (hasBeenClosedOnce) {
+      // Allow the close animation to have enough duration to be animated
+      // (it's 0ms by default so it's not animated when the dialog is
+      // closed for the first time).
+      injectDialogCloseDurationVariable();
+    } else {
+      hasBeenClosedOnce = true;
+    }
+
     dialog.value.close("dismiss");
 
     restoreScroll();
@@ -140,17 +164,16 @@ onMounted(() => {
   // Remove event listener before adding it in case it was added already
   removeBackdropEventListener();
   addBackdropEventListener();
-
-  // Allow the close animation to have enough duration to be animated
-  // (it's 0ms by default so it's not animated on page load)
-  injectCssVariable("--project-dialog-close-duration", "500ms");
 });
 
 onUnmounted(() => {
+  clearDialogCloseDurationVariable();
+
   removeBackdropEventListener();
 });
 
-watch([props, dialog], () => {
+// watch([props, dialog], () => {
+watch([props], () => {
   updateVisibility();
 });
 
@@ -166,7 +189,8 @@ watch([backdrop], () => {
   /* 
   This is used by the close dialog animation.
   By default is 0 so the dialog is not animated on page load,
-  but it's updated on onMounted so it's animated afterwards.
+  but it's updated when the dialog is closed once, so it's
+  animated afterwards.
   */
   --project-dialog-close-duration: 0ms;
 }
