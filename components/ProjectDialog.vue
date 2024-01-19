@@ -240,8 +240,8 @@ dialog {
       background-color: $text-color;
     }
 
-    &:active {
-      outline: 2px white dashed;
+    &:focus:not(:active) {
+      outline: 2px $text-color dashed;
     }
   }
 
