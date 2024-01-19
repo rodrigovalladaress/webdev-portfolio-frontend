@@ -1,7 +1,7 @@
 <template>
   <div class="contact-wrapper d-flex justify-content-center">
     <div class="background-wrapper bg-black-a-80">
-      <div class="form-wrapper border-2-white">
+      <div class="form-wrapper border-2-white" :class="{ 'form-submitted': isFormSubmitted }">
         <h1 class="h2 lowercase text-bold">Contact</h1>
 
         <form :class="{ loading: isLoading }" action="#" method="post" @submit.prevent="onFormSubmit">
@@ -45,6 +45,10 @@
             {{ errorMessage }}
           </div>
         </form>
+
+        <div class="thank-you d-flex justify-content-center align-items-center">
+          <div class="message h1 mono-font text-color-black">Thanks for your message!</div>
+        </div>
       </div>
 
       <div class="additional-contact">
@@ -61,8 +65,8 @@ const config = useRuntimeConfig();
 const { isDevelopment: dev } = useEnvironment();
 
 const errorMessage = ref("");
-const sucessMessage = ref("");
 const isLoading = ref(false);
+const isFormSubmitted = ref(false);
 
 const formData = {
   botcheck: false,
@@ -80,7 +84,7 @@ const onFormSubmit = async (_payload: Event) => {
   errorMessage.value = "";
 
   let responseErrorMessage = "";
-  const { data, status, error } = await useFetch("https://api.web3forms.com/submit", {
+  const { status, error } = await useFetch("https://api.web3forms.com/submit", {
     method: "post",
     body: { access_key: config.public.web3FormsKey, ...formData },
     headers: {
@@ -94,7 +98,7 @@ const onFormSubmit = async (_payload: Event) => {
 
   switch (status.value) {
     case "success":
-      sucessMessage.value = `${data}`;
+      isFormSubmitted.value = true;
       break;
 
     case "error":
@@ -111,6 +115,8 @@ const onFormSubmit = async (_payload: Event) => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
+
 h1 {
   line-height: 1;
 }
@@ -126,6 +132,7 @@ h1 {
 
 .form-wrapper {
   padding: 3.6rem;
+  position: relative;
 }
 
 form {
@@ -216,6 +223,30 @@ form.loading {
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
+  }
+}
+
+$thank-you-color: color.change($primary, $saturation: 80%);
+
+.thank-you {
+  position: absolute;
+  inset: 0;
+  background-color: $thank-you-color;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+
+  .message {
+    text-align: center;
+  }
+}
+
+.form-wrapper.form-submitted {
+  border-color: $thank-you-color;
+
+  .thank-you {
+    pointer-events: all;
+    opacity: 1;
   }
 }
 </style>
