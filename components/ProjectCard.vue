@@ -40,12 +40,11 @@ a.card {
     transition:
       color $transition-duration ease-in-out,
       background-color 400ms ease-in-out,
-      outline $transition-duration ease-in-out,
+      outline-color $transition-duration ease-in-out,
       transform $transition-duration ease-in-out;
 
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       color: color.change($bg-black, $lightness: 10%);
       background-color: color.change($primary, $saturation: 80%);
       outline: color.change($primary, $alpha: 0.95);
@@ -57,6 +56,10 @@ a.card {
       color: $bg-black;
       background-color: color.change($primary, $saturation: 100%);
       transform: scale(1.04);
+    }
+
+    &:focus:not(:active) {
+      outline: 2px $text-color dashed;
     }
 
     .name {
