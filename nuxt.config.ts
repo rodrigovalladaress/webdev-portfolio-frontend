@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/eslint-module", "@nuxtjs/stylelint-module", "@nuxtjs/google-fonts", "@nuxt/image"],
   devtools: { enabled: true },
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: "slide-left", mode: "out-in" },
   },
   typescript: {
     shim: false,

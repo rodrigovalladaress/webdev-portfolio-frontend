@@ -25,6 +25,10 @@ const items = [
 ];
 
 const onClick = () => {
+  // Prevent the HTML element to scroll when the page transition animation starts
+  // The class overflow-hidden is removed in the set-page-transition middleware
+  document.documentElement.classList.add("overflow-hidden");
+
   (document.activeElement as HTMLElement).blur();
 };
 </script>

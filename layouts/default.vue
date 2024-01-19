@@ -1,23 +1,25 @@
 <template>
-  <header
-    ref="header"
-    class="d-flex-lg justify-space-between sticky"
-    :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
-  >
-    <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
-      <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
-        Rodrigo <br class="d-none d-block-lg" />
-        <span class="surname">Valladares Santana</span>
-      </div>
+  <div class="layout-wrapper">
+    <header
+      ref="header"
+      class="d-flex-lg justify-space-between sticky"
+      :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
+    >
+      <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
+        <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
+          Rodrigo <br class="d-none d-block-lg" />
+          <span class="surname">Valladares Santana</span>
+        </div>
 
-      <div class="h2">Full-stack developer</div>
-    </h1>
+        <div class="h2">Full-stack developer</div>
+      </h1>
 
-    <NavMenu class="p-lg-2"></NavMenu>
-  </header>
+      <NavMenu class="p-lg-2"></NavMenu>
+    </header>
 
-  <div class="layout">
-    <slot />
+    <div class="layout">
+      <slot />
+    </div>
   </div>
 </template>
 

@@ -61,6 +61,11 @@
 <script lang="ts" setup>
 import LoadingIcon from "~/assets/images/Loading.svg?component";
 
+definePageMeta({
+  title: "Contact",
+  order: 2,
+});
+
 const config = useRuntimeConfig();
 const { isDevelopment: dev } = useEnvironment();
 

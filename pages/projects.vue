@@ -16,6 +16,11 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  title: "Projects",
+  order: 1,
+});
+
 const route = useRoute();
 
 const { data } = await useFetch("/api/project");
