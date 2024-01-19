@@ -65,9 +65,12 @@ const onClick = () => {
   }
 
   > a {
+    height: 100%;
+
     @include media(lg) {
       $transition-duration: 250ms;
 
+      height: auto;
       position: relative;
       z-index: 0;
       transition: color $transition-duration ease-in-out;
@@ -118,13 +121,11 @@ const onClick = () => {
 <style lang="scss">
 .nav {
   a.active {
-    text-decoration: underline;
-
-    @include media(lg) {
-      pointer-events: none;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 10px;
-    }
+    // Don't use text-decoration, as it's not correctly
+    // updated with the .active class for some reason
+    color: #000;
+    background-color: $text-color;
+    pointer-events: none;
   }
 }
 </style>
