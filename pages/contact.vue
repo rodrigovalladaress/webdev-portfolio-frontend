@@ -41,12 +41,12 @@
             </div>
           </div>
 
-          <div class="error">
+          <div ref="error" class="error">
             {{ errorMessage }}
           </div>
         </form>
 
-        <div class="thank-you d-flex justify-content-center align-items-center">
+        <div ref="thankYou" class="thank-you d-flex justify-content-center align-items-center">
           <div class="message h1 mono-font text-color-black">Thanks for your message!</div>
         </div>
       </div>
@@ -64,6 +64,8 @@ import LoadingIcon from "~/assets/images/Loading.svg?component";
 const config = useRuntimeConfig();
 const { isDevelopment: dev } = useEnvironment();
 
+const error = ref<HTMLDivElement | null>(null);
+const thankYou = ref<HTMLDivElement | null>(null);
 const errorMessage = ref("");
 const isLoading = ref(false);
 const isFormSubmitted = ref(false);
@@ -73,6 +75,22 @@ const formData = {
   name: dev ? "Test" : "",
   email: dev ? "test@email.com" : "",
   message: dev ? "Godzilla" : "",
+};
+
+const scrollTo = (el: HTMLElement | null) => {
+  if (!el) {
+    return;
+  }
+
+  el.scrollIntoView({ behavior: "smooth" });
+};
+
+const scrollToError = () => {
+  scrollTo(error.value);
+};
+
+const scrollToThankYou = () => {
+  scrollTo(thankYou.value);
 };
 
 const onFormSubmit = async (_payload: Event) => {
@@ -99,6 +117,8 @@ const onFormSubmit = async (_payload: Event) => {
   switch (status.value) {
     case "success":
       isFormSubmitted.value = true;
+
+      scrollToThankYou();
       break;
 
     case "error":
@@ -107,6 +127,8 @@ const onFormSubmit = async (_payload: Event) => {
       errorMessage.value =
         `Something wrong happened. Please try again later or use the link below. ` +
         (responseErrorMessage ? `The error message was: ${responseErrorMessage}` : "");
+
+      scrollToError();
       break;
   }
 
