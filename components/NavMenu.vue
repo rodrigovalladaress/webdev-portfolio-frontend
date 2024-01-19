@@ -3,7 +3,12 @@
     class="nav full-width width-inherit-lg d-flex justify-space-around align-items-center mono-font lowercase bg-black-a-90 bg-trans-lg"
   >
     <template v-for="({ label, href }, i) in items" :key="i">
-      <NuxtLink class="d-flex justify-content-center align-items-center text-medium" :to="href" active-class="active">
+      <NuxtLink
+        class="d-flex justify-content-center align-items-center text-medium"
+        :to="href"
+        active-class="active"
+        @click="onClick"
+      >
         {{ label }}
       </NuxtLink>
 
@@ -18,6 +23,10 @@ const items = [
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
 ];
+
+const onClick = () => {
+  (document.activeElement as HTMLElement).blur();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +93,11 @@ const items = [
           background-color: $text-color;
           transform: scale(100%, 100%);
         }
+      }
+
+      &:focus:not(:active) {
+        border: none;
+        outline: 2px $text-color dashed;
       }
     }
   }
