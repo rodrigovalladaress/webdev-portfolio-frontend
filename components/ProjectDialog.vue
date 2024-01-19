@@ -198,16 +198,6 @@ watch([backdrop], () => {
 
 <style lang="scss" scoped>
 dialog {
-  position: fixed;
-  inset: 0;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-
   .backdrop {
     position: fixed;
     inset: 0;
@@ -296,6 +286,17 @@ dialog {
 dialog.opened {
   $open-animation-duration: 500ms;
 
+  display: flex;
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+
   .backdrop {
     background-color: transparent;
     backdrop-filter: blur(0);
@@ -320,6 +321,7 @@ dialog.opened {
 // Closed dialog
 dialog.closed {
   pointer-events: none;
+  animation: hide-dialog-wrapper var(--project-dialog-close-duration, 0ms) ease-in-out normal forwards;
 
   .backdrop {
     background-color: transparent;
@@ -331,6 +333,18 @@ dialog.closed {
   }
 
   .content > * {
+    opacity: 0;
+  }
+}
+
+@keyframes hide-dialog-wrapper {
+  0% {
+    display: flex;
+    opacity: 1;
+  }
+
+  100% {
+    display: none;
     opacity: 0;
   }
 }
