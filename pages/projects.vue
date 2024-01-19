@@ -20,7 +20,8 @@ const route = useRoute();
 
 const { data } = await useFetch("/api/project");
 
-const projects = ref(data.value?.slice(0, 1));
+// const projects = ref(data.value?.slice(0, 1));
+const projects = ref(data.value ?? []);
 
 const id = computed(() => assureNotArray(route.query.id) ?? "");
 </script>

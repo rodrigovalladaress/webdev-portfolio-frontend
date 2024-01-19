@@ -1,7 +1,7 @@
 <template>
   <dialog
     ref="dialog"
-    class="d-flex column justify-content-center align-items-center bg-trans"
+    class="column justify-content-center align-items-center bg-trans"
     :class="{ opened: isVisible, closed: !isVisible }"
   >
     <!-- // 'd-none': !isInitialized  -->
