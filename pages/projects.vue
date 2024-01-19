@@ -1,9 +1,16 @@
 <template>
   <div class="projects-wrapper p-1 p-lg-2">
-    <h1 class="h2 lowercase p-b-2">Projects</h1>
+    <div class="projects-border-wrapper p-lg-2">
+      <h1 class="h2 lowercase p-b-2">Projects</h1>
 
-    <div class="cards-wrapper d-grid">
-      <ProjectCard v-for="(p, key) in projects" :key="key" :project="p" :is-dialog-visible="id === p.id"></ProjectCard>
+      <div class="cards-wrapper d-grid">
+        <ProjectCard
+          v-for="(p, key) in projects"
+          :key="key"
+          :project="p"
+          :is-dialog-visible="id === p.id"
+        ></ProjectCard>
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +28,9 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 <style lang="scss" scoped>
 .projects-wrapper {
   padding-top: 2rem;
+}
 
+.projects-border-wrapper {
   @include media(lg) {
     padding: 4rem;
     padding-bottom: 6.5rem;
