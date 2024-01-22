@@ -34,7 +34,7 @@ export default class EventListener {
     callback: (typeof EventListener.instance.listeners)[number]["callback"],
   ) {
     let timeout: number;
-    const debouncedCallback = () => {
+    const throttledCallback = () => {
       if (timeout) {
         window.cancelAnimationFrame(timeout);
       }
@@ -43,6 +43,34 @@ export default class EventListener {
         callback();
         timeout = 0;
       });
+    };
+
+    EventListener.instance.listeners.push({ eventName, callback: throttledCallback });
+
+    window.addEventListener(eventName, throttledCallback);
+
+    return {
+      remove: () => {
+        EventListener.remove(eventName, throttledCallback);
+      },
+    };
+  }
+
+  public static addDebounced(
+    eventName: string,
+    callback: (typeof EventListener.instance.listeners)[number]["callback"],
+    timeMs: number = 500,
+  ) {
+    let timeout: number;
+    const debouncedCallback = () => {
+      if (timeout) {
+        window.clearTimeout(timeout);
+      }
+
+      timeout = window.setTimeout(() => {
+        callback();
+        timeout = 0;
+      }, timeMs);
     };
 
     EventListener.instance.listeners.push({ eventName, callback: debouncedCallback });

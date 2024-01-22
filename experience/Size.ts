@@ -3,6 +3,8 @@ import EventEmitter from "~/experience/EventEmitter";
 import EventListener from "~/utils/EventListener";
 
 export default class Size {
+  private static readonly DEBOUNCE_RESIZE_EVENTS_MS = 200;
+
   public static readonly RESIZE_EVENT_NAME = "threeExperience:resize";
 
   private event: EventEmitter<ResizeEventDetail>;
@@ -10,9 +12,13 @@ export default class Size {
   public constructor() {
     this.event = new EventEmitter(Size.RESIZE_EVENT_NAME);
 
-    EventListener.addThrottled("resize", () => {
-      this.dispatchEvent();
-    });
+    EventListener.addDebounced(
+      "resize",
+      () => {
+        this.dispatchEvent();
+      },
+      Size.DEBOUNCE_RESIZE_EVENTS_MS,
+    );
   }
 
   private dispatchEvent() {
