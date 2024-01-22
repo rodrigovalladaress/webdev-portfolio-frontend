@@ -65,6 +65,7 @@ const props = withDefaults(defineProps<{ items: SlideItem[]; innerKey: string; i
 });
 
 const { breakpoint } = useBreakpoint();
+const resizeListener = useResizeListener();
 
 /**
  * The index of the carousel.
@@ -295,11 +296,11 @@ const onResize = () => {
 };
 
 const onEnabled = () => {
-  window.addEventListener("resize", onResize);
+  resizeListener.add(onResize);
 };
 
 const onDisabled = () => {
-  window.removeEventListener("resize", onResize);
+  resizeListener.remove();
 };
 
 onMounted(() => {

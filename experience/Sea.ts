@@ -13,7 +13,7 @@ export default class Sea {
 
   private mesh: THREE.Mesh<
     THREE.BufferGeometry<THREE.NormalBufferAttributes>,
-    THREE.RawShaderMaterial,
+    THREE.ShaderMaterial,
     THREE.Object3DEventMap
   >;
 

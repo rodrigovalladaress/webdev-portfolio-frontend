@@ -1,6 +1,6 @@
-import EventEmitter from "./EventEmitter";
-import EventListener from "./EventListener";
 import type { ResizeEventDetail } from "./types/resize";
+import EventEmitter from "~/experience/EventEmitter";
+import EventListener from "~/utils/EventListener";
 
 export default class Size {
   public static readonly RESIZE_EVENT_NAME = "threeExperience:resize";
@@ -10,7 +10,7 @@ export default class Size {
   public constructor() {
     this.event = new EventEmitter(Size.RESIZE_EVENT_NAME);
 
-    EventListener.add("resize", () => {
+    EventListener.addDebounced("resize", () => {
       this.dispatchEvent();
     });
   }

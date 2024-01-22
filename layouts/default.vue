@@ -26,6 +26,7 @@
 <script lang="ts" setup>
 const route = useRoute();
 const { injectHeaderHeight, updateHeaderElement } = useDialogLayoutShiftFix();
+const resizeListener = useResizeListener();
 
 const header = ref<HTMLElement | null>(null);
 const hasScrolled = ref(false);
@@ -44,7 +45,7 @@ if (process.client) {
   // the page has been loaded with a scroll
   updateHasScrolled();
 
-  window.addEventListener("resize", injectHeaderHeight);
+  resizeListener.add(injectHeaderHeight);
 }
 
 onMounted(() => {

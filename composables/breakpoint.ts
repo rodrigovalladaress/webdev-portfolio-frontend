@@ -3,6 +3,8 @@
 export type BreakpointName = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 export const useBreakpoint = () => {
+  const resizeListener = useResizeListener();
+
   const currentBreakpoint = ref<BreakpointName>("xs");
   const currentBreakpointValue = ref("0");
 
@@ -16,7 +18,7 @@ export const useBreakpoint = () => {
       currentBreakpointValue.value = width;
     };
 
-    window.addEventListener("resize", () => {
+    resizeListener.add(() => {
       updateBreakpoint();
     });
 

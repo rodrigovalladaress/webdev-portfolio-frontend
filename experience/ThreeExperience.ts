@@ -8,7 +8,7 @@ import Camera from "./Camera";
 import Renderer from "./Renderer";
 import World from "./World";
 import Debug from "./Debug";
-import EventListener from "./EventListener";
+import EventListener from "~/utils/EventListener";
 
 export default class ThreeExperience {
   private scene: THREE.Scene;
