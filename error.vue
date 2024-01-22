@@ -26,6 +26,8 @@ defineProps({
 const handleError = () => {
   clearError();
 
+  // Force a page refresh because clearError and
+  // redirect is not working for some reason
   window.location.href = "/";
 };
 </script>
