@@ -1,8 +1,8 @@
 <template>
-  <canvas id="three"></canvas>
+  <canvas id="three" ref="threeCanvas"></canvas>
   <div class="three overlay" :class="{ loading: isThreeLoading, loaded: !isThreeLoading }"></div>
 
-  <ThreeJs @loaded="onThreeLoaded"></ThreeJs>
+  <ThreeJs :canvas="threeCanvas" @loaded="onThreeLoaded"></ThreeJs>
 
   <NuxtLayout>
     <NuxtPage />
@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts" setup>
+const threeCanvas = ref<HTMLCanvasElement | null>(null);
 const isThreeLoading = ref(true);
 
 const onThreeLoaded = () => {

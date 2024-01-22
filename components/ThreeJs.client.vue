@@ -3,16 +3,41 @@
 </template>
 
 <script lang="ts" setup>
-import type ThreeExperience from "~/experience/ThreeExperience";
+const props = withDefaults(defineProps<{ canvas: HTMLCanvasElement | null }>(), {
+  canvas: null,
+});
 
 const emit = defineEmits(["loaded"]);
 
-let experience: ThreeExperience | null = useThree("#three", () => {
+const { initialize, destroy } = useThree();
+
+const initializeThree = () => {
+  destroy();
+
+  if (!props.canvas) {
+    return;
+  }
+
+  initialize(props.canvas, onLoaded);
+};
+
+const destroyThree = () => {
+  destroy();
+};
+
+const onLoaded = () => {
   emit("loaded");
+};
+
+onMounted(() => {
+  initializeThree();
 });
 
 onBeforeUnmount(() => {
-  experience?.destroy();
-  experience = null;
+  destroyThree();
+});
+
+watch([props], () => {
+  initializeThree();
 });
 </script>

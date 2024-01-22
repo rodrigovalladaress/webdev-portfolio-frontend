@@ -1,12 +1,16 @@
 import ThreeExperience from "~/experience/ThreeExperience";
 
-export const useThree = (canvasSelector = "#three", firstTickCallback: (() => void) | null = null) => {
-  const canvas = document.querySelector<HTMLCanvasElement>(canvasSelector);
-  if (!canvas) {
-    throw new Error(`Canvas with query selector '${canvasSelector}' not found`);
-  }
+export const useThree = () => {
+  const experience = ref<null | ThreeExperience>(null);
 
-  const threeExperience = new ThreeExperience(canvas, firstTickCallback);
+  const initialize = (canvas: HTMLCanvasElement, firstTickCallback: (() => void) | null = null) => {
+    experience.value = new ThreeExperience(canvas, firstTickCallback);
+  };
 
-  return threeExperience;
+  const destroy = () => {
+    experience.value?.destroy();
+    experience.value = null;
+  };
+
+  return { initialize, destroy, experience };
 };
