@@ -52,7 +52,7 @@
       </div>
 
       <div class="additional-contact">
-        You can also contact me on <a href="#" class="link" target="_blank">LinkedIn</a>
+        You can also contact me on <a :href="linkedin" class="link" target="_blank">LinkedIn</a>
       </div>
     </div>
   </div>
@@ -71,6 +71,7 @@ const { isDevelopment: dev } = useEnvironment();
 
 const error = ref<HTMLDivElement | null>(null);
 const thankYou = ref<HTMLDivElement | null>(null);
+const linkedin = ref(config.public.linkedin);
 const errorMessage = ref("");
 const isLoading = ref(false);
 const isFormSubmitted = ref(false);
