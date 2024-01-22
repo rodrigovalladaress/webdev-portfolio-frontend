@@ -1,4 +1,4 @@
-// Scroll events are supposed to be already debounced, but keeping this
+// Scroll events are supposed to be already throttled? But keeping this
 export const useScrollListener = (callback?: Function) => {
-  return createDebouncedListener("scroll", callback);
+  return createThrottledListener("scroll", callback);
 };

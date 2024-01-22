@@ -29,7 +29,7 @@ export default class EventListener {
   }
 
   // https://gomakethings.com/debouncing-events-with-requestanimationframe-for-better-performance/
-  public static addDebounced(
+  public static addThrottled(
     eventName: string,
     callback: (typeof EventListener.instance.listeners)[number]["callback"],
   ) {

@@ -10,7 +10,7 @@ export default class Size {
   public constructor() {
     this.event = new EventEmitter(Size.RESIZE_EVENT_NAME);
 
-    EventListener.addDebounced("resize", () => {
+    EventListener.addThrottled("resize", () => {
       this.dispatchEvent();
     });
   }

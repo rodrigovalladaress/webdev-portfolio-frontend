@@ -2,7 +2,7 @@ export default (eventName: string, callback?: Function) => {
   let removeInternal: (() => void) | null;
 
   const addInternal = (callbackInternal: Function) => {
-    removeInternal = EventListener.addDebounced(eventName, callbackInternal).remove;
+    removeInternal = EventListener.addThrottled(eventName, callbackInternal).remove;
   };
 
   if (callback) {
