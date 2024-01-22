@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-wrapper d-flex justify-content-center">
+  <div class="contact-wrapper d-flex justify-content-center align-items-center column">
     <div class="background-wrapper bg-black-a-80">
       <div class="form-wrapper border-2-white" :class="{ 'form-submitted': isFormSubmitted }">
         <h1 class="h2 lowercase text-bold">Contact</h1>
@@ -145,12 +145,17 @@ const onFormSubmit = async (_payload: Event) => {
 <style lang="scss" scoped>
 @use "sass:color";
 
+.contact-wrapper {
+  height: 100%;
+}
+
 h1 {
   line-height: 1;
 }
 
 .background-wrapper {
   backdrop-filter: blur(2px);
+  height: fit-content;
 
   @include media(md) {
     max-width: 67.6rem;

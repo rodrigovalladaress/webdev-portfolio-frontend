@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper">
+  <div class="layout-wrapper d-flex column">
     <header
       ref="header"
       class="d-flex-lg justify-space-between sticky"
@@ -83,7 +83,13 @@ body:has(dialog[open]) {
   }
 }
 
+.layout-wrapper {
+  height: 100%;
+}
+
 .layout {
+  flex-grow: 1;
+
   @include media-max(lg) {
     padding-bottom: 8rem;
   }

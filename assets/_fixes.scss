@@ -11,6 +11,13 @@
 //   // overflow: hidden;
 // }
 
+/* stylelint-disable-next-line selector-id-pattern */
+html,
+body,
+#__nuxt {
+  height: 100%;
+}
+
 body {
   padding: 0;
   margin: 0;
