@@ -39,7 +39,10 @@ export default class EventListener {
         window.cancelAnimationFrame(timeout);
       }
 
-      timeout = window.requestAnimationFrame(callback);
+      timeout = window.requestAnimationFrame(() => {
+        callback();
+        timeout = 0;
+      });
     };
 
     EventListener.instance.listeners.push({ eventName, callback: debouncedCallback });

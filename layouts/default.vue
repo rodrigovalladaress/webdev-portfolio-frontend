@@ -27,6 +27,7 @@
 const route = useRoute();
 const { injectHeaderHeight, updateHeaderElement } = useDialogLayoutShiftFix();
 const resizeListener = useResizeListener();
+const scrollListener = useScrollListener();
 
 const header = ref<HTMLElement | null>(null);
 const hasScrolled = ref(false);
@@ -40,7 +41,7 @@ if (process.client) {
     hasScrolled.value = window.scrollY > 0;
   };
 
-  window.addEventListener("scroll", updateHasScrolled);
+  scrollListener.add(updateHasScrolled);
   // Call the function immediately to update the ref in case
   // the page has been loaded with a scroll
   updateHasScrolled();
