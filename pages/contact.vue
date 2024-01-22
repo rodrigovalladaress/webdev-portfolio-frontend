@@ -20,7 +20,7 @@
               <label class="flex wrap mono-font">
                 <div class="lowercase">Email</div>
 
-                <input v-model="formData.email" name="email" type="email" placeholder="write your name" required />
+                <input v-model="formData.email" name="email" type="email" placeholder="write your email" required />
               </label>
             </div>
           </div>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="additional-contact">
-        You can also contanct me on <a href="#" class="link" target="_blank">LinkedIn</a>
+        You can also contact me on <a href="#" class="link" target="_blank">LinkedIn</a>
       </div>
     </div>
   </div>
