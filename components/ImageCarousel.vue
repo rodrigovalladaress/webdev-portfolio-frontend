@@ -114,6 +114,11 @@ const calculateStep = () => {
   stepNegative.value = getStep(innerWidth, marginRight, "-");
 };
 
+const resetSlideIndex = () => {
+  slideIndex.value = 0;
+  calculateVisibleItems();
+};
+
 const addSlideIndex = (delta: number) => {
   slideIndex.value = (slideIndex.value + delta) % ownItems.value.length;
   if (slideIndex.value === -1) {
@@ -285,10 +290,10 @@ const focusNextButton = () => {
 };
 
 const initialize = () => {
+  resetSlideIndex();
   calculateStep();
   resetStyles();
   buildOwnItems();
-  calculateVisibleItems();
 };
 
 const onResize = () => {
