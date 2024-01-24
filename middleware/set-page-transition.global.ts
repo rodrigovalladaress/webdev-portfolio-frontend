@@ -19,7 +19,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     // Allow the HTML element to scroll again (the overflow-hidden class
     // is added when the NuxtLink is clicked on NavMenu)
     onAfterEnter: () => {
-      document.documentElement.classList.remove("overflow-hidden");
+      document.documentElement.classList.remove("overflow-x-hidden");
     },
   };
 
