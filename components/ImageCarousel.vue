@@ -422,13 +422,15 @@ button {
     color: $text-color;
     transition: color $transition-duration ease-in-out;
 
-    // width: 2.8rem;
-    width: 2rem;
-    height: auto;
+    // Safari needs the sizes to be in the svg element too
+    &,
+    svg {
+      width: 2rem;
+      height: auto;
 
-    @include media(lg) {
-      // width: 2.4rem;
-      width: 1.8rem;
+      @include media(lg) {
+        width: 1.8rem;
+      }
     }
   }
 
