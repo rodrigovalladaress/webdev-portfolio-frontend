@@ -302,6 +302,14 @@ const onResize = () => {
 
 const onEnabled = () => {
   resizeListener.add(onResize);
+
+  // Force a resize when the carousel is shown,
+  // as it's not correctly rendered on mobile
+  // when the carousel is shown for the first
+  // time
+  window.setTimeout(() => {
+    onResize();
+  });
 };
 
 const onDisabled = () => {
