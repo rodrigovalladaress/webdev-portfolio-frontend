@@ -45,7 +45,7 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
     backdrop-filter: blur(2px);
 
     .h2 {
-      padding-bottom: 4.5rem;
+      padding-bottom: 3.5rem;
     }
   }
 }
