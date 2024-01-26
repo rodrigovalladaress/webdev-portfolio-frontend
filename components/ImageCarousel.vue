@@ -4,13 +4,13 @@
     <div class="carousel">
       <div ref="innerRef" class="inner" :style="innerStyle">
         <div
-          v-for="({ __carousel_id: id, src, alt }, key) in ownItems"
+          v-for="({ __carousel_id: id, src, query, alt }, key) in ownItems"
           :key="key"
           class="item"
           :class="`item-${id}`"
           :data-id="id"
         >
-          <NuxtImg :src="src" :alt="alt" />
+          <NuxtImg :src="query ? appendQueryString(src, query) : src" :alt="alt" />
         </div>
       </div>
     </div>
@@ -48,6 +48,7 @@ import ButtonIcon from "~/assets/images/AngleLeftThinner.svg?component";
 export type SlideItem = {
   src: string;
   alt: string;
+  query?: Record<string, string>;
 };
 
 /**
@@ -66,6 +67,7 @@ const props = withDefaults(defineProps<{ items: SlideItem[]; innerKey: string; i
 
 const { breakpoint } = useBreakpoint();
 const resizeListener = useResizeListener();
+const { appendQueryString } = useUrl();
 
 /**
  * The index of the carousel.
