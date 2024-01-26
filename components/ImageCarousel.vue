@@ -416,7 +416,7 @@ img {
     // Safari needs the sizes to be in the svg element too
     &,
     svg {
-      width: 2rem;
+      width: 3.5rem;
       height: auto;
       color: $primary;
       transition: color $duration ease-in-out;
@@ -468,12 +468,16 @@ button {
   $transition-duration: 200ms;
 
   margin: 0;
-  margin-right: 0.8rem;
+  margin-right: 1.8rem;
   padding: 0.5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
   transition: background-color $transition-duration ease-in-out;
+
+  @include media(lg) {
+    margin-right: 0.8rem;
+  }
 
   .button-icon {
     color: $text-color;
@@ -483,7 +487,7 @@ button {
     /* stylelint-disable-next-line no-descending-specificity */
     &,
     svg {
-      width: 2rem;
+      width: 2.5rem;
       height: auto;
 
       @include media(lg) {
