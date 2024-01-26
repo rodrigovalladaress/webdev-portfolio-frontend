@@ -1,7 +1,7 @@
 <template>
   <dialog
     ref="dialog"
-    class="column justify-content-center align-items-center bg-trans"
+    class="project-dialog column justify-content-center align-items-center bg-trans"
     :class="{ opened: isVisible, closed: !isVisible }"
   >
     <!-- // 'd-none': !isInitialized  -->
@@ -183,7 +183,7 @@ watch([backdrop], () => {
 });
 </script>
 
-<style lans="scss">
+<style lang="scss">
 :root {
   /* 
   This is used by the close dialog animation.
@@ -192,6 +192,34 @@ watch([backdrop], () => {
   animated afterwards.
   */
   --project-dialog-close-duration: 0ms;
+}
+
+dialog.project-dialog {
+  .description {
+    font-size: 1.8rem;
+    line-height: 1.167;
+
+    p,
+    ul {
+      $y-spacing: 1.2rem;
+
+      margin-top: $y-spacing;
+      margin-bottom: $y-spacing;
+    }
+
+    li {
+      $y-spacing: 0.7rem;
+
+      margin-top: $y-spacing;
+      margin-bottom: $y-spacing;
+
+      &::marker {
+        content: "▪  ";
+        font-size: 2rem;
+        color: $primary;
+      }
+    }
+  }
 }
 </style>
 
