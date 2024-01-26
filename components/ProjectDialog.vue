@@ -22,9 +22,8 @@
         :is-enabled="isVisible"
       ></ImageCarousel>
 
-      <div class="description">
-        {{ project.description }}
-      </div>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <div class="description" v-html="project.description"></div>
 
       <template v-if="project.skills?.length">
         <h3 class="h3 mono-font lowercase skills">Skills</h3>
