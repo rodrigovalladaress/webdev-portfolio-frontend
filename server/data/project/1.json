@@ -2,22 +2,37 @@
   "name": "Content Insight Tool",
   "skills": [
     "Node.js",
-    "HTML",
-    "CSS",
-    "React",
-    "Vue",
-    "SQL",
-    "SCSS",
-    "JavaScript",
     "TypeScript",
+    "Vue",
+    "Quasar",
+    "ECharts",
+    "SCSS",
     "Express",
-    "Three.js",
+    "Sequelize",
+    "Postgres",
+    "MongoDB",
     "Python"
   ],
-  "links": [
+  "images": [
     {
-      "label": "Check code",
-      "href": "https://www.mozilla.org/en-GB/"
+      "src": "https://rvs-portfolio.sirv.com/projects/content-insight-tool/cit-dashboard-1.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Selection - Videos uploaded"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/content-insight-tool/cit-dashboard-2.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Selection - Scatter charts"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/content-insight-tool/cit-dashboard-3.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Selection - Videos table"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/content-insight-tool/cit-dashboard-4.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "By platform - All brands"
     }
   ]
 }

@@ -1,6 +1,21 @@
 <p>
-  The Content Insight Tool is a system that retrieves data from videos of different social media and shows them in a
-  dashboard.
+  The Content Insight Tool is a system that I built for Hub. It retrieves data from videos of different social media and
+  shows them in a dashboard. There you can compare videos from different brands, social media platforms and periods of
+  time.
 </p>
 
-<p>And this is another paragraph.</p>
+<p>The tool consists of different modules:</p>
+
+<ul>
+  <li>
+    <strong>Dashboard</strong>: A Vue application that is based around the Quasar framework. The charts are built using
+    ECharts.
+  </li>
+
+  <li><strong>Backend</strong>: A Node.js Express server. It uses Sequelize to connect to a Postgres database.</li>
+
+  <li>
+    <strong>Data Fetching Tool</strong>: A Node.js server that connects to several social media APIs to update the
+    videos of the system. The API calls are cached on a MongoDB database.
+  </li>
+</ul>
