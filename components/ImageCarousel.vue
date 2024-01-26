@@ -10,7 +10,15 @@
           :class="`item-${id}`"
           :data-id="id"
         >
-          <NuxtImg :src="query ? appendQueryString(src, query) : src" :alt="alt" />
+          <div class="item-inner">
+            <NuxtImg :src="query ? appendQueryString(src, query) : src" :alt="alt" />
+
+            <a class="expand" :href="src" target="_blank">
+              <div class="link-icon">
+                <LinkIcon view-box=""></LinkIcon>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -18,12 +26,12 @@
     <div class="controls d-flex justify-space-between align-items-center">
       <div class="actions">
         <button :disabled="isTransitioning" class="mono-font" @click="showPrevious">
-          <div class="icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
+          <div class="button-icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
         </button>
 
         <!-- This element has autofocus so it's focused when the project dialog is opened -->
         <button ref="nextButton" :disabled="isTransitioning" class="mono-font" autofocus @click="showNext">
-          <div class="icon d-flex align-items-center rotate-180">
+          <div class="button-icon d-flex align-items-center rotate-180">
             <ButtonIcon></ButtonIcon>
           </div>
         </button>
@@ -41,6 +49,7 @@
 <script lang="ts" setup>
 import type { CSSProperties } from "vue";
 import ButtonIcon from "~/assets/images/AngleLeftThinner.svg?component";
+import LinkIcon from "~/assets/images/Link.svg?component";
 
 /**
  * Slide item that comes from props
@@ -378,9 +387,53 @@ $transition-duration: 350ms;
   }
 }
 
+.item-inner {
+  position: relative;
+}
+
 img {
   width: 100%;
   height: auto;
+}
+
+.expand {
+  $duration: 250ms;
+
+  position: absolute;
+  background-color: $bg-black;
+  padding: 0.3rem 0.39rem;
+  top: 0.5rem;
+  right: 0.5rem;
+  transition:
+    background-color $duration ease-in-out,
+    transform $duration ease-in-out;
+
+  .link-icon {
+    color: $text-color;
+
+    // Safari needs the sizes to be in the svg element too
+    &,
+    svg {
+      width: 2rem;
+      height: auto;
+      color: $primary;
+      transition: color $duration ease-in-out;
+
+      @include media(lg) {
+        width: 1.8rem;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: $primary;
+    transform: scale(1.1);
+
+    &,
+    svg {
+      color: $bg-black;
+    }
+  }
 }
 
 .controls {
@@ -420,11 +473,12 @@ button {
   cursor: pointer;
   transition: background-color $transition-duration ease-in-out;
 
-  .icon {
+  .button-icon {
     color: $text-color;
     transition: color $transition-duration ease-in-out;
 
     // Safari needs the sizes to be in the svg element too
+    /* stylelint-disable-next-line no-descending-specificity */
     &,
     svg {
       width: 2rem;
@@ -443,7 +497,7 @@ button {
   &:hover {
     background-color: $text-color;
 
-    .icon {
+    .button-icon {
       color: $bg-black;
     }
   }
@@ -451,7 +505,7 @@ button {
   &:active {
     background-color: $bg-black;
 
-    .icon {
+    .button-icon {
       color: $text-color;
     }
   }
