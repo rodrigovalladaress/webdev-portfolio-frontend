@@ -377,13 +377,15 @@ $transition-duration: 350ms;
 }
 
 .item {
+  $x-spacing: 1.6rem;
+
   width: 100%;
   display: inline-flex;
   aspect-ratio: 1 / 1;
-  margin-right: 1.6rem;
+  margin-right: $x-spacing;
 
   @include media(sm) {
-    width: 50%;
+    width: calc(50% - #{math.div($x-spacing, 2)});
   }
 }
 
