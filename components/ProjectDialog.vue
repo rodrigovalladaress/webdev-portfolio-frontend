@@ -216,7 +216,8 @@ dialog.project-dialog {
       &::marker {
         content: "▪  ";
         font-size: 2rem;
-        color: $primary;
+
+        // color: $primary;
       }
     }
   }
