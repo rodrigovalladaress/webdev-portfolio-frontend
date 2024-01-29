@@ -19,7 +19,7 @@
               </div>
             </a>
 
-            <div class="item-index mono-font">{{ id + 1 }}/{{ items.length }}</div>
+            <div class="item-index mono-font bg-black-a-80">{{ id + 1 }}/{{ items.length }}</div>
           </div>
         </div>
       </div>
@@ -447,7 +447,6 @@ $image-over-spacing: 0.5rem;
   right: $image-over-spacing;
   bottom: -$image-over-spacing;
   color: $text-color;
-  background-color: $bg-black;
   line-height: 1;
   padding: 0.4rem;
   margin-bottom: 1rem;
