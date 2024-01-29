@@ -34,7 +34,7 @@
           </div>
 
           <div class="form-group submit-form-group d-flex align-items-center">
-            <input type="submit" class="btn" value="Send message" required :disabled="isLoading" />
+            <input type="submit" class="btn lowercase" value="Send message" required :disabled="isLoading" />
 
             <div class="icon d-flex align-items-center">
               <LoadingIcon view-box=""></LoadingIcon>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="additional-contact">
+      <div class="additional-contact mono-font">
         You can also contact me on <a :href="linkedin" class="link" target="_blank">LinkedIn</a>
       </div>
     </div>
@@ -251,6 +251,7 @@ form.loading {
 
 .additional-contact {
   padding: 1rem 2rem;
+  line-height: 1;
 
   @include media(md) {
     padding-right: 0;

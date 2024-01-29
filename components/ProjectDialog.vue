@@ -9,7 +9,7 @@
 
     <div class="content text-color-regular border-2-white">
       <div class="header d-flex justify-space-between">
-        <h2 class="title h2 mono-font">{{ project.name }}</h2>
+        <h2 class="title h2 mono-font lowercase">{{ project.name }}</h2>
 
         <button class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</button>
       </div>
