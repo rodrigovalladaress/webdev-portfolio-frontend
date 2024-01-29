@@ -1,25 +1,32 @@
 {
-  "name": "WordPress",
+  "name": "Ahamo",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure  olor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  "skills": ["WordPress", "HTML", "CSS"],
-  "links": [
-    {
-      "label": "Check Wordpress site",
-      "href": "https://www.mozilla.org/en-GB/"
-    }
-  ],
+  "skills": ["TypeScript", "React", "Chart.js", "SCSS", "Go", "Docker"],
   "images": [
     {
-      "src": "TestImage1.jpg",
-      "alt": "A test image"
+      "src": "https://rvs-portfolio.sirv.com/projects/ahamo/ahamo-1.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Today's Events"
     },
     {
-      "src": "TestImage2.jpg",
-      "alt": "A test image"
+      "src": "https://rvs-portfolio.sirv.com/projects/ahamo/ahamo-2.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Empty event"
     },
     {
-      "src": "TestImage3.jpg",
-      "alt": "A test image"
+      "src": "https://rvs-portfolio.sirv.com/projects/ahamo/ahamo-3.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Multiple note types"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/ahamo/ahamo-4.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Events grid"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/ahamo/ahamo-5.png",
+      "query": { "h": "500", "canvas.width": "500" },
+      "alt": "Mobile note"
     }
   ]
 }
