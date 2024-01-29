@@ -44,6 +44,16 @@ const onThreeLoaded = () => {
 </style>
 
 <style lang="scss">
+@use "sass:color";
+
+html {
+  &,
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color.change($primary, $saturation: 50%, $lightness: 35%) color.change($bg-black, $lightness: 30%);
+  }
+}
+
 body {
   background-color: black;
 }
