@@ -255,7 +255,10 @@ dialog {
     height: fit-content;
     padding: 0.1rem $right-spacing 0.245rem 0.295rem;
     margin-right: -$right-spacing;
-    color: $text-color;
+    font-size: 1.8rem;
+
+    // color: $text-color;
+    color: $primary;
     background-color: $bg-black;
     line-height: 1;
     transition:
@@ -265,7 +268,9 @@ dialog {
     &:hover,
     &:active {
       color: $bg-black;
-      background-color: $text-color;
+
+      // background-color: $text-color;
+      background-color: $primary;
     }
 
     &:focus:not(:active) {
