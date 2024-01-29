@@ -18,6 +18,8 @@
                 <LinkIcon view-box=""></LinkIcon>
               </div>
             </a>
+
+            <div class="item-index mono-font">{{ id + 1 }}/{{ items.length }}</div>
           </div>
         </div>
       </div>
@@ -37,7 +39,7 @@
         </button>
       </div>
 
-      <div class="progress mono-font text-medium d-flex">
+      <div class="progress mono-font text-medium d-flex d-none">
         <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
           {{ id + 1 }}
         </div>
@@ -398,14 +400,16 @@ img {
   height: auto;
 }
 
+$image-over-spacing: 0.5rem;
+
 .expand {
   $duration: 250ms;
 
   position: absolute;
   background-color: $bg-black;
   padding: 0.3rem 0.39rem;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: $image-over-spacing;
+  right: $image-over-spacing;
   transition:
     background-color $duration ease-in-out,
     transform $duration ease-in-out;
@@ -438,8 +442,28 @@ img {
   }
 }
 
+.item-index {
+  position: absolute;
+  right: $image-over-spacing;
+  bottom: -$image-over-spacing;
+  color: $text-color;
+  background-color: $bg-black;
+  line-height: 1;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+
+  @include media(lg) {
+    font-size: 1.1rem;
+  }
+}
+
 .controls {
   padding: 0.5rem 0;
+
+  @include media(lg) {
+    padding: 0;
+  }
 }
 
 .progress {
@@ -475,12 +499,15 @@ button {
   cursor: pointer;
   transition: background-color $transition-duration ease-in-out;
 
+  // outline: 1px solid $text-color;
+
   @include media(lg) {
     margin-right: 0.8rem;
   }
 
   .button-icon {
-    color: $text-color;
+    // color: $text-color;
+    color: $primary;
     transition: color $transition-duration ease-in-out;
 
     // Safari needs the sizes to be in the svg element too
@@ -501,10 +528,13 @@ button {
   }
 
   &:hover {
-    background-color: $text-color;
+    // background-color: $text-color;
+    background-color: $primary;
 
     .button-icon {
       color: $bg-black;
+
+      // color: $;
     }
   }
 
