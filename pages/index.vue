@@ -18,5 +18,6 @@ definePageMeta({
 <style lang="scss" scoped>
 .titles-wrapper {
   backdrop-filter: blur(2px);
+  width: fit-content;
 }
 </style>

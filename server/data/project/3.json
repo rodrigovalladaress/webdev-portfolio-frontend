@@ -1,6 +1,6 @@
 {
   "name": "Hub website (2022)",
-  "skills": ["WordPress", "PHP", "SCSS"],
+  "skills": ["WordPress", "PHP", "SCSS", "HubSpot"],
   "images": [
     {
       "src": "https://rvs-portfolio.sirv.com/projects/hub-2022/hub-2022-1.png",
@@ -35,7 +35,7 @@
   ],
   "links": [
     {
-      "label": "Check live site",
+      "label": "Visit site",
       "href": "https://www.hubagency.co.uk/"
     }
   ]
