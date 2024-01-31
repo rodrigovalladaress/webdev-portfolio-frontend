@@ -37,7 +37,13 @@
         <h3 class="h3 mono-font lowercase skills">Links</h3>
 
         <div class="links">
-          <a v-for="({ label, href }, key) in project.links" :key="key" class="btn" :href="href" target="_blank">
+          <a
+            v-for="({ label, href }, key) in project.links"
+            :key="key"
+            class="btn lowercase"
+            :href="href"
+            target="_blank"
+          >
             {{ label }}
 
             <div class="icon-wrapper">
