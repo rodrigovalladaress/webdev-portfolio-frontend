@@ -44,7 +44,7 @@ export default defineEventHandler(async (_event) => {
       descriptionFromFile = (await fs.readFile(descriptionFileName)).toString();
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.warn(`Project ${id} doesn't ahve a description HTML file`);
+      console.warn(`Project ${id} doesn't have a description HTML file`);
     }
 
     const project: Project = {
