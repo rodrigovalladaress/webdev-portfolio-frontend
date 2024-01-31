@@ -1,5 +1,6 @@
 {
   "name": "Content Insight Tool",
+  "sort": 5,
   "skills": [
     "Node.js",
     "TypeScript",

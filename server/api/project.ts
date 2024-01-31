@@ -5,6 +5,8 @@ import { Project } from "~/types/project";
 const PROJECT_DATA_PATH = "server/data/project";
 const PROJECT_DESCRIPTION_DATA_PATH = "server/data/project-description";
 
+type ServerProject = Project & { sort?: number };
+
 export default defineEventHandler(async (_event) => {
   let projectFiles;
   try {
@@ -15,7 +17,7 @@ export default defineEventHandler(async (_event) => {
     throw err;
   }
 
-  const projects = [];
+  let projects = [];
   for (const fileName of projectFiles) {
     const filePath = `${PROJECT_DATA_PATH}/${fileName}`;
 
@@ -28,7 +30,7 @@ export default defineEventHandler(async (_event) => {
       throw err;
     }
 
-    let parsedProjectJson: Omit<Project, "id"> & { description?: string };
+    let parsedProjectJson: Omit<ServerProject, "id"> & { description?: string };
     try {
       parsedProjectJson = JSON.parse(`${projectJson}`);
     } catch (err) {
@@ -47,7 +49,7 @@ export default defineEventHandler(async (_event) => {
       console.warn(`Project ${id} doesn't have a description HTML file`);
     }
 
-    const project: Project = {
+    const project: ServerProject = {
       id,
       ...parsedProjectJson,
       description: descriptionFromFile ?? parsedProjectJson.description ?? "",
@@ -56,6 +58,8 @@ export default defineEventHandler(async (_event) => {
 
     projects.push(project);
   }
+
+  projects = projects.sort((a, b) => (b.sort ?? 0) - (a.sort ?? 0));
 
   return projects;
 });

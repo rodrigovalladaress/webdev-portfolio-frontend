@@ -1,5 +1,6 @@
 {
   "name": "Bombora website",
+  "sort": 1,
   "skills": ["WordPress", "PHP", "SCSS", "Bootstrap", "HubSpot"],
   "images": [
     {

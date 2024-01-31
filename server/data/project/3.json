@@ -1,5 +1,6 @@
 {
   "name": "Hub website (2022)",
+  "sort": 3,
   "skills": ["WordPress", "PHP", "SCSS", "HubSpot"],
   "images": [
     {
