@@ -8,7 +8,10 @@
 .btn {
   $transition-duration: 150ms;
 
+  display: flex;
+  align-items: center;
   color: $bg-black;
+  width: fit-content;
   background-color: $primary;
   font-family: $mono-font;
   font-weight: 500;
@@ -43,8 +46,8 @@
     color: $bg-black;
   }
 
-  .icon {
-    margin-left: 0.25rem;
+  .icon-wrapper {
+    margin-left: 0.8rem;
   }
 }
 

@@ -40,7 +40,9 @@
           <a v-for="({ label, href }, key) in project.links" :key="key" class="btn" :href="href" target="_blank">
             {{ label }}
 
-            <LinkIcon class="icon"></LinkIcon>
+            <div class="icon-wrapper">
+              <LinkIcon class="icon"></LinkIcon>
+            </div>
           </a>
         </div>
       </template>
@@ -309,6 +311,11 @@ dialog {
   .links {
     margin-top: 1.64rem;
     margin-bottom: 0.5rem;
+
+    .icon-wrapper {
+      // width: 1rem;
+      width: 2rem;
+    }
   }
 }
 
