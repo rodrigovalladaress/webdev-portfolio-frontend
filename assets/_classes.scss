@@ -203,6 +203,10 @@
   background-color: $bg-black-a-80;
 }
 
+@include generate-class-by-breakpoint(bg-black-a-70) {
+  background-color: $bg-black-a-70;
+}
+
 @include generate-class-by-breakpoint(bg-black-a-50) {
   background-color: $bg-black-a-50;
 }
@@ -241,6 +245,10 @@
   justify-content: center;
 }
 
+.justify-content-end {
+  justify-content: end;
+}
+
 .align-items-center {
   align-items: center;
 }
@@ -252,6 +260,10 @@
 // Sizing
 @include generate-class-by-breakpoint(full-width) {
   width: 100%;
+}
+
+@include generate-class-by-breakpoint(full-height) {
+  height: 100%;
 }
 
 @include generate-class-by-breakpoint(width-inherit) {

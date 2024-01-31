@@ -62,7 +62,7 @@ body {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: all 550ms;
+  transition: all $page-transition-duration;
 }
 
 .slide-left-enter-from {

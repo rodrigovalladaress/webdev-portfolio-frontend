@@ -6,12 +6,12 @@
       :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
     >
       <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
-        <div class="h1 text-medium" :class="{ 'one-line': isOneLineTitle }">
+        <div class="h1 text-medium" :class="{ 'one-line': !isHome }">
           Rodrigo <br class="d-none d-block-lg" />
           <span class="surname">Valladares Santana</span>
         </div>
 
-        <div class="h2">Full-stack developer</div>
+        <div class="h2 subtitle" :class="{ hidden: isHome }">Full-stack developer</div>
       </h1>
 
       <NavMenu class="p-lg-2"></NavMenu>
@@ -34,7 +34,7 @@ const hasScrolled = ref(false);
 
 // Make the title one line on projects and contact so there's more
 // space for the content (only on mobile)
-const isOneLineTitle = computed(() => route.path !== "/");
+const isHome = computed(() => route.path === "/");
 
 if (process.client) {
   const updateHasScrolled = () => {
@@ -144,6 +144,16 @@ body:has(dialog[open]) {
 
   @include media("lg") {
     margin-top: 2rem;
+  }
+}
+
+.subtitle {
+  opacity: 1;
+  transition: opacity $page-transition-duration ease-in-out;
+  transition-delay: $page-transition-duration;
+
+  &.hidden {
+    opacity: 0;
   }
 }
 </style>

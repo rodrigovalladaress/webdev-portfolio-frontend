@@ -14,5 +14,6 @@ $text-placeholder-color: #afafaf;
 $bg-black: #000;
 $bg-black-a-80: color.change($bg-black, $alpha: 0.8);
 $bg-black-a-90: color.change($bg-black, $alpha: 0.9);
+$bg-black-a-70: color.change($bg-black, $alpha: 0.7);
 $bg-black-a-50: color.change($bg-black, $alpha: 0.5);
 $bg-black-a-10: color.change($bg-black, $alpha: 0.1);
