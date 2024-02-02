@@ -315,7 +315,7 @@ dialog {
   }
 
   .links {
-    margin-top: 1.64rem;
+    // margin-top: 1.64rem;
     margin-bottom: 0.5rem;
 
     .icon-wrapper {
