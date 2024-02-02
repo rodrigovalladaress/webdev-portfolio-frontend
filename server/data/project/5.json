@@ -1,6 +1,8 @@
 {
   "name": "Bombora website",
   "sort": 1,
+  "client": "Hub",
+  "clientLink": "https://www.hubagency.co.uk/",
   "skills": ["WordPress", "PHP", "SCSS", "Bootstrap", "HubSpot"],
   "images": [
     {

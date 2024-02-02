@@ -14,6 +14,12 @@
         <button class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</button>
       </div>
 
+      <template v-if="project.client">
+        <h3 class="client h3 mono-font lowercase m-t-0">
+          Client: <a class="client-name" :href="project.clientLink" target="_blank">{{ project.client }}</a>
+        </h3>
+      </template>
+
       <ImageCarousel
         v-if="project.images?.length"
         class="project-carousel"
@@ -292,7 +298,11 @@ dialog {
 
   .title {
     margin-top: -0.4rem;
-    margin-bottom: 3rem;
+  }
+
+  .client {
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
   }
 
   .description {
