@@ -1,24 +1,26 @@
 <template>
-  <div class="layout-wrapper d-flex column">
-    <header
-      ref="header"
-      class="d-flex-lg justify-space-between sticky"
-      :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
-    >
-      <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
-        <div class="h1 text-medium" :class="{ 'one-line': !isHome }">
-          Rodrigo <br class="d-none d-block-lg" />
-          <span class="surname">Valladares Santana</span>
-        </div>
+  <div class="layout-wrapper d-flex column align-items-center">
+    <div class="layout-inner-wrapper d-flex column">
+      <header
+        ref="header"
+        class="d-flex-lg justify-space-between sticky"
+        :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
+      >
+        <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
+          <div class="h1 text-medium" :class="{ 'one-line': !isHome }">
+            Rodrigo <br class="d-none d-block-lg" />
+            <span class="surname">Valladares Santana</span>
+          </div>
 
-        <div class="h2 subtitle" :class="{ hidden: isHome }">Full-stack developer</div>
-      </h1>
+          <div class="h2 subtitle" :class="{ hidden: isHome }">Full-stack developer</div>
+        </h1>
 
-      <NavMenu class="p-lg-2"></NavMenu>
-    </header>
+        <NavMenu class="p-lg-2"></NavMenu>
+      </header>
 
-    <div class="layout">
-      <slot />
+      <div class="layout">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
@@ -62,6 +64,7 @@ watch([header], () => {
 
 <style lang="scss" scoped>
 header {
+  // width: 100%;
   transition: background-color 200ms ease-in-out;
   z-index: 10;
 }
@@ -85,6 +88,14 @@ body:has(dialog[open]) {
 
 .layout-wrapper {
   height: 100%;
+  flex-grow: 1;
+}
+
+.layout-inner-wrapper {
+  height: 100%;
+  width: 100%;
+  max-width: 192rem;
+  flex-grow: 1;
 }
 
 .layout {

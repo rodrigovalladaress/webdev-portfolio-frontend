@@ -55,14 +55,16 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
   grid-auto-rows: minmax(15.5rem, auto);
   gap: 1rem;
 
+  $desktop-card-size: 28.8rem;
+
   @include media(lg) {
-    $card-size: 28.8rem;
-
-    grid-template-columns: repeat(auto-fit, minmax($card-size, auto));
-
-    // grid-template-columns: repeat(auto-fit, $card-size);
-    grid-auto-rows: $card-size;
+    grid-template-columns: repeat(auto-fit, minmax($desktop-card-size, auto));
+    grid-auto-rows: $desktop-card-size;
     gap: 0.9rem;
+  }
+
+  @media (width >= 1920px) {
+    grid-template-columns: repeat(5, minmax($desktop-card-size, auto));
   }
 }
 </style>
