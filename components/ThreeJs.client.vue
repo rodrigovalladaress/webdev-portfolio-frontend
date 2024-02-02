@@ -7,9 +7,11 @@ const props = withDefaults(defineProps<{ canvas: HTMLCanvasElement | null }>(), 
   canvas: null,
 });
 
+const route = useRoute();
+
 const emit = defineEmits(["loaded"]);
 
-const { initialize, destroy } = useThree();
+const { initialize, destroy, animate } = useThree();
 
 const initializeThree = () => {
   destroy();
@@ -21,12 +23,22 @@ const initializeThree = () => {
   initialize(props.canvas, onLoaded);
 };
 
+const updateAnimationByRoute = () => {
+  if (route.path === "/projects") {
+    animate("close");
+  } else {
+    animate("far");
+  }
+};
+
 const destroyThree = () => {
   destroy();
 };
 
 const onLoaded = () => {
   emit("loaded");
+
+  updateAnimationByRoute();
 };
 
 onMounted(() => {
@@ -39,5 +51,9 @@ onBeforeUnmount(() => {
 
 watch([props], () => {
   initializeThree();
+});
+
+watch([() => route.path], () => {
+  updateAnimationByRoute();
 });
 </script>

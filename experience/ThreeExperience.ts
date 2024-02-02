@@ -45,6 +45,22 @@ export default class ThreeExperience {
     Debug.restorePreviousGuiValues();
   }
 
+  public animate(animation: "close" | "far") {
+    switch (animation) {
+      case "close":
+        this.world.animateClose();
+        break;
+
+      case "far":
+        this.world.animateFar();
+        break;
+
+      default:
+        // eslint-disable-next-line no-console
+        console.warn(`Animation '${animation}' not implemented`);
+    }
+  }
+
   private onResize(e: CustomEvent<ResizeEventDetail>) {
     this.resize(e.detail);
   }

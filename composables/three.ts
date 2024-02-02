@@ -7,10 +7,14 @@ export const useThree = () => {
     experience.value = new ThreeExperience(canvas, firstTickCallback);
   };
 
+  const animate = (animationName: Parameters<ThreeExperience["animate"]>["0"]) => {
+    experience.value?.animate(animationName);
+  };
+
   const destroy = () => {
     experience.value?.destroy();
     experience.value = null;
   };
 
-  return { initialize, destroy, experience };
+  return { initialize, destroy, experience, animate };
 };

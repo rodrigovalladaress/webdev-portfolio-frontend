@@ -13,4 +13,12 @@ export default class World {
   public update(time: TimeTickEventDetail) {
     this.sea.update(time);
   }
+
+  public animateFar() {
+    this.sea.animateDefault();
+  }
+
+  public animateClose() {
+    this.sea.animateClose();
+  }
 }

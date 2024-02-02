@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from "gsap";
 
 import vertexShader from "./shaders/wireframe-sea.vert.glsl";
 import fragmentShader from "./shaders/wireframe-sea.frag.glsl";
@@ -7,9 +8,12 @@ import Debug from "./Debug";
 
 export default class Sea {
   // public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
-  public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.471, 0));
+  public static readonly DEFAULT_POSITION = Object.freeze(new THREE.Vector3(0, -0.471, 0));
   // public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
-  public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.192, -0.123, -3.125));
+  public static readonly DEFAULT_ROTATION = Object.freeze(new THREE.Vector3(-1.192, -0.123, -3.125));
+
+  public static readonly CLOSE_POSITION = Object.freeze(new THREE.Vector3(0, -0.471, -2.042));
+  public static readonly CLOSE_ROTATION = Object.freeze(new THREE.Vector3(0, -0.123, -2.961));
 
   private mesh: THREE.Mesh<
     THREE.BufferGeometry<THREE.NormalBufferAttributes>,
@@ -59,6 +63,56 @@ export default class Sea {
     _wireframeThickness: { value: 0.02 },
   };
 
+  private setPosition(newPosition: THREE.Vector3) {
+    this.mesh.position.x = newPosition.x;
+    this.mesh.position.y = newPosition.y;
+    this.mesh.position.z = newPosition.z;
+  }
+
+  private setDefaultPosition() {
+    this.setPosition(Sea.DEFAULT_POSITION);
+  }
+
+  private setRotation(newRotation: THREE.Vector3) {
+    this.mesh.rotation.x = newRotation.x;
+    this.mesh.rotation.y = newRotation.y;
+    this.mesh.rotation.z = newRotation.z;
+  }
+
+  private setDefaultRotation() {
+    this.setRotation(Sea.DEFAULT_ROTATION);
+  }
+
+  private animatePosition(newPosition: THREE.Vector3) {
+    gsap.to(this.mesh.position, {
+      duration: 4,
+      ease: "power1.inOut",
+      x: newPosition.x,
+      y: newPosition.y,
+      z: newPosition.z,
+    });
+  }
+
+  private animateRotation(newRotation: THREE.Vector3) {
+    gsap.to(this.mesh.rotation, {
+      duration: 7,
+      ease: "power1.inOut",
+      x: newRotation.x,
+      y: newRotation.y,
+      z: newRotation.z,
+    });
+  }
+
+  public animateDefault() {
+    this.animatePosition(Sea.DEFAULT_POSITION);
+    this.animateRotation(Sea.DEFAULT_ROTATION);
+  }
+
+  public animateClose() {
+    this.animatePosition(Sea.CLOSE_POSITION);
+    this.animateRotation(Sea.CLOSE_ROTATION);
+  }
+
   public constructor(scene: THREE.Scene) {
     // The mesh needs to be non indexed...
     const geometry = new THREE.PlaneGeometry(50, 25, 150, 150).toNonIndexed();
@@ -83,13 +137,17 @@ export default class Sea {
     });
     this.mesh = new THREE.Mesh(geometry, material);
 
-    this.mesh.position.x = Sea.POSITION.x;
-    this.mesh.position.y = Sea.POSITION.y;
-    this.mesh.position.z = Sea.POSITION.z;
+    this.setDefaultPosition();
 
-    this.mesh.rotation.x = Sea.ROTATION.x;
-    this.mesh.rotation.y = Sea.ROTATION.y;
-    this.mesh.rotation.z = Sea.ROTATION.z;
+    // this.mesh.position.x = Sea.DEFAULT_POSITION.x;
+    // this.mesh.position.y = Sea.DEFAULT_POSITION.y;
+    // this.mesh.position.z = Sea.DEFAULT_POSITION.z;
+
+    this.setDefaultRotation();
+
+    // this.mesh.rotation.x = Sea.DEFAULT_ROTATION.x;
+    // this.mesh.rotation.y = Sea.DEFAULT_ROTATION.y;
+    // this.mesh.rotation.z = Sea.DEFAULT_ROTATION.z;
 
     scene.add(this.mesh);
 
