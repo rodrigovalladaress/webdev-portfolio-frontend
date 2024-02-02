@@ -1,33 +1,26 @@
-<p>Ahamo was a webapp that let people save notes of an event.</p>
-
 <p>
-  Basically, attendants added notes to a timestamp during a live event (or an on-demand video after the event has
-  finished). The note hold the timestamp information, so it was possible to know when the users added it.
+  Ahamo was a Hub’s webapp that was designed for capturing and saving notes during an event. I collaborated with a
+  coworker to build it around 2019.
 </p>
 
 <p>
-  The notes were also public, and the application showed a graph with the number of notes on each timestamp, so it was a
-  great way of knowing which part of the event was the most interesting.
+  Participants added notes during a live event (or an on-demand video after the event has finished). The note held the
+  timestamp information, so it provided valuable information for the system. For example, using this data, the
+  application showed a graph with the number of notes on each timestamp, so it was a great way of identifying the
+  highlights of the event.
 </p>
 
-<p>The notes could hold different data:</p>
-
-<ul>
-  <li>Text</li>
-
-  <li>Images</li>
-
-  <li>Audio</li>
-
-  <li>Video</li>
-</ul>
-
 <p>
-  The backend of the application was a Go server. The frontend was based on React, and used Chart.js to build the note
+  The backend of the application was a Go server. The frontend was React-based, and Chart.js was used to build the note
   charts.
 </p>
 
 <p>
-  This was a really interesting project, as it was the first time that I used Go and React. Go was especially
-  challenging, as at that point of my career I was more used to dynamic typed languages than static ones.
+  This was a really interesting project, as it was my first time using Go and React. Go was especially difficult, as at
+  that point of my career I was more used to dynamic typed languages.
+</p>
+
+<p>
+  Additionally, it was possible to take a photo or record audio or video and attach it to the notes. Figuring out the
+  best way to store that kind of data was challenging.
 </p>
