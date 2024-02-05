@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "slide-left", mode: "out-in" },
   },
+  nitro: {
+    compressPublicAssets: { gzip: true, brotli: true },
+  },
   typescript: {
     shim: false,
   },
