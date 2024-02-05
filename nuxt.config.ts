@@ -7,6 +7,15 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/eslint-module", "@nuxtjs/stylelint-module", "@nuxtjs/google-fonts", "@nuxt/image"],
   devtools: { enabled: true },
   app: {
+    head: {
+      title: "Rodrigo | London based full-stack developer",
+      meta: [
+        {
+          name: "description",
+          content: "Porfolio website for Rodrigo Valladares Santana, London based full-stack developer",
+        },
+      ],
+    },
     pageTransition: { name: "slide-left", mode: "out-in" },
   },
   typescript: {
