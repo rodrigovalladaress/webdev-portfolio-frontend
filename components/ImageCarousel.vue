@@ -11,7 +11,9 @@
           :data-id="id"
         >
           <div class="item-inner">
-            <NuxtImg :src="query ? appendQueryString(src, query) : src" :alt="alt" />
+            <!-- Don't add the image to the HTML until the carousel has been enabled, or the browser will start
+            loading the image before the dialog is opened -->
+            <NuxtImg v-if="isEnabled" :src="query ? appendQueryString(src, query) : src" :alt="alt" loading="lazy" />
 
             <a class="expand" :href="src" target="_blank">
               <div class="link-icon">
