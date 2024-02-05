@@ -4,7 +4,14 @@ import svgLoader from "vite-svg-loader";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/eslint-module", "@nuxtjs/stylelint-module", "@nuxtjs/google-fonts", "@nuxt/image"],
+  modules: [
+    "@nuxtjs/eslint-module",
+    "@nuxtjs/stylelint-module",
+    "@nuxtjs/google-fonts",
+    "@nuxt/image",
+    "nuxt-purgecss",
+    "nuxt-beastcss",
+  ],
   devtools: { enabled: true },
   app: {
     head: {
