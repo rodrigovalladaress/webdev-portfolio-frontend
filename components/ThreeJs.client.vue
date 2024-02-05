@@ -24,10 +24,22 @@ const initializeThree = () => {
 };
 
 const updateAnimationByRoute = () => {
-  if (route.path === "/projects") {
-    animate("close");
-  } else {
-    animate("far");
+  switch (route.path) {
+    case "/":
+      animate("home");
+      break;
+
+    case "/projects":
+      animate("projects");
+      break;
+
+    case "/contact":
+      animate("contact");
+      break;
+
+    default:
+      // eslint-disable-next-line no-console
+      console.warn(`Route '${route.path}' is not animated`);
   }
 };
 

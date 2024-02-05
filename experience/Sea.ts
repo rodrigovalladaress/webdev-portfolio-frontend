@@ -6,6 +6,12 @@ import fragmentShader from "./shaders/wireframe-sea.frag.glsl";
 import type { TimeTickEventDetail } from "./types/time";
 import Debug from "./Debug";
 
+type ColorWrap = {
+  foam: THREE.Color;
+  surface: THREE.Color;
+  depth: THREE.Color;
+};
+
 export default class Sea {
   // public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
   public static readonly DEFAULT_POSITION = Object.freeze(new THREE.Vector3(0, -0.471, 0));
@@ -83,34 +89,82 @@ export default class Sea {
     this.setRotation(Sea.DEFAULT_ROTATION);
   }
 
-  private animatePosition(newPosition: THREE.Vector3) {
-    gsap.to(this.mesh.position, {
-      duration: 4,
+  private animateColor(initialColors: ColorWrap, finalColors: ColorWrap) {
+    const aux = { number: 0 };
+    gsap.to(aux, {
+      duration: 3,
       ease: "power1.inOut",
-      x: newPosition.x,
-      y: newPosition.y,
-      z: newPosition.z,
+      number: 1,
+
+      onUpdate: () => {
+        this.mesh.material.uniforms._foamColor.value = new THREE.Color(
+          initialColors.foam.lerp(finalColors.foam, aux.number),
+        );
+        this.mesh.material.uniforms._depthColor.value = new THREE.Color(
+          initialColors.depth.lerp(finalColors.depth, aux.number),
+        );
+        this.mesh.material.uniforms._surfaceColor.value = new THREE.Color(
+          initialColors.surface.lerp(finalColors.surface, aux.number),
+        );
+      },
     });
   }
 
-  private animateRotation(newRotation: THREE.Vector3) {
-    gsap.to(this.mesh.rotation, {
-      duration: 7,
-      ease: "power1.inOut",
-      x: newRotation.x,
-      y: newRotation.y,
-      z: newRotation.z,
-    });
+  private getCurrentSeaColorWrap() {
+    return {
+      foam: this.mesh.material.uniforms._foamColor.value,
+      depth: this.mesh.material.uniforms._depthColor.value,
+      surface: this.mesh.material.uniforms._surfaceColor.value,
+    } as ColorWrap;
   }
 
-  public animateDefault() {
-    this.animatePosition(Sea.DEFAULT_POSITION);
-    this.animateRotation(Sea.DEFAULT_ROTATION);
+  private static buildColorWrap(args: { foam: number; depth: number; surface: number }) {
+    return {
+      foam: new THREE.Color(args.foam),
+      depth: new THREE.Color(args.depth),
+      surface: new THREE.Color(args.surface),
+    } as ColorWrap;
   }
 
-  public animateClose() {
-    this.animatePosition(Sea.CLOSE_POSITION);
-    this.animateRotation(Sea.CLOSE_ROTATION);
+  public animateHome() {
+    this.animateColor(
+      this.getCurrentSeaColorWrap(),
+      Sea.buildColorWrap({
+        foam: this.debugObject.foam.color,
+        depth: this.debugObject.depth.color,
+        surface: this.debugObject.surface.color,
+      }),
+    );
+  }
+
+  public animateProjects() {
+    this.animateColor(
+      this.getCurrentSeaColorWrap(),
+      Sea.buildColorWrap({
+        foam: 0xe9fe9e,
+        depth: 0x618d0e,
+        surface: 0xffff00,
+
+        // foam: 0xb781f3,
+        // depth: 0x682eaf,
+        // surface: 0xc802ff,
+      }),
+    );
+  }
+
+  public animateContact() {
+    this.animateColor(
+      this.getCurrentSeaColorWrap(),
+      Sea.buildColorWrap({
+        // foam: 0xf9a2fb,
+        // depth: 0x660f64,
+        // surface: 0xff0080,
+
+        foam: 0x31c5fd,
+        depth: 0x0a4287,
+        surface: 0x0000ff,
+      }),
+    );
   }
 
   public constructor(scene: THREE.Scene) {
@@ -121,12 +175,8 @@ export default class Sea {
 
     const material = new THREE.ShaderMaterial({
       extensions: {
-        // #extension GL_OES_standard_derivatives : enable
         derivatives: true,
       },
-      // transparent: true,
-      // depthWrite: false,
-      // depthTest: false,
       side: THREE.DoubleSide,
       defines: {
         SMALL_WAVES_ITERATIONS: 11,
@@ -139,15 +189,7 @@ export default class Sea {
 
     this.setDefaultPosition();
 
-    // this.mesh.position.x = Sea.DEFAULT_POSITION.x;
-    // this.mesh.position.y = Sea.DEFAULT_POSITION.y;
-    // this.mesh.position.z = Sea.DEFAULT_POSITION.z;
-
     this.setDefaultRotation();
-
-    // this.mesh.rotation.x = Sea.DEFAULT_ROTATION.x;
-    // this.mesh.rotation.y = Sea.DEFAULT_ROTATION.y;
-    // this.mesh.rotation.z = Sea.DEFAULT_ROTATION.z;
 
     scene.add(this.mesh);
 

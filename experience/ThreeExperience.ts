@@ -45,14 +45,18 @@ export default class ThreeExperience {
     Debug.restorePreviousGuiValues();
   }
 
-  public animate(animation: "close" | "far") {
+  public animate(animation: "projects" | "home" | "contact") {
     switch (animation) {
-      case "close":
-        this.world.animateClose();
+      case "projects":
+        this.world.animateProjects();
         break;
 
-      case "far":
-        this.world.animateFar();
+      case "home":
+        this.world.animateHome();
+        break;
+
+      case "contact":
+        this.world.animateContact();
         break;
 
       default:

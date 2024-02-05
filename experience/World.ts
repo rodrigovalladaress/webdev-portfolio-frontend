@@ -14,11 +14,15 @@ export default class World {
     this.sea.update(time);
   }
 
-  public animateFar() {
-    this.sea.animateDefault();
+  public animateHome() {
+    this.sea.animateHome();
   }
 
-  public animateClose() {
-    this.sea.animateClose();
+  public animateProjects() {
+    this.sea.animateProjects();
+  }
+
+  public animateContact() {
+    this.sea.animateContact();
   }
 }
