@@ -65,4 +65,8 @@ export default defineNuxtConfig({
       linkedin: "https://www.linkedin.com/in/rodrigo-valladares-santana/",
     },
   },
+  purgecss: {
+    enabled: true,
+    safelist: ["svg", "img", "button"],
+  },
 });
