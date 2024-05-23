@@ -1,83 +1,16 @@
 # webdev-portfolio-frontend
 
-# Notes
+A website built using Nuxt and Three.js to showcase projects.
+
+The server folder has a simple Rest API. I should move the JSON and HTML there to a database at some point, so it's easier to edit the projects info.
+
+### TODO
+
+- Refactor server so the data is served not served through local JSON and HTML.
+- Use Strapi for the backend?
+
+### Notes
 
 Make stylelint work with Vue files and prevent 'Unknown word CssSyntaxError' error:
 
 - https://github.com/ota-meshi/stylelint-config-standard-vue
-
-# Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
