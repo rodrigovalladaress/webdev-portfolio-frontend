@@ -11,6 +11,17 @@
           :is-dialog-visible="id === p.id"
         ></ProjectCard>
       </div>
+
+      <h1 class="h2 lowercase p-t-4 p-b-2">Personal projects</h1>
+
+      <div class="cards-wrapper d-grid">
+        <ProjectCard
+          v-for="(p, key) in personalProjects"
+          :key="key"
+          :project="p"
+          :is-dialog-visible="id === p.id"
+        ></ProjectCard>
+      </div>
     </div>
   </div>
 </template>
@@ -25,8 +36,8 @@ const route = useRoute();
 
 const { data } = await useFetch("/api/project");
 
-// const projects = ref(data.value?.slice(0, 1));
-const projects = ref(data.value ?? []);
+const projects = ref(data.value ? data.value.filter(({ type }) => type === "client") : []);
+const personalProjects = ref(data.value ? data.value.filter(({ type }) => type === "personal") : []);
 
 const id = computed(() => assureNotArray(route.query.id) ?? "");
 </script>
@@ -57,14 +68,17 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 
   $desktop-card-size: 28.8rem;
 
-  @include media(lg) {
-    grid-template-columns: repeat(auto-fit, minmax($desktop-card-size, auto));
+  @include media(md) {
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: $desktop-card-size;
-    gap: 0.9rem;
   }
 
-  @media (width >= 1920px) {
-    grid-template-columns: repeat(5, minmax($desktop-card-size, auto));
+  @include media(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include media(xxl) {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 </style>

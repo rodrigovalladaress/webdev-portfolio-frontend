@@ -1,0 +1,47 @@
+{
+  "name": "Steam Widget (to) Image",
+  "sort": 7,
+  "type": "personal",
+  "skills": [
+    "React",
+    "TypeScript",
+    "Tailwind",
+    "Zustand",
+    "Vitest",
+    "TDD",
+    "React Testing Library",
+    "UX/UI design",
+    "Figma"
+  ],
+  "links": [
+    {
+      "label": "Visit site",
+      "href": "https://steam-widget-to-image.netlify.app/"
+    },
+    {
+      "label": "Check code",
+      "href": "https://codeberg.org/dim3/steam-widget-to-image"
+    },
+    {
+      "label": "Check designs",
+      "href": "https://www.figma.com/design/pTZ9mialNPf9izfq07XL2u/Steam-Widget-(to)-Image-(share)"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/steam-widget-to-image/steam-widget-to-image-data.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Steam Widget (to) Image - Data tab"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/steam-widget-to-image/steam-widget-to-image-style.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Steam Widget (to) Image - Style tab"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/steam-widget-to-image/steam-widget-to-image-style-colors-changed.png",
+      "query": { "h": "500", "cw": "500" },
+      "alt": "Steam Widget (to) Image - Style tab"
+    }
+  ]
+}

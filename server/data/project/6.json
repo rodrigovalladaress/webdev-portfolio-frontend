@@ -1,11 +1,16 @@
 {
-  "name": "Portfolio",
+  "name": "Portfolio site",
   "sort": 6,
-  "skills": ["Nuxt", "Vue", "SCSS", "Three.js", "UX design", "Figma"],
+  "type": "personal",
+  "skills": ["Nuxt", "Vue", "TypeScript", "SCSS", "Three.js", "UX/UI design", "Figma"],
   "links": [
     {
       "label": "Check code",
       "href": "https://codeberg.org/dim3/webdev-portfolio-frontend"
+    },
+    {
+      "label": "Check designs",
+      "href": "https://www.figma.com/design/NNdL19MXOA1biCwd8YFieH/Portfolio-2023-(share)"
     }
   ]
 }

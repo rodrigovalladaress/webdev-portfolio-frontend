@@ -12,7 +12,7 @@
               <label class="flex wrap mono-font">
                 <div class="lowercase">Name</div>
 
-                <input v-model="formData.name" name="name" type="text" placeholder="write your name" required />
+                <input v-model="formData.name" name="name" type="text" :placeholder="name" required />
               </label>
             </div>
 
@@ -20,7 +20,13 @@
               <label class="flex wrap mono-font">
                 <div class="lowercase">Email</div>
 
-                <input v-model="formData.email" name="email" type="email" placeholder="write your email" required />
+                <input
+                  v-model="formData.email"
+                  name="email"
+                  type="email"
+                  :placeholder="`${lowerName}@email.com`"
+                  required
+                />
               </label>
             </div>
           </div>
@@ -29,7 +35,7 @@
             <label class="flex wrap mono-font">
               <div class="lowercase">message</div>
 
-              <textarea v-model="formData.message" name="message" placeholder="write your message" rows="5"></textarea>
+              <textarea v-model="formData.message" name="message" :placeholder="`Hi, I'm ${name}.`" rows="5"></textarea>
             </label>
           </div>
 
@@ -60,6 +66,9 @@
 
 <script lang="ts" setup>
 import LoadingIcon from "~/assets/images/Loading.svg?component";
+import { chooseAtRandom } from "~/utils/array";
+
+const RANDOM_NAMES = ["John", "Marika", "Cthulhu", "Vela", "Mario", "Samus", "Frieren", "Laios"];
 
 definePageMeta({
   title: "Contact",
@@ -69,6 +78,8 @@ definePageMeta({
 const config = useRuntimeConfig();
 const { isDevelopment: dev } = useEnvironment();
 
+const name = ref(chooseAtRandom(RANDOM_NAMES));
+const lowerName = ref(name.value.toLowerCase());
 const error = ref<HTMLDivElement | null>(null);
 const thankYou = ref<HTMLDivElement | null>(null);
 const linkedin = ref(config.public.linkedin);

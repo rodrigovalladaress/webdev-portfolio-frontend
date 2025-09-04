@@ -2,6 +2,7 @@
   "name": "Content Insight Tool",
   "sort": 5,
   "client": "Hub",
+  "type": "client",
   "clientLink": "https://www.hubagency.co.uk/",
   "skills": [
     "Node.js",

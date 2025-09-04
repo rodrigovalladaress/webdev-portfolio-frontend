@@ -8,7 +8,7 @@ $breakpoint-map: (
 );
 
 // prettier-ignore
-$sides: [ "top", "right", "bottom", "left"];
+$sides: ["top", "right", "bottom", "left"];
 
 // spacing
 $spacing: (
@@ -27,6 +27,22 @@ $spacing: (
     lg: 3.3rem,
     xl: 3.3rem,
     xxl: 3.3rem,
+  ),
+  3: (
+    xs: 5rem,
+    sm: 5rem,
+    md: 5rem,
+    lg: 5rem,
+    xl: 5rem,
+    xxl: 5rem,
+  ),
+  4: (
+    xs: 6.7rem,
+    sm: 6.7rem,
+    md: 6.7rem,
+    lg: 6.7rem,
+    xl: 6.7rem,
+    xxl: 6.7rem,
   ),
 );
 

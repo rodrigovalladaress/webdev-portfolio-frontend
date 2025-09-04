@@ -1,6 +1,7 @@
 export type Project = {
   id: string;
   name: string;
+  type: "personal" | "client";
   client?: string;
   clientLink?: string;
   description: string;

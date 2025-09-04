@@ -1,0 +1,42 @@
+{
+  "name": "Paradnight Studio website",
+  "sort": 8,
+  "type": "personal",
+  "skills": ["Nuxt", "Vue", "TypeScript", "Tailwind", "UX/UI design", "Figma"],
+  "links": [
+    {
+      "label": "Visit site",
+      "href": "https://www.paradnight-studio.com/"
+    },
+    {
+      "label": "Check code",
+      "href": "https://codeberg.org/dim3/paradnightstudio-website"
+    },
+    {
+      "label": "Check designs",
+      "href": "https://www.figma.com/design/Y2kwUcwT144eGSR8ufI4w7/Paradnight-Website"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/paradnight-studio-website/paradnight-studio-website-hero.png",
+      "query": { "h": "500", "cw": "500", "cx": "250" },
+      "alt": "Paradnight Studio website - Hero"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/paradnight-studio-website/paradnight-studio-website-games.png",
+      "query": { "h": "500", "cw": "500", "cx": "250" },
+      "alt": "Paradnight Studio website - Games"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/paradnight-studio-website/paradnight-studio-website-about.png",
+      "query": { "h": "500", "cw": "500", "cx": "250" },
+      "alt": "Paradnight Studio website - About"
+    },
+    {
+      "src": "https://rvs-portfolio.sirv.com/projects/paradnight-studio-website/paradnight-studio-website-contact.png",
+      "query": { "h": "500", "cw": "500", "cx": "250" },
+      "alt": "Paradnight Studio website - Contact"
+    }
+  ]
+}

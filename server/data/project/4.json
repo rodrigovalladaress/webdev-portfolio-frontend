@@ -2,6 +2,7 @@
   "name": "Hub website (2020)",
   "sort": 2,
   "client": "Hub",
+  "type": "client",
   "clientLink": "https://www.hubagency.co.uk/",
   "skills": ["WordPress", "PHP", "SCSS", "Bootstrap", "HubSpot"],
   "images": [

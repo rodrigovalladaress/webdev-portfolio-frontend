@@ -7,6 +7,7 @@
       {{ project.name }}
     </div>
   </NuxtLink>
+
   <ProjectDialog :is-visible="isDialogVisible" :project="project"></ProjectDialog>
 </template>
 
@@ -14,7 +15,7 @@
 import type { Project } from "~/types/project";
 
 withDefaults(defineProps<{ project: Project; isDialogVisible: boolean }>(), {
-  project: () => ({ id: "", name: "", description: "" }),
+  project: () => ({ id: "", name: "", description: "", type: "client" }),
   isDialogVisible: false,
 });
 </script>

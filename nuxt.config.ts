@@ -4,14 +4,8 @@ import svgLoader from "vite-svg-loader";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    "@nuxtjs/eslint-module",
-    "@nuxtjs/stylelint-module",
-    "@nuxtjs/google-fonts",
-    "@nuxt/image",
-    "nuxt-purgecss",
-    "nuxt-beastcss",
-  ],
+  ssr: true,
+  modules: ["@nuxtjs/eslint-module", "@nuxtjs/google-fonts", "nuxt-purgecss", "nuxt-beastcss"],
   devtools: { enabled: true },
   app: {
     head: {
@@ -27,6 +21,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     compressPublicAssets: { gzip: true, brotli: true },
+    preset: "netlify-static",
+    static: true,
   },
   typescript: {
     shim: false,
@@ -54,6 +50,9 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     display: "swap",
+    useStylesheet: true,
+    // Don't download the fonts locally so they work on Netlify
+    download: false,
     families: {
       Roboto: true,
       "Roboto+Mono": true,

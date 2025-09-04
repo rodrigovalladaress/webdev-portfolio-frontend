@@ -325,6 +325,16 @@ dialog {
   }
 
   .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @include media(sm) {
+      flex-direction: row;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
     // margin-top: 1.64rem;
     margin-bottom: 0.5rem;
 
