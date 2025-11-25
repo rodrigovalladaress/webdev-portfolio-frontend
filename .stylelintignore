@@ -1,0 +1,7 @@
+## Ignore common generated and dependency folders but keep source files linted
+node_modules/
+.nuxt/
+dist/
+public/
+.git/
+*.min.css
