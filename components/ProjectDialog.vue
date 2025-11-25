@@ -330,9 +330,8 @@ dialog {
     gap: 1.5rem;
 
     @include media(sm) {
-      flex-direction: row;
       gap: 2.5rem;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
     }
 
     // margin-top: 1.64rem;
