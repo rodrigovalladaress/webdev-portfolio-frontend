@@ -9,11 +9,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
-      title: "Rodrigo | London based full-stack developer",
+      title: "Rodrigo | full-stack/front-end developer",
       meta: [
         {
           name: "description",
-          content: "Porfolio website for Rodrigo Valladares Santana, London based full-stack developer",
+          content: "Porfolio website for Rodrigo Valladares Santana, full-stack/front-end developer",
         },
       ],
     },
@@ -30,6 +30,11 @@ export default defineNuxtConfig({
   css: [
     '~/assets/main.css'
   ],
+  postcss: {
+    plugins: {
+      'postcss-custom-media': {},
+    }
+  },
   vite: {
     define: {
       __VUE_PROD_DEVTOOLS__: true,
