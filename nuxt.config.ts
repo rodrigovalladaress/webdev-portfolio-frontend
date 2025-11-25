@@ -27,6 +27,9 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
+  css: [
+    '~/assets/main.css'
+  ],
   vite: {
     define: {
       __VUE_PROD_DEVTOOLS__: true,
