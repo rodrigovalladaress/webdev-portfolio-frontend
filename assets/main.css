@@ -1,0 +1,28 @@
+:root {
+  /* Colors */
+  --color-primary: oklch(86.645% 0.2948 142.511deg);
+  --color-error: oklch(62.793% 0.2576 29.223deg);
+  --color-disabled: oklch(75.402% 0 271.152deg);
+  --color-bg-black-value: 0% 0 0deg;
+  --color-bg-black: oklch(var(--color-bg-black-value));
+
+  /* Spacing */
+  --s-1-px: 25px;
+  --s-2-px: 53px;
+
+  /* Font sizes (from typescale.com) */
+  --t-h1: 4.778rem;
+  --t-h2: 3.981rem;
+  --t-h3: 3.318rem;
+  --t-h4: 2.765rem;
+  --t-h5: 2.304rem;
+  --t-h6: 1.92rem;
+  --t-p: 1.6rem;
+  --t-small: 1.333rem;
+
+  /* Font families */
+  --regular-font: roboto, arial, helvetica, sans-serif;
+  --mono-font: "Roboto Mono", arial, helvetica, sans-serif;
+  --title-font: var(--mono-font);
+  --content-font: var(--regular-font);
+}

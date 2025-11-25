@@ -20,13 +20,37 @@ module.exports = {
     "at-rule-no-unknown": [
       true,
       {
-        ignoreAtRules: ["include", "mixin", "extend", "function", "return", "if", "else", "for", "each", "while"],
+        ignoreAtRules: [
+          "include",
+          "mixin",
+          "extend",
+          "function",
+          "return",
+          "if",
+          "else",
+          "for",
+          "each",
+          "while",
+          "use",
+        ],
       },
     ],
     "scss/at-rule-no-unknown": [
       true,
       {
-        ignoreAtRules: ["include", "mixin", "extend", "function", "return", "if", "else", "for", "each", "while"],
+        ignoreAtRules: [
+          "include",
+          "mixin",
+          "extend",
+          "function",
+          "return",
+          "if",
+          "else",
+          "for",
+          "each",
+          "while",
+          "use",
+        ],
       },
     ],
     "declaration-property-unit-allowed-list": {
