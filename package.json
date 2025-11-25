@@ -8,8 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "node .output/server/index.mjs",
-    "heroku-push": "git push heroku main"
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.0.8",
