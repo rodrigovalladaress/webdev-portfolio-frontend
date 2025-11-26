@@ -38,8 +38,14 @@
 
 /* Default styles */
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-title);
+  text-transform: lowercase;
+  margin-block: 0;
 }
 
 /* Nuxt devtools fix */
@@ -52,4 +58,63 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+button {
+  border: none;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn {
+  --transition-duration: 150ms;
+
+  display: flex;
+  align-items: center;
+  color: var(--color-bg-black);
+  width: fit-content;
+  background-color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 1.125rem;
+  text-transform: lowercase;
+  padding: 5px 10px;
+  outline: 1px var(--color-primary) solid;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-duration) ease-in-out,
+    color var(--transition-duration) ease-in-out,
+    outline-color var(--transition-duration) ease-in-out;
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-bg-black);
+  }
+
+  &:active,
+  &:focus {
+    color: var(--color-bg-black);
+    background-color: var(--color-primary);
+  }
+
+  &:focus {
+    outline: 2px var(--color-text) dashed;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    outline-color: var(--color-disabled);
+    background-color: var(--color-disabled);
+    color: var(--color-bg-black);
+  }
+
+  .icon-wrapper {
+    margin-left: 0.8rem;
+  }
 }

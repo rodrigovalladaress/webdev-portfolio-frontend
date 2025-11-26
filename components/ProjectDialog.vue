@@ -1,63 +1,60 @@
 <template>
-  <dialog
-    ref="dialog"
-    class="project-dialog column justify-content-center align-items-center bg-trans"
-    :class="{ opened: isVisible, closed: !isVisible }"
-  >
-    <!-- // 'd-none': !isInitialized  -->
-    <div ref="backdrop" class="backdrop cursor-pointer bg-black-a-90"></div>
+  <dialog ref="dialog" class="project-dialog" :class="{ opened: isVisible, closed: !isVisible }">
+    <div ref="backdrop" class="backdrop"></div>
 
-    <div class="content text-color-regular border-2-white">
-      <div class="header d-flex justify-space-between">
-        <h2 class="title h2 mono-font lowercase">{{ project.name }}</h2>
+    <div class="content-scroll">
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="header d-flex justify-space-between">
+            <h2 class="title">{{ project.name }}</h2>
+          </div>
 
-        <button class="close-btn mono-font text-bold uppercase cursor-pointer" @click="onCloseClicked">x</button>
-      </div>
+          <template v-if="project.client">
+            <h3 class="client">
+              Client: <a class="client-name" :href="project.clientLink" target="_blank">{{ project.client }}</a>
+            </h3>
+          </template>
 
-      <template v-if="project.client">
-        <h3 class="client h3 mono-font lowercase m-t-0">
-          Client: <a class="client-name" :href="project.clientLink" target="_blank">{{ project.client }}</a>
-        </h3>
-      </template>
+          <ImageCarousel
+            v-if="project.images?.length"
+            class="project-carousel"
+            :inner-key="`${carouselKey}`"
+            :items="project.images || []"
+            :is-enabled="isVisible"
+          ></ImageCarousel>
 
-      <ImageCarousel
-        v-if="project.images?.length"
-        class="project-carousel"
-        :inner-key="`${carouselKey}`"
-        :items="project.images || []"
-        :is-enabled="isVisible"
-      ></ImageCarousel>
+          <!-- eslint-disable-next-line vue/no-v-html -->
+          <div class="description" v-html="project.description"></div>
 
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <div class="description" v-html="project.description"></div>
+          <template v-if="project.skills?.length">
+            <h3 class="section-title">Skills</h3>
 
-      <template v-if="project.skills?.length">
-        <h3 class="h3 mono-font lowercase skills">Skills</h3>
-
-        <div class="tags d-flex wrap">
-          <div v-for="(skill, key) in project.skills" :key="key" class="tag mono-font border-white">{{ skill }}</div>
-        </div>
-      </template>
-
-      <template v-if="project.links?.length">
-        <h3 class="h3 mono-font lowercase skills">Links</h3>
-
-        <div class="links">
-          <a
-            v-for="({ label, href }, key) in project.links"
-            :key="key"
-            class="btn lowercase"
-            :href="href"
-            target="_blank"
-          >
-            {{ label }}
-
-            <div class="icon-wrapper">
-              <LinkIcon class="icon"></LinkIcon>
+            <div class="tags">
+              <div v-for="(skill, key) in project.skills" :key="key" class="tag">
+                {{ skill }}
+              </div>
             </div>
-          </a>
+          </template>
+
+          <template v-if="project.links?.length">
+            <h3 class="section-title">Links</h3>
+
+            <div class="links">
+              <a v-for="({ label, href }, key) in project.links" :key="key" class="btn" :href="href" target="_blank">
+                {{ label }}
+
+                <div class="icon-wrapper">
+                  <LinkIcon class="icon"></LinkIcon>
+                </div>
+              </a>
+            </div>
+          </template>
         </div>
-      </template>
+
+        <button class="close-btn" @click="onCloseClicked">
+          <span>x</span>
+        </button>
+      </div>
     </div>
   </dialog>
 </template>
@@ -207,140 +204,158 @@ watch([backdrop], () => {
   */
   --project-dialog-close-duration: 0ms;
 }
-
-dialog.project-dialog {
-  .description {
-    font-size: 1.8rem;
-    line-height: 1.167;
-
-    p,
-    ul {
-      $y-spacing: 1.2rem;
-
-      margin-top: $y-spacing;
-      margin-bottom: $y-spacing;
-    }
-
-    li {
-      $y-spacing: 0.7rem;
-
-      margin-top: $y-spacing;
-      margin-bottom: $y-spacing;
-
-      &::marker {
-        content: "▪  ";
-        font-size: 2rem;
-
-        // color: $primary;
-      }
-    }
-  }
-}
 </style>
 
 <style lang="scss" scoped>
-dialog {
-  .backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    backdrop-filter: blur(3px);
-  }
+.project-dialog {
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  overflow-y: visible;
+}
 
-  .content {
-    width: 100%;
-    flex-grow: 1;
-    height: 100%;
-    padding: 2rem;
-    overflow-y: auto;
+.content-scroll {
+  width: 100%;
+  flex-grow: 1;
+  min-height: 100%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
 
-    @include media(md) {
-      flex-grow: 0;
-      max-width: 608px;
-      height: fit-content;
-    }
-  }
+.content-wrapper {
+  --content-border-width: 2px;
 
-  .close-btn {
-    $right-spacing: 0.4rem;
-    $transition-duration: 250ms;
+  position: relative;
+  color: white;
 
-    border: none;
+  @include media(md) {
+    flex-grow: 0;
+    max-width: 38rem;
     height: fit-content;
-    padding: 0.1rem $right-spacing 0.245rem 0.295rem;
-    margin-right: -$right-spacing;
-    font-size: 1.8rem;
+  }
+}
 
-    // color: $text-color;
-    color: $primary;
-    background-color: $bg-black;
-    line-height: 1;
-    transition:
-      color $transition-duration ease-in-out,
-      background-color $transition-duration ease-in-out;
+.content {
+  padding: 20px;
+  border: var(--content-border-width) white solid;
+}
 
-    &:hover,
-    &:active {
-      color: $bg-black;
+.title,
+.client {
+  line-height: 1.1;
 
-      // background-color: $text-color;
-      background-color: $primary;
-    }
+  @media (--lg) {
+    line-height: 1.3;
+  }
+}
 
-    &:focus:not(:active) {
-      outline: 2px $text-color dashed;
-    }
+.title {
+  font-size: var(--t-h5);
+  font-weight: 600;
+
+  /* Optical alignment */
+  margin-top: -0.4rem;
+
+  @media (--lg) {
+    font-size: var(--t-h3);
+
+    /* Optical alignment */
+    margin-block-start: -0.8rem;
+  }
+}
+
+.client {
+  font-size: var(--t-h5);
+}
+
+.description {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(3px);
+}
+
+.close-btn {
+  --transition-duration: 250ms;
+
+  position: absolute;
+  border: none;
+  height: fit-content;
+  display: block;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+  top: var(--content-border-width);
+  right: var(--content-border-width);
+  padding: 20px;
+  color: var(--color-primary);
+  background-color: transparent;
+  transition:
+    color var(--transition-duration) ease-in-out,
+    background-color var(--transition-duration) ease-in-out;
+
+  span {
+    display: block;
+
+    /* Optical alignment */
+    margin-block-start: -6px;
   }
 
-  .project-carousel {
-    margin-bottom: 2.8rem;
+  &:hover,
+  &:active {
+    color: var(--color-bg-black);
+    background-color: var(--color-primary);
   }
 
-  .title {
-    margin-top: -0.4rem;
+  &:focus:not(:active) {
+    outline: 2px $text-color dashed;
+  }
+}
+
+.project-carousel {
+  margin-block: 24px 28px;
+}
+
+.section-title {
+  font-size: var(--t-h5);
+  margin: 1.875rem 0 0.8rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px 10px;
+}
+
+.tag {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  border: 1px solid white;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @include media(sm) {
+    gap: 25px;
+    flex-flow: row wrap;
   }
 
-  .client {
-    margin-top: 0.5rem;
-    margin-bottom: 2.5rem;
-  }
+  margin-block-end: 0.5rem;
 
-  .description {
-    font-size: 1.8rem;
-    line-height: 1.167;
-  }
-
-  .skills {
-    margin: 3rem 0 1rem;
-  }
-
-  .tags {
-    gap: 1.3rem 1rem;
-  }
-
-  .tag {
-    padding: 0.2rem 1rem;
-    border-radius: 10px;
-    font-size: 1.4rem;
-  }
-
-  .links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    @include media(sm) {
-      gap: 2.5rem;
-      flex-flow: row wrap;
-    }
-
-    // margin-top: 1.64rem;
-    margin-bottom: 0.5rem;
-
-    .icon-wrapper {
-      // width: 1rem;
-      width: 2rem;
-    }
+  .icon-wrapper {
+    width: 1.25rem;
   }
 }
 
@@ -358,9 +373,9 @@ dialog.opened {
   padding: 0;
   height: 100%;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100dvw;
   overflow-x: hidden;
-  min-height: 100vh;
+  min-height: 100dvh;
 
   .backdrop {
     background-color: transparent;
