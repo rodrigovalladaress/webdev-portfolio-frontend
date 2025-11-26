@@ -1,21 +1,24 @@
 <template>
-  <div class="layout-wrapper d-flex column align-items-center">
-    <div class="layout-inner-wrapper d-flex column">
-      <header
-        ref="header"
-        class="d-flex-lg justify-space-between sticky"
-        :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }"
-      >
-        <h1 class="lowercase bg-black-a-80 bg-trans-lg p-1 p-lg-2">
-          <div class="h1 text-medium" :class="{ 'one-line': !isHome }">
-            Rodrigo <br class="d-none d-block-lg" />
-            <span class="surname">Valladares Santana</span>
-          </div>
+  <div class="default-layout">
+    <div class="width-limiter">
+      <header ref="header" class="header" :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }">
+        <div class="header-spacing">
+          <h1 class="title">
+            <div class="name-wrapper">
+              <div class="name" :class="{ 'one-line': !isHome }">Rodrigo <br class="d-none d-block-lg" /></div>
 
-          <div class="h2 subtitle" :class="{ hidden: isHome }">Full-stack developer</div>
-        </h1>
+              <span class="surname">Valladares Santana</span>
+            </div>
 
-        <NavMenu class="p-lg-2"></NavMenu>
+            <div class="subtitle" :class="{ hidden: isHome }">
+              <div><span aria-hidden>/</span>Full-stack<br /></div>
+
+              <div>/front-end developer</div>
+            </div>
+          </h1>
+
+          <NavMenu></NavMenu>
+        </div>
       </header>
 
       <div class="layout">
@@ -63,22 +66,17 @@ watch([header], () => {
 </script>
 
 <style lang="scss" scoped>
-header {
-  // width: 100%;
-  transition: background-color 200ms ease-in-out;
-  z-index: 10;
-}
-
 // Dialog scroll fix (see _dialog-scroll-fix.scss and dialogScrollFix.ts)
 body:has(dialog[open]) {
-  header {
+  .header {
     position: absolute;
     top: calc(var(--scroll-y-fix, 0) - var(--header-height, 0));
     width: 100%;
     background-color: $bg-black;
 
-    @include media(lg) {
-      // Hide the navbar because it's positioned weirdly when opening the dialog for some reason
+    @media (--lg) {
+      // Hide the navbar because it's positioned weirdly
+      // when opening the dialog for some reason
       nav {
         opacity: 0;
       }
@@ -86,20 +84,89 @@ body:has(dialog[open]) {
   }
 }
 
-.layout-wrapper {
-  height: 100%;
-  flex-grow: 1;
+.default-layout {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
 }
 
-.layout-inner-wrapper {
-  height: 100%;
+.width-limiter {
   width: 100%;
-  max-width: 192rem;
-  flex-grow: 1;
+  max-width: 1920px;
+  display: flex;
+  flex-flow: column;
+}
+
+.header {
+  transition: background-color 200ms ease-in-out;
+  z-index: 10;
+
+  @media (--lg) {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.header-spacing {
+  display: flex;
+  justify-content: space-between;
+  /* Put the padding in the header-spacing instead of header so it doesn't
+  interfere with sticky position */
+  padding: var(--spacing-1);
+
+  @media (--lg) {
+    padding: var(--spacing-2);
+  }
+}
+
+.title {
+  text-transform: lowercase;
+  font-weight: 600;
+  background-color: oklch(var(--color-bg-black-value) / 80%);
+  // Optical alignment
+  margin-block-start: -0.8rem;
+
+  @media (--lg) {
+    // Optical alignment
+    margin-block-start: -1.35rem;
+  }
+}
+
+.name {
+  font-size: var(--t-h1);
+
+  // Optical alignment
+  margin-inline-start: -0.45rem;
+}
+
+.surname {
+  // Optical alignment
+  margin-inline-start: -0.2rem;
+
+  @media (--lg) {
+    // Optical alignment
+    margin-inline-start: -0.25rem;
+  }
+}
+
+.subtitle {
+  padding-block-start: 1.1rem;
+  font-size: var(--t-h3);
+  // Optical alignment
+  margin-inline-start: -0.2rem;
+
+  @media (--lg) {
+    display: flex;
+    flex-wrap: wrap;
+
+    // Optical alignment
+    margin-inline-start: -0.25rem;
+  }
 }
 
 .layout {
   flex-grow: 1;
+  display: flex;
 
   @include media-max(lg) {
     padding-bottom: 8rem;
@@ -108,9 +175,6 @@ body:has(dialog[open]) {
 
 .h1 {
   line-height: 1.2;
-
-  // Correct the line height top spacing
-  margin-top: -0.2rem;
   text-overflow: ellipsis;
   overflow: hidden;
 

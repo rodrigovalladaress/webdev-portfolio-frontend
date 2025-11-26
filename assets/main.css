@@ -1,28 +1,46 @@
+@custom-media --sm (min-width: 36em);
+@custom-media --md (min-width: 48em);
+@custom-media --lg (min-width: 62em);
+@custom-media --xl (min-width: 75em);
+@custom-media --xxl (min-width: 87.5em);
+
 :root {
   /* Colors */
   --color-primary: oklch(86.645% 0.2948 142.511deg);
   --color-error: oklch(62.793% 0.2576 29.223deg);
   --color-disabled: oklch(75.402% 0 271.152deg);
+  --color-text: oklch(100% 0 0deg);
   --color-bg-black-value: 0% 0 0deg;
   --color-bg-black: oklch(var(--color-bg-black-value));
 
   /* Spacing */
-  --s-1-px: 25px;
-  --s-2-px: 53px;
+  --spacing-1: 25px;
+  --spacing-2: 33px;
 
   /* Font sizes (from typescale.com) */
-  --t-h1: 4.778rem;
-  --t-h2: 3.981rem;
-  --t-h3: 3.318rem;
-  --t-h4: 2.765rem;
-  --t-h5: 2.304rem;
-  --t-h6: 1.92rem;
-  --t-p: 1.6rem;
-  --t-small: 1.333rem;
+  --t-h1: 2.986rem;
+  --t-h2: 2.488rem;
+  --t-h3: 2.074rem;
+  --t-h4: 1.728rem;
+  --t-h5: 1.44rem;
+  --t-h6: 1.2rem;
+  --t-p: 1rem;
+  --t-small: 0.833rem;
 
   /* Font families */
-  --regular-font: roboto, arial, helvetica, sans-serif;
-  --mono-font: "Roboto Mono", arial, helvetica, sans-serif;
-  --title-font: var(--mono-font);
-  --content-font: var(--regular-font);
+  --font-regular: roboto, arial, helvetica, sans-serif;
+  --font-mono: "Roboto Mono", arial, helvetica, sans-serif;
+  --font-title: var(--font-mono);
+  --font-content: var(--font-regular);
+}
+
+/* Default styles */
+h1,
+h2 {
+  font-family: var(--font-title);
+}
+
+/* Fix */
+#nuxt-devtools-container {
+  display: none;
 }
