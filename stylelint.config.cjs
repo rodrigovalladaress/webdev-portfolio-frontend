@@ -57,7 +57,7 @@ module.exports = {
       "/^border/": ["px"],
       "/^padding|^gap/": ["rem"],
     },
-    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "fr", "vh", "vw"],
+    "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "fr", "dvh", "dvw"],
     "no-empty-source": null,
   },
   ignoreFiles: ["node_modules/**", ".nuxt/**", "dist/**"],

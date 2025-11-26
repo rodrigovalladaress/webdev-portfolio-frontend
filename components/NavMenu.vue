@@ -1,14 +1,7 @@
 <template>
-  <nav
-    class="nav full-width width-inherit-lg d-flex justify-space-around align-items-center mono-font lowercase bg-black-a-90 bg-trans-lg"
-  >
+  <nav class="nav">
     <template v-for="({ label, href }, i) in items" :key="i">
-      <NuxtLink
-        class="d-flex justify-content-center align-items-center text-medium"
-        :to="href"
-        active-class="active"
-        @click="onClick"
-      >
+      <NuxtLink class="link" :to="href" active-class="active" @click="onClick">
         {{ label }}
       </NuxtLink>
 
@@ -37,17 +30,27 @@ const onClick = () => {
 @use "sass:color";
 
 .nav {
+  display: flex;
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 7.4rem;
-  font-size: $t-h6;
+  height: 4.625rem;
+  width: 100%;
+  font-family: var(--font-mono);
+  text-transform: lowercase;
+  background-color: oklch(var(--color-bg-black-value) / 90%);
+  font-size: var(--t-h6);
   line-height: 1;
 
-  @include media(lg) {
+  @media (--lg) {
     position: inherit;
     height: fit-content;
     line-height: 1.4;
+    font-size: var(--t-h5);
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
 
     // So it's more or less aligned to the title in the left of the screen
     margin-top: 0.1rem;
@@ -55,42 +58,30 @@ const onClick = () => {
 
   > * {
     flex: 1;
-
-    @include media(lg) {
-      $x-spacing: 0.5rem;
-
-      font-size: $t-h5;
-      padding: 0 $x-spacing;
-
-      &:last-child {
-        margin-right: -#{$x-spacing};
-      }
-    }
   }
 
   > a {
-    height: 100%;
-
-    @include media(lg) {
-      $transition-duration: 250ms;
+    @media (--lg) {
+      --transition-duration: 250ms;
 
       height: auto;
       position: relative;
       z-index: 0;
-      transition: color $transition-duration ease-in-out;
+      transition: color var(--transition-duration) ease-in-out;
 
       &::before {
         content: "";
         position: absolute;
         z-index: -1;
+        /* TODO: change this to not use SASS */
         background-color: color.change($text-color, $alpha: 0.1);
         width: 100%;
         height: 100%;
         transform-origin: 0% 50%;
         transform: scale(0%, 100%);
         transition:
-          background-color $transition-duration ease-in-out,
-          transform $transition-duration ease-in-out;
+          background-color var(--transition-duration) ease-in-out,
+          transform var(--transition-duration) ease-in-out;
       }
 
       &:hover {
@@ -110,7 +101,7 @@ const onClick = () => {
   }
 
   // Style for very small screens
-  @media screen and (width < 320px) {
+  @media (width < 320px) {
     flex-wrap: wrap;
     height: inherit;
 
@@ -119,6 +110,13 @@ const onClick = () => {
       padding: 0.9rem 0;
     }
   }
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  color: var(--color-text);
+  font-weight: 600;
 }
 </style>
 

@@ -3,7 +3,7 @@
 
 :root {
   // Easier px to rem calculations
-  font-size: 62.5%;
+  // font-size: 62.5%;
 }
 
 // html,
@@ -12,11 +12,11 @@
 // }
 
 /* stylelint-disable-next-line selector-id-pattern */
-html,
-body,
-#__nuxt {
-  height: 100%;
-}
+// html,
+// body,
+// #__nuxt {
+//   height: 100%;
+// }
 
 body {
   padding: 0;
@@ -45,12 +45,12 @@ h6 {
   font-weight: 400;
 }
 
-h1,
-.h1,
-h2,
-.h2 {
-  font-family: $title-font;
-}
+// h1,
+// .h1,
+// h2,
+// .h2 {
+//   font-family: $title-font;
+// }
 
 a,
 a:hover,
