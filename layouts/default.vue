@@ -17,7 +17,9 @@
             </div>
           </h1>
 
-          <NavMenu></NavMenu>
+          <div class="nav-wrapper">
+            <NavMenu></NavMenu>
+          </div>
         </div>
       </header>
 
@@ -66,6 +68,16 @@ watch([header], () => {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  transition: background-color 200ms ease-in-out;
+  z-index: 10;
+
+  @media (--lg) {
+    position: sticky;
+    top: 0;
+  }
+}
+
 // Dialog scroll fix (see _dialog-scroll-fix.scss and dialogScrollFix.ts)
 body:has(dialog[open]) {
   .header {
@@ -97,22 +109,13 @@ body:has(dialog[open]) {
   flex-flow: column;
 }
 
-.header {
-  transition: background-color 200ms ease-in-out;
-  z-index: 10;
-
-  @media (--lg) {
-    position: sticky;
-    top: 0;
-  }
-}
-
 .header-spacing {
   display: flex;
   justify-content: space-between;
+
   /* Put the padding in the header-spacing instead of header so it doesn't
   interfere with sticky position */
-  padding: var(--spacing-1);
+  padding: var(--spacing-09);
 
   @media (--lg) {
     padding: var(--spacing-2);
@@ -123,37 +126,52 @@ body:has(dialog[open]) {
   text-transform: lowercase;
   font-weight: 600;
   background-color: oklch(var(--color-bg-black-value) / 80%);
+  line-height: 1.1;
+
   // Optical alignment
-  margin-block-start: -0.8rem;
+  margin-block-start: -0.2rem;
 
   @media (--lg) {
     // Optical alignment
-    margin-block-start: -1.35rem;
+    margin-block-start: -0.8rem;
   }
 }
 
-.name {
-  font-size: var(--t-h1);
+.name-wrapper {
+  font-size: var(--t-h3);
 
-  // Optical alignment
-  margin-inline-start: -0.45rem;
+  @media (--lg) {
+    font-size: var(--t-h1);
+  }
 }
 
 .surname {
   // Optical alignment
   margin-inline-start: -0.2rem;
+  display: none;
 
   @media (--lg) {
+    display: unset;
+
     // Optical alignment
     margin-inline-start: -0.25rem;
   }
 }
 
 .subtitle {
-  padding-block-start: 1.1rem;
-  font-size: var(--t-h3);
+  padding-block-start: 1rem;
+  font-size: var(--t-h4);
+  font-weight: 400;
+  opacity: 1;
+  transition: opacity $page-transition-duration ease-in-out;
+  transition-delay: $page-transition-duration;
+
   // Optical alignment
   margin-inline-start: -0.2rem;
+
+  &.hidden {
+    opacity: 0;
+  }
 
   @media (--lg) {
     display: flex;
@@ -219,16 +237,6 @@ body:has(dialog[open]) {
 
   @include media("lg") {
     margin-top: 2rem;
-  }
-}
-
-.subtitle {
-  opacity: 1;
-  transition: opacity $page-transition-duration ease-in-out;
-  transition-delay: $page-transition-duration;
-
-  &.hidden {
-    opacity: 0;
   }
 }
 </style>

@@ -14,6 +14,7 @@
   --color-bg-black: oklch(var(--color-bg-black-value));
 
   /* Spacing */
+  --spacing-09: 16px;
   --spacing-1: 25px;
   --spacing-2: 33px;
 

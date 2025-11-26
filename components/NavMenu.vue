@@ -51,9 +51,6 @@ const onClick = () => {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
-
-    // So it's more or less aligned to the title in the left of the screen
-    margin-top: 0.1rem;
   }
 
   > * {
@@ -73,6 +70,7 @@ const onClick = () => {
         content: "";
         position: absolute;
         z-index: -1;
+
         /* TODO: change this to not use SASS */
         background-color: color.change($text-color, $alpha: 0.1);
         width: 100%;
