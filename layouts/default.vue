@@ -145,6 +145,16 @@ body:has(dialog[open]) {
   }
 }
 
+.name {
+  /* Optical alingment */
+  margin-inline-start: -0.35rem;
+
+  @media (--lg) {
+    /* Optical alingment */
+    margin-inline-start: -0.55rem;
+  }
+}
+
 .surname {
   // Optical alignment
   margin-inline-start: -0.2rem;
@@ -154,13 +164,13 @@ body:has(dialog[open]) {
     display: unset;
 
     // Optical alignment
-    margin-inline-start: -0.25rem;
+    margin-inline-start: -0.3rem;
   }
 }
 
 .subtitle {
-  padding-block-start: 1rem;
-  font-size: var(--t-h4);
+  padding-block-start: 0.8rem;
+  font-size: var(--t-h5);
   font-weight: 400;
   opacity: 1;
   transition: opacity $page-transition-duration ease-in-out;

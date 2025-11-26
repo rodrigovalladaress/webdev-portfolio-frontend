@@ -1,9 +1,9 @@
 <template>
-  <div class="projects-wrapper p-1 p-lg-2">
-    <div class="projects-border-wrapper p-lg-2">
-      <h1 class="h2 lowercase p-b-2">Projects</h1>
+  <div class="projects-wrapper">
+    <div class="projects-border-wrapper">
+      <h1 class="title">Projects</h1>
 
-      <div class="cards-wrapper d-grid">
+      <div class="cards-wrapper">
         <ProjectCard
           v-for="(p, key) in projects"
           :key="key"
@@ -12,9 +12,9 @@
         ></ProjectCard>
       </div>
 
-      <h1 class="h2 lowercase p-t-4 p-b-2">Personal projects</h1>
+      <h1 class="title">Personal projects</h1>
 
-      <div class="cards-wrapper d-grid">
+      <div class="cards-wrapper">
         <ProjectCard
           v-for="(p, key) in personalProjects"
           :key="key"
@@ -44,7 +44,13 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 
 <style lang="scss" scoped>
 .projects-wrapper {
-  padding-top: 2rem;
+  padding: var(--spacing-09);
+  padding-block-start: 2rem;
+  width: 100%;
+
+  @media (--lg) {
+    padding: var(--spacing-2);
+  }
 }
 
 .projects-border-wrapper {
@@ -61,24 +67,28 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
   }
 }
 
-.d-grid {
-  grid-template-columns: 1fr;
-  grid-auto-rows: minmax(15.5rem, auto);
-  gap: 1rem;
+.title {
+  font-size: var(--t-h5);
+  font-weight: 600;
+  text-transform: lowercase;
+  padding-block-end: var(--spacing-1);
 
-  $desktop-card-size: 28.8rem;
+  /* Optical alignment */
+  margin-inline-start: -0.145rem;
 
-  @include media(md) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: $desktop-card-size;
+  &:last-of-type {
+    padding-block-start: var(--spacing-3);
   }
 
-  @include media(lg) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (--lg) {
+    font-size: var(--t-h4);
+    font-weight: 400;
   }
+}
 
-  @include media(xxl) {
-    grid-template-columns: repeat(5, 1fr);
-  }
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 16px;
 }
 </style>
