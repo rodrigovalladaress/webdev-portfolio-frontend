@@ -18,6 +18,9 @@ importers:
         specifier: ^0.160.0
         version: 0.160.0
     devDependencies:
+      '@csstools/postcss-global-data':
+        specifier: ^3.1.0
+        version: 3.1.0(postcss@8.4.33)
       '@nuxt/devtools':
         specifier: ^1.0.8
         version: 1.0.8(nuxt@3.9.3(@parcel/watcher@2.3.0)(@types/node@20.11.6)(encoding@0.1.13)(eslint@8.56.0)(optionator@0.9.3)(rollup@4.6.1)(sass@1.70.0)(stylelint@16.2.0(typescript@5.3.2))(terser@5.31.3)(typescript@5.3.2)(vite@5.0.11(@types/node@20.11.6)(sass@1.70.0)(terser@5.31.3)))(rollup@4.6.1)(vite@5.0.11(@types/node@20.11.6)(sass@1.70.0)(terser@5.31.3))
@@ -329,6 +332,12 @@ packages:
     peerDependencies:
       '@csstools/css-parser-algorithms': ^3.0.5
       '@csstools/css-tokenizer': ^3.0.4
+
+  '@csstools/postcss-global-data@3.1.0':
+    resolution: {integrity: sha512-qfS0bUxBukuyxEyxTTZG+px2xwAQPf7Qk6B7lFdjWnovb/O6h0t3sxrVY81nJLh7z0KvEMhjxTURNtEmOrADpQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      postcss: ^8.4
 
   '@csstools/selector-specificity@3.0.1':
     resolution: {integrity: sha512-NPljRHkq4a14YzZ3YD406uaxh7s0g6eAq3L9aLOWywoqe8PkYamAvtsh7KNX6c++ihDrJ0RiU+/z7rGnhlZ5ww==}
@@ -5363,6 +5372,10 @@ snapshots:
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.5(@csstools/css-tokenizer@3.0.4)
       '@csstools/css-tokenizer': 3.0.4
+
+  '@csstools/postcss-global-data@3.1.0(postcss@8.4.33)':
+    dependencies:
+      postcss: 8.4.33
 
   '@csstools/selector-specificity@3.0.1(postcss-selector-parser@6.0.15)':
     dependencies:

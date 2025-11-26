@@ -27,13 +27,14 @@ export default defineNuxtConfig({
   typescript: {
     shim: false,
   },
-  css: [
-    '~/assets/main.css'
-  ],
+  css: ["~/assets/main.css"],
   postcss: {
     plugins: {
-      'postcss-custom-media': {},
-    }
+      "@csstools/postcss-global-data": {
+        files: ["assets/main.css"],
+      },
+      "postcss-custom-media": {},
+    },
   },
   vite: {
     define: {
@@ -74,6 +75,6 @@ export default defineNuxtConfig({
   },
   purgecss: {
     enabled: true,
-    safelist: ["svg", "img", "button"],
+    safelist: ["svg", "img", "button", "nuxt-devtools-container", "nuxt"],
   },
 });
