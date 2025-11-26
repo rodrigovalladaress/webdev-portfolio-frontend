@@ -33,6 +33,7 @@ export default defineNuxtConfig({
       "@csstools/postcss-global-data": {
         files: ["assets/main.css"],
       },
+      "postcss-nested": {},
       "postcss-custom-media": {},
     },
   },
@@ -74,7 +75,7 @@ export default defineNuxtConfig({
     },
   },
   purgecss: {
-    enabled: true,
-    safelist: ["svg", "img", "button", "nuxt-devtools-container", "nuxt"],
+    enabled: false,
+    safelist: ["svg", "img", "button", "nuxt-devtools-container", "nuxt", "ul", "li", "p"],
   },
 });
