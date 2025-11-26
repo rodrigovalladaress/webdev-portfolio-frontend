@@ -17,6 +17,7 @@
   --spacing-09: 16px;
   --spacing-1: 25px;
   --spacing-2: 33px;
+  --spacing-3: 50px;
 
   /* Font sizes (from typescale.com) */
   --t-h1: 2.986rem;
@@ -41,7 +42,14 @@ h2 {
   font-family: var(--font-title);
 }
 
-/* Fix */
+/* Nuxt devtools fix */
 #nuxt-devtools-container {
   display: none;
+}
+
+/* Fixes */
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }

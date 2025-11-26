@@ -1,8 +1,5 @@
 <template>
-  <NuxtLink
-    class="card lowercase mono-font display-flex justify-content-center align-items-center text-medium outline-white bg-black-a-90 p-1"
-    :to="`/projects?id=${project.id}`"
-  >
+  <NuxtLink class="card" :to="`/projects?id=${project.id}`">
     <div class="name">
       {{ project.name }}
     </div>
@@ -24,31 +21,43 @@ withDefaults(defineProps<{ project: Project; isDialogVisible: boolean }>(), {
 @use "sass:color";
 
 .card {
-  font-size: 3.2rem;
-  display: flex;
+  display: grid;
+  place-content: center;
+  font-size: var(--t-h5);
+  font-family: var(--font-mono);
+  text-transform: lowercase;
+  border: 1px white solid;
+  min-height: 14rem;
+  padding: var(--spacing-1);
+
+  @media (--lg) {
+    font-size: var(--t-h4);
+    min-height: 18rem;
+  }
 }
 
 a.card {
-  $transition-duration: 200ms;
+  --transition-duration: 200ms;
 
   color: $primary;
   background-color: $bg-black-a-90;
   transform: scale(1);
   text-align: center;
   z-index: 0;
+  will-change: transform;
 
   @include media(lg) {
     transition:
-      color $transition-duration ease-in-out,
+      color var(--transition-duration) ease-in-out,
       background-color 400ms ease-in-out,
-      outline-color $transition-duration ease-in-out,
-      transform $transition-duration ease-in-out;
+      outline-color var(--transition-duration) ease-in-out,
+      transform var(--transition-duration) ease-in-out;
 
     &:hover,
     &:active {
       color: color.change($bg-black, $lightness: 10%);
       background-color: color.change($primary, $saturation: 80%);
-      outline: color.change($primary, $alpha: 0.95);
+      border-color: color.change($primary, $alpha: 0.95);
       transform: scale(1.06);
       z-index: 1;
     }
@@ -57,14 +66,6 @@ a.card {
       color: $bg-black;
       background-color: color.change($primary, $saturation: 100%);
       transform: scale(1.04);
-    }
-
-    &:focus:not(:active) {
-      outline: 2px $text-color dashed;
-    }
-
-    .name {
-      max-width: 28.8rem;
     }
   }
 }
