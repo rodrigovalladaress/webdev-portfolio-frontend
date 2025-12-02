@@ -7,11 +7,13 @@
 :root {
   /* Colors */
   --color-primary: oklch(86.645% 0.2948 142.511deg);
-  --color-error: oklch(62.793% 0.2576 29.223deg);
+  --color-primary-2: oklch(86.645% 0.25 142.511deg);
+  --color-error: oklch(62.79% 0.2278 29.223deg);
   --color-disabled: oklch(75.402% 0 271.152deg);
   --color-text: oklch(100% 0 0deg);
   --color-bg-black-value: 0% 0 0deg;
   --color-bg-black: oklch(var(--color-bg-black-value));
+  --color-text-placeholder: oklch(75.4% 0 0deg);
 
   /* Spacing */
   --spacing-09: 16px;
@@ -77,6 +79,7 @@ a:active {
 
   display: flex;
   align-items: center;
+  border: none;
   color: var(--color-bg-black);
   width: fit-content;
   background-color: var(--color-primary);

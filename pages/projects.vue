@@ -55,7 +55,7 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 
 .projects-border-wrapper {
   @include media(lg) {
-    padding: 4rem;
+    padding: 40px;
     padding-bottom: 6.5rem;
     outline: white 1px solid;
     background-color: $bg-black-a-50;
@@ -68,9 +68,8 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 }
 
 .title {
-  font-size: var(--t-h5);
+  font-size: var(--t-h4);
   font-weight: 600;
-  text-transform: lowercase;
   padding-block-end: var(--spacing-1);
 
   /* Optical alignment */
@@ -81,7 +80,7 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
   }
 
   @media (--lg) {
-    font-size: var(--t-h4);
+    font-size: var(--t-h3);
     font-weight: 400;
   }
 }
