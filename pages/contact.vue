@@ -1,63 +1,73 @@
 <template>
-  <div class="contact-wrapper d-flex justify-content-center align-items-center column">
-    <div class="background-wrapper bg-black-a-80">
-      <div class="form-wrapper border-2-white" :class="{ 'form-submitted': isFormSubmitted }">
-        <h1 class="h2 lowercase text-bold">Contact</h1>
+  <div class="contact-wrapper">
+    <div class="background-wrapper">
+      <div class="form-wrapper" :class="{ 'form-submitted': isFormSubmitted }">
+        <h1 class="title">Contact</h1>
 
-        <form :class="{ loading: isLoading }" action="#" method="post" @submit.prevent="onFormSubmit">
+        <form class="form" :class="{ loading: isLoading }" action="#" method="post" @submit.prevent="onFormSubmit">
           <input v-model="formData.botcheck" type="checkbox" name="contact-by-phone" style="display: none" />
 
-          <div class="two-columns d-flex-md">
+          <div class="two-columns">
             <div class="form-group">
-              <label class="flex wrap mono-font">
-                <div class="lowercase">Name</div>
+              <label for="contact-form-name" class="form-label">Name</label>
 
-                <input v-model="formData.name" name="name" type="text" :placeholder="name" required />
-              </label>
+              <input
+                id="contact-form-name"
+                v-model="formData.name"
+                class="form-textbox"
+                name="name"
+                type="text"
+                :placeholder="name"
+                required
+              />
             </div>
 
             <div class="form-group">
-              <label class="flex wrap mono-font">
-                <div class="lowercase">Email</div>
+              <label for="contact-form-email" class="form-label">Email</label>
 
-                <input
-                  v-model="formData.email"
-                  name="email"
-                  type="email"
-                  :placeholder="`${lowerName}@email.com`"
-                  required
-                />
-              </label>
+              <input
+                id="contact-form-email"
+                v-model="formData.email"
+                class="form-textbox"
+                name="email"
+                type="email"
+                :placeholder="`${lowerName}@email.com`"
+                required
+              />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="flex wrap mono-font">
-              <div class="lowercase">message</div>
+            <label class="form-label">Message</label>
 
-              <textarea v-model="formData.message" name="message" :placeholder="`Hi, I'm ${name}.`" rows="5"></textarea>
-            </label>
+            <textarea
+              v-model="formData.message"
+              class="form-textarea"
+              name="message"
+              :placeholder="`Hi, I'm ${name}.`"
+              rows="5"
+            ></textarea>
           </div>
 
-          <div class="form-group submit-form-group d-flex align-items-center">
-            <input type="submit" class="btn lowercase" value="Send message" required :disabled="isLoading" />
+          <div class="submit-form-group">
+            <input type="submit" class="btn" value="Send message" required :disabled="isLoading" />
 
-            <div class="icon d-flex align-items-center">
+            <div class="icon">
               <LoadingIcon view-box=""></LoadingIcon>
             </div>
           </div>
 
-          <div ref="error" class="error">
+          <div v-if="errorMessage" ref="error" class="error">
             {{ errorMessage }}
           </div>
         </form>
 
-        <div ref="thankYou" class="thank-you d-flex justify-content-center align-items-center">
-          <div class="message h1 mono-font text-color-black">Thanks for your message!</div>
+        <div ref="thankYou" class="thank-you">
+          <div class="message">Thanks for your message!</div>
         </div>
       </div>
 
-      <div class="additional-contact mono-font">
+      <div class="additional-contact">
         You can also contact me on <a :href="linkedin" class="link" target="_blank">LinkedIn</a>
       </div>
     </div>
@@ -154,75 +164,99 @@ const onFormSubmit = async (_payload: Event) => {
 </script>
 
 <style lang="scss" scoped>
-@use "sass:color";
-
 .contact-wrapper {
+  display: grid;
+  place-content: center;
   height: 100%;
+  width: 100%;
 }
 
-h1 {
-  line-height: 1;
+.title {
+  font-size: var(--t-h4);
+  font-weight: 600;
+  margin-block-end: 38px;
+
+  @media (--md) {
+    margin-block-end: 23px;
+  }
+
+  @media (--lg) {
+    font-size: var(--t-h3);
+  }
 }
 
 .background-wrapper {
-  backdrop-filter: blur(2px);
   height: fit-content;
+  backdrop-filter: blur(2px);
+  background-color: oklch(var(--color-bg-black-value) / 80%);
 
-  @include media(md) {
-    max-width: 67.6rem;
-    padding: 3rem;
+  @media (--md) {
+    max-width: 42rem;
+    padding: 30px;
   }
 }
 
 .form-wrapper {
-  padding: 3.6rem;
+  --color-thankyou: var(--color-primary-2);
+
   position: relative;
-}
+  padding: var(--spacing-09) var(--spacing-09) var(--spacing-1);
 
-form {
-  margin-top: 3.8rem;
-
-  @include media(md) {
-    margin-top: 2.3rem;
+  @media (--sm) {
+    padding: 36px 36px 46px;
+    border: 2px solid white;
   }
 }
 
-.form-group {
-  margin-top: 3rem;
+.form {
+  --field-gap: 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-gap);
 }
 
 .two-columns {
-  @include media(md) {
-    gap: 2rem;
-
-    > * {
-      width: 50%;
-    }
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--field-gap);
+  justify-content: space-between;
 }
 
-label {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 12rem;
+}
+
+.form-label {
   line-height: 1;
-  font-size: 2rem;
-
-  > * {
-    width: 100%;
-  }
+  font-size: 1.25rem;
+  font-family: var(--font-mono);
+  text-transform: lowercase;
 }
 
-input,
-textarea {
-  outline: 1px $text-color solid;
+.form-textbox {
+  line-height: 1;
+}
+
+.form-textarea {
+  line-height: 1.5;
+}
+
+.form-textbox,
+.form-textarea {
+  outline: 1px var(--color-text) solid;
   border: none;
-  color: $text-color;
-  background-color: $bg-black;
-  font-size: 2rem;
-  margin-top: 1rem;
-  line-height: 1;
-  padding: 0.5rem 1rem;
+  color: var(--color-text);
+  background-color: var(--color-bg-black);
+  font-size: 1.25rem;
+  margin-block-start: 10px;
+  padding: 5px 10px 6px;
 
   &::placeholder {
-    color: $text-placeholder-color;
+    color: var(--color-text-placeholder);
   }
 
   &:active,
@@ -233,25 +267,25 @@ textarea {
 }
 
 .submit-form-group {
-  margin-top: 3.6rem;
-  gap: 1rem;
-}
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-[type="submit"] {
-  // margin-top: 2.6rem;
-  margin: 0;
+  /* Add a bit more of spacing above to separate the submit button
+  from the form field above  */
+  margin-block-start: calc(var(--field-gap) * 0.5);
 }
 
 .icon {
-  width: 3rem;
+  width: 30px;
   height: auto;
   opacity: 0;
   transition: opacity 100ms ease-in-out;
 }
 
 .error {
-  margin-top: 2rem;
-  color: $error;
+  color: var(--color-error);
+  font-size: 1.1rem;
 }
 
 form.loading {
@@ -261,33 +295,38 @@ form.loading {
 }
 
 .additional-contact {
-  padding: 1rem 2rem;
-  line-height: 1;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  padding: 16px var(--spacing-09);
+  line-height: 1.5;
 
-  @include media(md) {
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+  @media (--md) {
+    padding-inline: 0;
+    padding-block-end: 0;
   }
 }
 
-$thank-you-color: color.change($primary, $saturation: 80%);
-
 .thank-you {
+  display: grid;
+  place-content: center;
   position: absolute;
   inset: 0;
-  background-color: $thank-you-color;
+  font-size: 2.5rem;
+  font-family: var(--font-mono);
+  color: black;
+  background-color: var(--color-thankyou);
   pointer-events: none;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+  padding: 32px;
 
   .message {
     text-align: center;
   }
 }
 
-.form-wrapper.form-submitted {
-  border-color: $thank-you-color;
+.form-submitted {
+  border-color: var(--color-thankyou);
 
   .thank-you {
     pointer-events: all;
