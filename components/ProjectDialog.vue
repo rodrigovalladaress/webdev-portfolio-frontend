@@ -315,7 +315,7 @@ watch([backdrop], () => {
   }
 
   &:focus:not(:active) {
-    outline: 2px $text-color dashed;
+    outline: 2px var(--color-text) dashed;
   }
 }
 
@@ -364,7 +364,7 @@ watch([backdrop], () => {
 // Opened dialog
 // dialog[open] {
 dialog.opened {
-  $open-animation-duration: 500ms;
+  --open-animation-duration: 500ms;
 
   display: flex;
   position: fixed;
@@ -380,12 +380,12 @@ dialog.opened {
   .backdrop {
     background-color: transparent;
     backdrop-filter: blur(0);
-    animation: show-backdrop #{$open-animation-duration * 0.65} ease-in-out normal forwards;
-    animation-delay: #{$open-animation-duration};
+    animation: show-backdrop calc(var(--open-animation-duration) * 0.65) ease-in-out normal forwards;
+    animation-delay: var(--open-animation-duration);
   }
 
   .content {
-    animation: show-dialog $open-animation-duration ease-in-out normal forwards;
+    animation: show-dialog var(--open-animation-duration) ease-in-out normal forwards;
   }
 
   // Play the animation on the children of content so the border is visible
@@ -393,8 +393,8 @@ dialog.opened {
   .content > * {
     opacity: 0;
     background-color: transparent;
-    animation: show-content #{$open-animation-duration * 0.65} ease-in-out normal forwards;
-    animation-delay: $open-animation-duration * 0.65;
+    animation: show-content calc(var(--open-animation-duration) * 0.65) ease-in-out normal forwards;
+    animation-delay: calc(var(--open-animation-duration) * 0.65);
   }
 }
 
@@ -453,7 +453,7 @@ dialog.closed {
 
   100% {
     transform: translateY(0%) scale(100%);
-    background-color: $bg-black;
+    background-color: var(--color-bg-black);
   }
 }
 
@@ -463,13 +463,8 @@ dialog.closed {
     backdrop-filter: blur(0);
   }
 
-  // 5% {
-  //   background-color: $bg-black-a-90;
-  //   backdrop-filter: blur(3px);
-  // }
-
   100% {
-    background-color: $bg-black-a-90;
+    background-color: oklch(var(--color-bg-black-value) / 80%);
     backdrop-filter: blur(3px);
   }
 }
@@ -482,7 +477,7 @@ dialog.closed {
 
   100% {
     opacity: 1;
-    background-color: $bg-black;
+    background-color: var(--color-bg-black);
   }
 }
 
