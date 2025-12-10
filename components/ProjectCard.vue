@@ -18,8 +18,6 @@ withDefaults(defineProps<{ project: Project; isDialogVisible: boolean }>(), {
 </script>
 
 <style lang="scss" scoped>
-@use "sass:color";
-
 .card {
   display: grid;
   place-content: center;
@@ -39,14 +37,14 @@ withDefaults(defineProps<{ project: Project; isDialogVisible: boolean }>(), {
 a.card {
   --transition-duration: 200ms;
 
-  color: $primary;
-  background-color: $bg-black-a-90;
+  color: var(--color-primary);
+  background-color: oklch(var(--color-bg-black-value) / 80%);
   transform: scale(1);
   text-align: center;
   z-index: 0;
   will-change: transform;
 
-  @include media(lg) {
+  @media (--lg) {
     transition:
       color var(--transition-duration) ease-in-out,
       background-color 400ms ease-in-out,
@@ -55,16 +53,16 @@ a.card {
 
     &:hover,
     &:active {
-      color: color.change($bg-black, $lightness: 10%);
-      background-color: color.change($primary, $saturation: 80%);
-      border-color: color.change($primary, $alpha: 0.95);
+      --color-background: oklch(var(--color-primary-l) calc(var(--color-primary-c) * 0.8) var(--color-primary-h));
+
+      color: var(--color-bg-black);
+      background-color: var(--color-background);
+      border-color: var(--color-background);
       transform: scale(1.06);
       z-index: 1;
     }
 
     &:active {
-      color: $bg-black;
-      background-color: color.change($primary, $saturation: 100%);
       transform: scale(1.04);
     }
   }

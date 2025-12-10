@@ -362,7 +362,7 @@ watch([ownIsEnabled], () => {
   overflow: hidden;
   aspect-ratio: 1 / 1;
 
-  @include media(sm) {
+  @media (--sm) {
     aspect-ratio: auto;
     aspect-ratio: 2 / 1;
   }
@@ -382,7 +382,7 @@ watch([ownIsEnabled], () => {
   aspect-ratio: 1 / 1;
   margin-right: var(--spacing-x);
 
-  @include media(sm) {
+  @media (--sm) {
     width: calc(50% - calc(var(--spacing-x) / 2));
   }
 }
@@ -434,7 +434,7 @@ img {
   color: var(--color-primary);
   transition: color var(--transition-duration) ease-in-out;
 
-  @include media(lg) {
+  @media (--lg) {
     width: 1.125rem;
   }
 }
@@ -451,7 +451,7 @@ img {
   margin-bottom: 1rem;
   font-size: 1rem;
 
-  @include media(lg) {
+  @media (--lg) {
     font-size: 0.8rem;
   }
 }
@@ -459,7 +459,7 @@ img {
 .controls {
   padding: 0.5rem 0;
 
-  @include media(lg) {
+  @media (--lg) {
     padding: 0;
   }
 }
@@ -487,7 +487,7 @@ img {
     width: 1.5rem;
     height: auto;
 
-    @include media(lg) {
+    @media (--lg) {
       width: 1.125rem;
     }
   }

@@ -54,11 +54,11 @@ const id = computed(() => assureNotArray(route.query.id) ?? "");
 }
 
 .projects-border-wrapper {
-  @include media(lg) {
+  @media (--lg) {
     padding: 40px;
     padding-bottom: 6.5rem;
     outline: white 1px solid;
-    background-color: $bg-black-a-50;
+    background-color: oklch(var(--color-bg-black-value) / 50%);
     backdrop-filter: blur(2px);
 
     .h2 {

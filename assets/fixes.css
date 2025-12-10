@@ -1,0 +1,53 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+button {
+  border: none;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Nuxt devtools fix */
+#nuxt-devtools-container {
+  display: none;
+}
+
+/* Dialog layout shift fix 
+
+Prevents a layout shift (the page to scrolls to the top) when a dialog is opened.
+See dialogLayoutShiftFix.ts composable too.
+https://stackoverflow.com/questions/55979512/html-dialog-element-scroll-content-independently-of-background
+https://www.reddit.com/r/css/comments/137kr90/is_there_a_way_to_prevent_scrollthrough_when/ 
+*/
+:root {
+  --scroll-y-fix: 0px;
+
+  /* The header is sticky, so its height is necessary to calculate the position
+   of the page and the header itself when applying the fix */
+  --header-height: 0px;
+  --scrollbar-width: 0px;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: calc(100% - var(--scrollbar-width, 0));
+  top: calc((var(--header-height, 0) - var(--scroll-y-fix, 0)));
+}

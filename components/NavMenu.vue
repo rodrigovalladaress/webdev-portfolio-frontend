@@ -27,8 +27,6 @@ const onClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@use "sass:color";
-
 .nav {
   display: flex;
   position: fixed;
@@ -70,9 +68,7 @@ const onClick = () => {
         content: "";
         position: absolute;
         z-index: -1;
-
-        /* TODO: change this to not use SASS */
-        background-color: color.change($text-color, $alpha: 0.1);
+        background-color: oklch(var(--color-text-value) / 30%);
         width: 100%;
         height: 100%;
         transform-origin: 0% 50%;
@@ -84,16 +80,17 @@ const onClick = () => {
 
       &:hover {
         color: #000;
+        text-decoration: none;
 
         &::before {
-          background-color: $text-color;
+          background-color: var(--color-text);
           transform: scale(100%, 100%);
         }
       }
 
       &:focus:not(:active) {
         border: none;
-        outline: 2px $text-color dashed;
+        outline: 2px var(--color-text) dashed;
       }
     }
   }
@@ -124,7 +121,7 @@ const onClick = () => {
     // Don't use text-decoration, as it's not correctly
     // updated with the .active class for some reason
     color: #000;
-    background-color: $text-color;
+    background-color: var(--color-text);
     pointer-events: none;
   }
 }

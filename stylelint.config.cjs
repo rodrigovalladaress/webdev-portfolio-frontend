@@ -4,15 +4,11 @@
  * - Use postcss-scss for SCSS files.
  */
 module.exports = {
-  extends: ["stylelint-config-standard-scss", "stylelint-config-standard-vue/scss"],
+  extends: ["stylelint-config-standard", "stylelint-config-standard-vue/scss"],
   overrides: [
     {
       files: ["**/*.vue"],
       customSyntax: "postcss-html",
-    },
-    {
-      files: ["**/*.{scss,sass}"],
-      customSyntax: "postcss-scss",
     },
   ],
   rules: {
@@ -61,6 +57,7 @@ module.exports = {
     },
     "unit-allowed-list": ["%", "deg", "px", "rem", "ms", "fr", "dvh", "dvw"],
     "no-empty-source": null,
+    "no-unknown-custom-media": true,
   },
   ignoreFiles: ["node_modules/**", ".nuxt/**", "dist/**"],
 };
