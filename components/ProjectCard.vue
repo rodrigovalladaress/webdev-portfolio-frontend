@@ -53,7 +53,7 @@ a.card {
 
     &:hover,
     &:active {
-      --color-background: oklch(var(--color-primary-l) calc(var(--color-primary-c) * 0.8) var(--color-primary-h));
+      --color-background: oklch(var(--color-primary-l) calc(var(--color-primary-c) * 0.85) var(--color-primary-h));
 
       color: var(--color-bg-black);
       background-color: var(--color-background);
