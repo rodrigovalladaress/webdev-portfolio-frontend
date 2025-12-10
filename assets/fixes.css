@@ -23,6 +23,12 @@ a:active {
   color: inherit;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* Nuxt devtools fix */
 #nuxt-devtools-container {
   display: none;
@@ -50,8 +56,4 @@ body:has(dialog[open]) {
   height: 100%;
   width: calc(100% - var(--scrollbar-width, 0));
   top: calc((var(--header-height, 0) - var(--scroll-y-fix, 0)));
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden;
 }
