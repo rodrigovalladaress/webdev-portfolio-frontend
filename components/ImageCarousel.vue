@@ -1,6 +1,6 @@
 <!-- Based on https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0 -->
 <template>
-  <div class="carousel-and-controls">
+  <div class="carousel-wrapper">
     <div class="carousel">
       <div ref="innerRef" class="inner" :style="innerStyle">
         <div
@@ -15,36 +15,28 @@
             loading the image before the dialog is opened -->
             <img v-if="isEnabled" :src="query ? appendQueryString(src, query) : src" :alt="alt" loading="lazy" />
 
-            <a class="expand" :href="src" target="_blank">
+            <a class="link-icon-wrapper" :href="src" target="_blank">
               <div class="link-icon">
                 <LinkIcon view-box=""></LinkIcon>
               </div>
             </a>
 
-            <div class="item-index mono-font bg-black-a-80">{{ id + 1 }}/{{ items.length }}</div>
+            <div class="item-index">{{ id + 1 }}/{{ items.length }}</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="controls d-flex justify-space-between align-items-center">
+    <div class="controls">
       <div class="actions">
-        <button :disabled="isTransitioning" class="mono-font" @click="showPrevious">
-          <div class="button-icon d-flex align-items-center"><ButtonIcon view-box=""></ButtonIcon></div>
+        <button :disabled="isTransitioning" class="control-button" @click="showPrevious">
+          <div class="button-icon"><ButtonIcon /></div>
         </button>
 
         <!-- This element has autofocus so it's focused when the project dialog is opened -->
-        <button ref="nextButton" :disabled="isTransitioning" class="mono-font" autofocus @click="showNext">
-          <div class="button-icon d-flex align-items-center rotate-180">
-            <ButtonIcon></ButtonIcon>
-          </div>
+        <button ref="nextButton" :disabled="isTransitioning" class="control-button" autofocus @click="showNext">
+          <div class="button-icon next"><ButtonIcon /></div>
         </button>
-      </div>
-
-      <div class="progress mono-font text-medium d-flex d-none">
-        <div v-for="(id, key) in ids" :key="key" :class="[`progress-${id}`, { active: isItemVisible[id] }]">
-          {{ id + 1 }}
-        </div>
       </div>
     </div>
   </div>
@@ -361,7 +353,9 @@ watch([ownIsEnabled], () => {
 </script>
 
 <style lang="scss" scoped>
-$transition-duration: 350ms;
+.carousel-wrapper {
+  --transition-duration: 350ms;
+}
 
 .carousel {
   width: 100%;
@@ -377,23 +371,25 @@ $transition-duration: 350ms;
 .inner {
   // Prevent the inline-flex from wrapping once .carousel has been filled
   white-space: nowrap;
-  transition: transform $transition-duration ease-in-out;
+  transition: transform var(--transition-duration) ease-in-out;
 }
 
 .item {
-  $x-spacing: 1.6rem;
+  --spacing-x: 1.6rem;
 
   width: 100%;
   display: inline-flex;
   aspect-ratio: 1 / 1;
-  margin-right: $x-spacing;
+  margin-right: var(--spacing-x);
 
   @include media(sm) {
-    width: calc(50% - #{math.div($x-spacing, 2)});
+    width: calc(50% - calc(var(--spacing-x) / 2));
   }
 }
 
 .item-inner {
+  --image-over-spacing: 0.5rem;
+
   position: relative;
 }
 
@@ -402,60 +398,61 @@ img {
   height: auto;
 }
 
-$image-over-spacing: 0.5rem;
+.link-icon-wrapper {
+  --transition-duration: 250ms;
 
-.expand {
-  $duration: 250ms;
-
+  display: block;
   position: absolute;
-  background-color: $bg-black;
-  padding: 0.3rem 0.39rem;
-  top: $image-over-spacing;
-  right: $image-over-spacing;
+  background-color: var(--color-bg-black);
+  padding: 0.4rem 0.25rem;
+  top: var(--image-over-spacing);
+  right: var(--image-over-spacing);
+  will-change: transform;
   transition:
-    background-color $duration ease-in-out,
-    transform $duration ease-in-out;
+    background-color var(--transition-duration) ease-in-out,
+    transform var(--transition-duration) ease-in-out;
 
-  .link-icon {
-    color: $text-color;
-
-    // Safari needs the sizes to be in the svg element too
-    &,
-    svg {
-      width: 3.5rem;
-      height: auto;
-      color: $primary;
-      transition: color $duration ease-in-out;
-
-      @include media(lg) {
-        width: 1.8rem;
-      }
-    }
+  svg {
+    display: block;
   }
 
   &:hover {
-    background-color: $primary;
+    background-color: var(--color-primary);
     transform: scale(1.1);
 
     &,
     svg {
-      color: $bg-black;
+      color: var(--color-bg-black);
     }
+  }
+}
+
+.link-icon {
+  display: block;
+  width: 2.188rem;
+  height: auto;
+  color: var(--color-primary);
+  transition: color var(--transition-duration) ease-in-out;
+
+  @include media(lg) {
+    width: 1.125rem;
   }
 }
 
 .item-index {
   position: absolute;
-  right: $image-over-spacing;
-  bottom: -$image-over-spacing;
-  color: $text-color;
+  right: var(--image-over-spacing);
+  bottom: calc(var(--image-over-spacing) * -1);
+  background-color: oklch(var(--color-bg-black-value) / 80%);
+  font-family: var(--font-mono);
+  color: var(--color-text);
   line-height: 1;
   padding: 0.4rem;
   margin-bottom: 1rem;
-  font-size: 1.6rem;
+  font-size: 1rem;
 
   @include media(lg) {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -467,83 +464,58 @@ $image-over-spacing: 0.5rem;
   }
 }
 
-.progress {
-  font-size: $t-h6;
-  line-height: 1;
-  align-self: flex-start;
-  margin-top: 0.525rem;
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
-  > * {
-    margin-right: 0.5rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: 0.7rem;
-    transition:
-      text-decoration-thickness $transition-duration,
-      text-underline-offset $transition-duration;
+.button-icon {
+  color: var(--color-primary);
+  transition: color var(--transition-duration) ease-in-out;
+  display: grid;
+  place-items: center;
 
-    &.active {
-      text-decoration-thickness: 0.4rem;
-      text-underline-offset: 0.4rem;
+  &.next {
+    transform: rotate(180deg);
+  }
+
+  // Safari needs the sizes to be in the svg element too
+  /* stylelint-disable-next-line no-descending-specificity */
+  &,
+  svg {
+    width: 1.5rem;
+    height: auto;
+
+    @include media(lg) {
+      width: 1.125rem;
     }
   }
 }
 
-button {
-  $transition-duration: 200ms;
+.control-button {
+  --transition-duration: 200ms;
 
-  margin: 0;
-  margin-right: 1.8rem;
   padding: 0.5rem;
+  font-family: var(--font-mono);
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: background-color $transition-duration ease-in-out;
-
-  // outline: 1px solid $text-color;
-
-  @include media(lg) {
-    margin-right: 0.8rem;
-  }
-
-  .button-icon {
-    // color: $text-color;
-    color: $primary;
-    transition: color $transition-duration ease-in-out;
-
-    // Safari needs the sizes to be in the svg element too
-    /* stylelint-disable-next-line no-descending-specificity */
-    &,
-    svg {
-      width: 2.5rem;
-      height: auto;
-
-      @include media(lg) {
-        width: 1.8rem;
-      }
-    }
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
+  transition: background-color var(--transition-duration) ease-in-out;
 
   &:hover {
-    // background-color: $text-color;
-    background-color: $primary;
+    background-color: var(--color-primary);
 
     .button-icon {
-      color: $bg-black;
-
-      // color: $;
+      color: var(--color-bg-black);
     }
   }
 
   &:active {
-    background-color: $bg-black;
+    background-color: var(--color-bg-black);
 
     .button-icon {
-      color: $text-color;
+      color: var(--color-text);
     }
   }
 
