@@ -1,7 +1,7 @@
 <template>
   <div class="default-layout">
     <div class="width-limiter">
-      <header ref="header" class="header" :class="{ 'bg-trans': !hasScrolled, 'bg-black': hasScrolled }">
+      <header ref="header" class="header" :class="{ 'has-scrolled': hasScrolled }">
         <div class="header-spacing">
           <h1 class="title">
             <div class="name-wrapper">
@@ -69,8 +69,13 @@ watch([header], () => {
 
 <style lang="scss" scoped>
 .header {
-  transition: background-color 200ms ease-in-out;
   z-index: 10;
+  transition: background-color 1000ms ease-out;
+
+  &.has-scrolled {
+    background-color: var(--color-bg-black);
+    transition: background-color 500ms ease-out;
+  }
 
   @media (--lg) {
     position: sticky;
@@ -84,7 +89,7 @@ body:has(dialog[open]) {
     position: absolute;
     top: calc(var(--scroll-y-fix, 0) - var(--header-height, 0));
     width: 100%;
-    background-color: $bg-black;
+    background-color: var(--color-bg-black);
 
     @media (--lg) {
       // Hide the navbar because it's positioned weirdly
@@ -173,8 +178,8 @@ body:has(dialog[open]) {
   font-size: var(--t-h5);
   font-weight: 400;
   opacity: 1;
-  transition: opacity $page-transition-duration ease-in-out;
-  transition-delay: $page-transition-duration;
+  transition: opacity var(--page-transition-duration) ease-in-out;
+  transition-delay: var(--page-transition-duration);
 
   // Optical alignment
   margin-inline-start: -0.2rem;
@@ -195,10 +200,6 @@ body:has(dialog[open]) {
 .layout {
   flex-grow: 1;
   display: flex;
-
-  @include media-max(lg) {
-    padding-bottom: 8rem;
-  }
 }
 
 .h1 {
@@ -222,7 +223,7 @@ body:has(dialog[open]) {
     }
   }
 
-  @include media("lg") {
+  @media (--lg) {
     line-height: 1.1;
     margin-top: 0;
     white-space: normal;
@@ -245,7 +246,7 @@ body:has(dialog[open]) {
   line-height: 1;
   margin-top: 1.4rem;
 
-  @include media("lg") {
+  @media (--lg) {
     margin-top: 2rem;
   }
 }

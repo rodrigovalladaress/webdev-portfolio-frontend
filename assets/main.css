@@ -1,3 +1,7 @@
+@import "assets/fixes.css";
+@import "assets/classes.css";
+
+/* Breakpoints */
 @custom-media --sm (min-width: 36em);
 @custom-media --md (min-width: 48em);
 @custom-media --lg (min-width: 62em);
@@ -6,11 +10,19 @@
 
 :root {
   /* Colors */
-  --color-primary: oklch(86.645% 0.2948 142.511deg);
+  --color-primary-l: 86.645%;
+  --color-primary-c: 0.2948;
+  --color-primary-h: 142.511deg;
+  --color-primary-value: var(--color-primary-l) var(--color-primary-c) var(--color-primary-h);
+  --color-primary: oklch(var(--color-primary-value));
   --color-primary-2: oklch(86.645% 0.25 142.511deg);
   --color-error: oklch(62.79% 0.2278 29.223deg);
   --color-disabled: oklch(75.402% 0 271.152deg);
-  --color-text: oklch(100% 0 0deg);
+  --color-text-l: 100%;
+  --color-text-c: 0;
+  --color-text-h: 0deg;
+  --color-text-value: var(--color-text-l) var(--color-text-c) var(--color-text-h);
+  --color-text: oklch(var(--color-text-value));
   --color-bg-black-value: 0% 0 0deg;
   --color-bg-black: oklch(var(--color-bg-black-value));
   --color-text-placeholder: oklch(75.4% 0 0deg);
@@ -36,9 +48,17 @@
   --font-mono: "Roboto Mono", arial, helvetica, sans-serif;
   --font-title: var(--font-mono);
   --font-content: var(--font-regular);
+
+  /* Animations */
+  --page-transition-duration: 550ms;
 }
 
 /* Default styles */
+body {
+  color: var(--color-text);
+  font-family: var(--font-content);
+}
+
 h1,
 h2,
 h3,
@@ -48,76 +68,4 @@ h6 {
   font-family: var(--font-title);
   text-transform: lowercase;
   margin-block: 0;
-}
-
-/* Nuxt devtools fix */
-#nuxt-devtools-container {
-  display: none;
-}
-
-/* Fixes */
-body {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-button {
-  border: none;
-}
-
-a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  color: inherit;
-}
-
-.btn {
-  --transition-duration: 150ms;
-
-  display: flex;
-  align-items: center;
-  border: none;
-  color: var(--color-bg-black);
-  width: fit-content;
-  background-color: var(--color-primary);
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 1.125rem;
-  text-transform: lowercase;
-  padding: 5px 10px;
-  outline: 1px var(--color-primary) solid;
-  cursor: pointer;
-  transition:
-    background-color var(--transition-duration) ease-in-out,
-    color var(--transition-duration) ease-in-out,
-    outline-color var(--transition-duration) ease-in-out;
-
-  &:hover {
-    color: var(--color-primary);
-    background-color: var(--color-bg-black);
-  }
-
-  &:active,
-  &:focus {
-    color: var(--color-bg-black);
-    background-color: var(--color-primary);
-  }
-
-  &:focus {
-    outline: 2px var(--color-text) dashed;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    outline-color: var(--color-disabled);
-    background-color: var(--color-disabled);
-    color: var(--color-bg-black);
-  }
-
-  .icon-wrapper {
-    margin-left: 0.8rem;
-  }
 }

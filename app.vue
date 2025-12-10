@@ -44,13 +44,13 @@ const onThreeLoaded = () => {
 </style>
 
 <style lang="scss">
-@use "sass:color";
-
 html {
   &,
   * {
     scrollbar-width: thin;
-    scrollbar-color: color.change($primary, $saturation: 50%, $lightness: 35%) color.change($bg-black, $lightness: 30%);
+    scrollbar-color: var(--color-primary);
+
+    /* scrollbar-color: color.change($primary, $saturation: 50%, $lightness: 35%) color.change($bg-black, $lightness: 30%); */
   }
 }
 
@@ -62,7 +62,7 @@ body {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: all $page-transition-duration;
+  transition: all var(--page-transition-duration);
 }
 
 .slide-left-enter-from {

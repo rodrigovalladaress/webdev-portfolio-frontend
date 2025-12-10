@@ -230,7 +230,7 @@ watch([backdrop], () => {
   position: relative;
   color: white;
 
-  @include media(md) {
+  @media (--md) {
     flex-grow: 0;
     max-width: 38rem;
     height: fit-content;
@@ -347,7 +347,7 @@ watch([backdrop], () => {
   flex-direction: column;
   gap: 15px;
 
-  @include media(sm) {
+  @media (--sm) {
     gap: 25px;
     flex-flow: row wrap;
   }
