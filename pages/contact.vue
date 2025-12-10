@@ -45,7 +45,7 @@
               class="form-textarea"
               name="message"
               :placeholder="`Hi, I'm ${name}.`"
-              rows="5"
+              rows="4"
             ></textarea>
           </div>
 
@@ -176,11 +176,12 @@ const onFormSubmit = async (_payload: Event) => {
   font-weight: 600;
   margin-block-end: 38px;
 
-  @media (--md) {
+  /* @media (--md) {
     margin-block-end: 23px;
-  }
+  } */
 
   @media (--lg) {
+    margin-block-end: 42px;
     font-size: var(--t-h3);
   }
 }
@@ -214,6 +215,10 @@ const onFormSubmit = async (_payload: Event) => {
   display: flex;
   flex-direction: column;
   gap: var(--field-gap);
+
+  @media (--md) {
+    --field-gap: 28px;
+  }
 }
 
 .two-columns {
@@ -273,7 +278,7 @@ const onFormSubmit = async (_payload: Event) => {
 
   /* Add a bit more of spacing above to separate the submit button
   from the form field above  */
-  margin-block-start: calc(var(--field-gap) * 0.5);
+  margin-block-start: calc(var(--field-gap) * 0.3);
 }
 
 .icon {
