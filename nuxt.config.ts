@@ -5,7 +5,7 @@ import svgLoader from "vite-svg-loader";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
-  modules: ["@nuxtjs/eslint-module", "@nuxtjs/google-fonts", "nuxt-purgecss", "nuxt-beastcss"],
+  modules: ["@nuxtjs/eslint-module", "@nuxtjs/google-fonts"],
   devtools: { enabled: true },
   app: {
     head: {
@@ -58,9 +58,5 @@ export default defineNuxtConfig({
       web3FormsKey: "5d398354-082e-4158-81ef-a3dc11e41fe7",
       linkedin: "https://www.linkedin.com/in/rodrigo-valladares-santana/",
     },
-  },
-  purgecss: {
-    enabled: false,
-    safelist: ["svg", "img", "button", "nuxt-devtools-container", "nuxt", "ul", "li", "p"],
   },
 });

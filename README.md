@@ -1,6 +1,20 @@
 # webdev-portfolio-frontend
 
-A website built using Nuxt and Three.js to showcase projects.
+A website built using Nuxt and Three.js to showcase projects. It's published at https://www.rodrivs.com/.
+
+### How to run the project
+
+```
+pnpm i
+pnpm run dev
+```
+
+### How to run the production build
+
+```
+pnpm run build
+npx serve dist
+```
 
 ### Notes
 
