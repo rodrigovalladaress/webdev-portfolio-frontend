@@ -4,6 +4,7 @@
 
   <ThreeJs :canvas="threeCanvas" @loaded="onThreeLoaded"></ThreeJs>
 
+  
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
