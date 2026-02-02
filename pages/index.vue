@@ -6,6 +6,7 @@
         /front-end developer
       </h2>
     </div>
+    <ColorSwitcher />
   </div>
 </template>
 
@@ -20,7 +21,10 @@ definePageMeta({
 .home-wrapper {
   flex-grow: 1;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--spacing-1, 1rem);
 }
 
 .title-wrapper {
