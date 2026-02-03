@@ -1,21 +1,18 @@
 <template>
   <div class="home-wrapper">
     <div class="title-color-switcher-wrapper">
-      <div class="title-color-box-wrapper">
-        <div class="title-wrapper">
-          <h2 class="title">
-            <span aria-hidden>/</span>Full-stack <br />
-            /front-end developer
-          </h2>
-        </div>
-
-        <div class="color-box" />
-      </div>
-
       <div class="color-switcher-wrapper">
         <ColorSwitcher />
       </div>
+
+      <div class="title-wrapper">
+        <h2 class="title">
+          <span aria-hidden>/</span>Full-stack <br />
+          /front-end developer
+        </h2>
+      </div>
     </div>
+    <div class="color-box" />
   </div>
 </template>
 
@@ -35,34 +32,38 @@ definePageMeta({
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  gap: var(--spacing-1, 1rem);
 }
 
 .title-color-switcher-wrapper {
   width: 100%;
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
   flex-direction: column;
 
-  @media (--lg) {
-    flex-direction: row;
+  @media (--md) {
+    align-items: flex-start;
   }
 }
 
 .color-switcher-wrapper {
-  padding-block-end: var(--color-box-height);
+  padding-inline: var(--spacing-09);
+  padding-block: calc(var(--spacing-09) / 2);
 
-  @media (--lg) {
-    padding-inline-end: var(--spacing-1);
+  @media (--md) {
+    padding-block-end: var(--color-box-height);
+    padding-inline: calc(var(--color-box-height) * 2) var(--color-box-height);
   }
 }
 
 .title-wrapper {
-  width: fit-content;
+  width: 100%;
   padding: var(--spacing-1);
   background-color: oklch(var(--color-bg-black-value) / 70%);
   backdrop-filter: blur(2px);
+
+  @media (--md) {
+    width: fit-content;
+  }
 }
 
 @keyframes moveBackground {
@@ -76,6 +77,7 @@ definePageMeta({
 
 .color-box {
   height: var(--color-box-height);
+  width: 100%;
   border-color: oklch(var(--color-primary-value));
   background: linear-gradient(
     to left,

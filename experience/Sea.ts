@@ -113,7 +113,7 @@ export default class Sea {
   private animateColor(initialColors: ColorWrap, finalColors: ColorWrap) {
     const aux = { number: 0 };
     gsap.to(aux, {
-      duration: 0.9,
+      duration: 2,
       ease: "power1.inOut",
       number: 1,
 

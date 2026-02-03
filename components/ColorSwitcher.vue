@@ -4,7 +4,7 @@
       v-for="color in COLOR_KEYS"
       :key="color"
       class="color-button"
-      :class="{ ['is-selected']: selectedColor === color }"
+      :class="[color, { ['is-selected']: selectedColor === color }]"
       :style="{
         ['--background-color-l']: getBackgroundColor(color).l,
         ['--background-color-c']: getBackgroundColor(color).c,
@@ -23,10 +23,17 @@
 </template>
 
 <script lang="ts" setup>
+const BUTTON_COLORS = {
+  blue: { l: 0.675, c: 0.4, h: 264 },
+  yellow: { l: 0.9, c: 0.35, h: 100 },
+  pink: { l: 0.75, c: 0.4, h: 350 },
+  green: { l: 0.86, c: 0.35, h: 142 },
+};
+
 const selectedColor = ref<ColorKey>("green");
 
 function getBackgroundColor(color: ColorKey) {
-  return COLORS[color];
+  return BUTTON_COLORS[color];
 }
 
 function onButtonClicked(color: ColorKey) {
@@ -40,6 +47,13 @@ function onButtonClicked(color: ColorKey) {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  flex-direction: column;
+
+  @media (--sm) {
+    flex-direction: row;
+    padding-inline: 0;
+    padding-block: 0;
+  }
 }
 
 .color-button {
@@ -50,15 +64,13 @@ function onButtonClicked(color: ColorKey) {
     transform 400ms ease-in;
   background-color: oklch(var(--background-color-l) var(--background-color-c) var(--background-color-h));
   transform: scale(1);
-  flex-basis: 1;
-  flex-shrink: 0;
-  flex-grow: 1;
+  width: 80px;
   aspect-ratio: 1 / 1;
   padding: 0;
   position: relative;
   overflow: hidden;
 
-  @media (--lg) {
+  @media (--md) {
     width: 64px;
   }
 

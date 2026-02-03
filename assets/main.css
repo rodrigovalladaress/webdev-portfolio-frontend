@@ -78,8 +78,8 @@
   --mobile-nav-menu-height: 4.625rem;
 
   transition:
-    --color-primary-l 2000ms ease-in-out,
-    --color-primary-c 2000ms ease-in-out,
+    --color-primary-l 1000ms ease-in-out,
+    --color-primary-c 1000ms ease-in-out,
     --color-primary-h 2000ms ease-in-out;
 }
 

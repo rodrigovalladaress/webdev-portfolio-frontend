@@ -1,11 +1,10 @@
-// import gsap from "gsap";
 import Color from "~/experience/Color";
 import type { ColorEventDetail } from "~/experience/types/color";
 
 export const COLORS = {
-  blue: { l: 0.675, c: 0.25, h: 264 },
-  yellow: { l: 0.9, c: 0.19, h: 100 },
-  pink: { l: 0.75, c: 0.22, h: 350 },
+  blue: { l: 0.6768, c: 0.1708, h: 264 },
+  yellow: { l: 0.9, c: 0.3, h: 100 },
+  pink: { l: 0.7107, c: 0.272, h: 334.92 },
   green: { l: 0.86645, c: 0.2948, h: 142.511 },
 };
 
