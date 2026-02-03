@@ -105,6 +105,11 @@ body:has(dialog[open]) {
   min-height: 100dvh;
   display: flex;
   justify-content: center;
+  padding-block-end: var(--mobile-nav-menu-height);
+
+  @media (--lg) {
+    padding-block-end: 0;
+  }
 }
 
 .width-limiter {

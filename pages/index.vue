@@ -1,16 +1,21 @@
 <template>
   <div class="home-wrapper">
-    <div class="title-color-box-wrapper">
-      <div class="title-wrapper">
-        <h2 class="title">
-          <span aria-hidden>/</span>Full-stack <br />
-          /front-end developer
-        </h2>
+    <div class="title-color-switcher-wrapper">
+      <div class="title-color-box-wrapper">
+        <div class="title-wrapper">
+          <h2 class="title">
+            <span aria-hidden>/</span>Full-stack <br />
+            /front-end developer
+          </h2>
+        </div>
+
+        <div class="color-box" />
       </div>
 
-      <div class="color-box" />
+      <div class="color-switcher-wrapper">
+        <ColorSwitcher />
+      </div>
     </div>
-    <ColorSwitcher />
   </div>
 </template>
 
@@ -23,12 +28,34 @@ definePageMeta({
 
 <style lang="scss" scoped>
 .home-wrapper {
+  --color-box-height: 4px;
+
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
   gap: var(--spacing-1, 1rem);
+}
+
+.title-color-switcher-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @media (--lg) {
+    flex-direction: row;
+  }
+}
+
+.color-switcher-wrapper {
+  padding-block-end: var(--color-box-height);
+
+  @media (--lg) {
+    padding-inline-end: var(--spacing-1);
+  }
 }
 
 .title-wrapper {
@@ -48,7 +75,7 @@ definePageMeta({
 }
 
 .color-box {
-  height: 4px;
+  height: var(--color-box-height);
   border-color: oklch(var(--color-primary-value));
   background: linear-gradient(
     to left,

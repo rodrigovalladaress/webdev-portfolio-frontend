@@ -40,7 +40,7 @@ ul {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 4.625rem;
+  height: var(--mobile-nav-menu-height);
   width: 100%;
   font-family: var(--font-mono);
   text-transform: lowercase;

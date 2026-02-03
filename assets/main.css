@@ -74,6 +74,9 @@
   /* Animations */
   --page-transition-duration: 550ms;
 
+  /* Other */
+  --mobile-nav-menu-height: 4.625rem;
+
   transition:
     --color-primary-l 2000ms ease-in-out,
     --color-primary-c 2000ms ease-in-out,
