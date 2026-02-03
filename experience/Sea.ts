@@ -12,10 +12,31 @@ type ColorWrap = {
   depth: THREE.Color;
 };
 
+const COLORS: { [x in ColorKey]: { foam: number; surface: number; depth: number } } = {
+  green: {
+    foam: 0x82ff82,
+    depth: 0x01c28d,
+    surface: 0x00ff00,
+  },
+  pink: {
+    foam: 0xf9a2fb,
+    depth: 0x660f64,
+    surface: 0xff0080,
+  },
+  yellow: {
+    foam: 0xe9fe9e,
+    depth: 0x618d0e,
+    surface: 0xffff00,
+  },
+  blue: {
+    foam: 0x31c5fd,
+    depth: 0x0a4287,
+    surface: 0x0000ff,
+  },
+};
+
 export default class Sea {
-  // public static readonly POSITION = Object.freeze(new THREE.Vector3(0, -0.209, 0));
   public static readonly DEFAULT_POSITION = Object.freeze(new THREE.Vector3(0, -0.471, 0));
-  // public static readonly ROTATION = Object.freeze(new THREE.Vector3(-1.275, -0.123, -2.35985));
   public static readonly DEFAULT_ROTATION = Object.freeze(new THREE.Vector3(-1.192, -0.123, -3.125));
 
   public static readonly CLOSE_POSITION = Object.freeze(new THREE.Vector3(0, -0.471, -2.042));
@@ -126,45 +147,8 @@ export default class Sea {
     } as ColorWrap;
   }
 
-  public animateHome() {
-    this.animateColor(
-      this.getCurrentSeaColorWrap(),
-      Sea.buildColorWrap({
-        foam: this.debugObject.foam.color,
-        depth: this.debugObject.depth.color,
-        surface: this.debugObject.surface.color,
-      }),
-    );
-  }
-
-  public animateProjects() {
-    this.animateColor(
-      this.getCurrentSeaColorWrap(),
-      Sea.buildColorWrap({
-        foam: 0xe9fe9e,
-        depth: 0x618d0e,
-        surface: 0xffff00,
-
-        // foam: 0xb781f3,
-        // depth: 0x682eaf,
-        // surface: 0xc802ff,
-      }),
-    );
-  }
-
-  public animateContact() {
-    this.animateColor(
-      this.getCurrentSeaColorWrap(),
-      Sea.buildColorWrap({
-        // foam: 0xf9a2fb,
-        // depth: 0x660f64,
-        // surface: 0xff0080,
-
-        foam: 0x31c5fd,
-        depth: 0x0a4287,
-        surface: 0x0000ff,
-      }),
-    );
+  public animateColorChange(to: ColorKey) {
+    this.animateColor(this.getCurrentSeaColorWrap(), Sea.buildColorWrap(COLORS[to]));
   }
 
   public constructor(scene: THREE.Scene) {

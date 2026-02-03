@@ -1,5 +1,5 @@
 import type { ResizeEventDetail } from "./types/resize";
-import EventEmitter from "~/experience/EventEmitter";
+import EventEmitter from "~/utils/EventEmitter";
 import EventListener from "~/utils/EventListener";
 
 export default class Size {

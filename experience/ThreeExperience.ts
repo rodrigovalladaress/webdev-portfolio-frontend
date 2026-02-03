@@ -3,17 +3,20 @@ import * as THREE from "three";
 import Size from "./Size";
 import type { ResizeEventDetail } from "./types/resize";
 import type { TimeTickEventDetail } from "./types/time";
+import type { ColorEventDetail } from "./types/color";
 import Time from "./Time";
 import Camera from "./Camera";
 import Renderer from "./Renderer";
 import World from "./World";
 import Debug from "./Debug";
+import Color from "./Color";
 import EventListener from "~/utils/EventListener";
 
 export default class ThreeExperience {
   private scene: THREE.Scene;
   private size: Size;
   private time: Time;
+  private color: Color;
   private camera: Camera;
   private world: World;
   private renderer: Renderer;
@@ -26,6 +29,7 @@ export default class ThreeExperience {
 
     this.size = new Size();
     this.time = new Time();
+    this.color = new Color();
 
     this.scene = new THREE.Scene();
     this.camera = new Camera(canvas, this.scene, Size.data);
@@ -35,9 +39,11 @@ export default class ThreeExperience {
     EventListener.add(Size.RESIZE_EVENT_NAME, this.onResize.bind(this));
     EventListener.add(Time.FIRST_TICK_EVENT_NAME, this.onFirstTick.bind(this));
     EventListener.add(Time.TICK_EVENT_NAME, this.onTick.bind(this));
+    EventListener.add(Color.CHANGE_COLOR_EVENT_NAME, this.onColorChange.bind(this));
 
     this.resize(Size.data);
     this.update(this.time.data);
+    this.world.animateColorChange("green");
 
     // Keep GUI values between Nuxt reloads
     // This needs to be called after all the other classes add their elements
@@ -45,24 +51,8 @@ export default class ThreeExperience {
     Debug.restorePreviousGuiValues();
   }
 
-  public animate(animation: "projects" | "home" | "contact") {
-    switch (animation) {
-      case "projects":
-        this.world.animateProjects();
-        break;
-
-      case "home":
-        this.world.animateHome();
-        break;
-
-      case "contact":
-        this.world.animateContact();
-        break;
-
-      default:
-        // eslint-disable-next-line no-console
-        console.warn(`Animation '${animation}' not implemented`);
-    }
+  private onColorChange(e: CustomEvent<ColorEventDetail>) {
+    this.world.animateColorChange(e.detail.color);
   }
 
   private onResize(e: CustomEvent<ResizeEventDetail>) {
