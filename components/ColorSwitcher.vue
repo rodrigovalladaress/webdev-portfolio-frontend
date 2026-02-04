@@ -4,7 +4,7 @@
       v-for="color in COLOR_KEYS"
       :key="color"
       class="color-button"
-      :class="[color, { ['is-selected']: selectedColor === color }]"
+      :class="[color, { ['is-selected']: primaryColor.current.value === color }]"
       :style="{
         ['--background-color-l']: getBackgroundColor(color).l,
         ['--background-color-c']: getBackgroundColor(color).c,
@@ -30,15 +30,14 @@ const BUTTON_COLORS = {
   green: { l: 0.86, c: 0.35, h: 142 },
 };
 
-const selectedColor = ref<ColorKey>("green");
+const primaryColor = usePrimaryColor();
 
 function getBackgroundColor(color: ColorKey) {
   return BUTTON_COLORS[color];
 }
 
 function onButtonClicked(color: ColorKey) {
-  selectedColor.value = color;
-  changePrimaryColor(color);
+  primaryColor.change(color);
 }
 </script>
 
