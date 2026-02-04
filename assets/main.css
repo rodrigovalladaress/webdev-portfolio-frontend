@@ -37,7 +37,7 @@
   --color-primary-h: 142.511;
   --color-primary-value: var(--color-primary-l) var(--color-primary-c) var(--color-primary-h);
   --color-primary: oklch(var(--color-primary-value));
-  --color-primary-2: oklch(0.86645 0.25 142.511);
+  --color-primary-2: oklch(var(--color-primary-l) calc(var(--color-primary-c) * 0.8) var(--color-primary-h));
   --color-error: oklch(0.6279 0.2278 29.223);
   --color-disabled: oklch(0.75402 0 271.152);
   --color-text-l: 1;
