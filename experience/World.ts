@@ -14,15 +14,7 @@ export default class World {
     this.sea.update(time);
   }
 
-  public animateHome() {
-    this.sea.animateHome();
-  }
-
-  public animateProjects() {
-    this.sea.animateProjects();
-  }
-
-  public animateContact() {
-    this.sea.animateContact();
+  public animateColorChange(to: ColorKey) {
+    this.sea.animateColorChange(to);
   }
 }

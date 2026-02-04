@@ -1,4 +1,4 @@
-import EventEmitter from "./EventEmitter";
+import EventEmitter from "../utils/EventEmitter";
 import { OPTIONS } from "./options";
 import type { TimeTickEventDetail } from "./types/time";
 

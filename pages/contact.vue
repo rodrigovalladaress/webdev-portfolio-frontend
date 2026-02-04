@@ -318,8 +318,8 @@ form.loading {
   inset: 0;
   font-size: 2.5rem;
   font-family: var(--font-mono);
-  color: black;
-  background-color: var(--color-thankyou);
+  color: var(--color-thankyou);
+  background-color: black;
   pointer-events: none;
   opacity: 0;
   transition: opacity 500ms ease-in-out;

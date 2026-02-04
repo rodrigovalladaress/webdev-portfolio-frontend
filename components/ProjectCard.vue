@@ -57,7 +57,7 @@ a.card {
 
       color: var(--color-bg-black);
       background-color: var(--color-background);
-      border-color: var(--color-background);
+      border-color: transparent;
       transform: scale(1.06);
       z-index: 1;
     }

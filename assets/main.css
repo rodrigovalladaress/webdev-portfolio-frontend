@@ -8,24 +8,46 @@
 @custom-media --xl (min-width: 75em);
 @custom-media --xxl (min-width: 87.5em);
 
+/*
+  Set this CSS variables with @property so it's possible to transition them
+  https://css-tricks.com/build-complex-css-transitions-using-custom-properties-and-cubic-bezier/
+*/
+@property --color-primary-l {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --color-primary-c {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --color-primary-h {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 :root {
   /* Colors */
-  --color-primary-l: 86.645%;
+  --color-primary-l: 0.86645;
   --color-primary-c: 0.2948;
-  --color-primary-h: 142.511deg;
+  --color-primary-h: 142.511;
   --color-primary-value: var(--color-primary-l) var(--color-primary-c) var(--color-primary-h);
   --color-primary: oklch(var(--color-primary-value));
-  --color-primary-2: oklch(86.645% 0.25 142.511deg);
-  --color-error: oklch(62.79% 0.2278 29.223deg);
-  --color-disabled: oklch(75.402% 0 271.152deg);
-  --color-text-l: 100%;
+  --color-primary-2: oklch(var(--color-primary-l) calc(var(--color-primary-c) * 0.8) var(--color-primary-h));
+  --color-error: oklch(0.6279 0.2278 29.223);
+  --color-disabled: oklch(0.75402 0 271.152);
+  --color-text-l: 1;
   --color-text-c: 0;
-  --color-text-h: 0deg;
+  --color-text-h: 0;
   --color-text-value: var(--color-text-l) var(--color-text-c) var(--color-text-h);
   --color-text: oklch(var(--color-text-value));
-  --color-bg-black-value: 0% 0 0deg;
+  --color-bg-black-value: 0 0 0;
   --color-bg-black: oklch(var(--color-bg-black-value));
-  --color-text-placeholder: oklch(75.4% 0 0deg);
+  --color-text-placeholder: oklch(0.754 0 0);
 
   /* Spacing */
   --spacing-09: 16px;
@@ -51,6 +73,14 @@
 
   /* Animations */
   --page-transition-duration: 550ms;
+
+  /* Other */
+  --mobile-nav-menu-height: 4.625rem;
+
+  transition:
+    --color-primary-l 1000ms ease-in-out,
+    --color-primary-c 1000ms ease-in-out,
+    --color-primary-h 2000ms ease-in-out;
 }
 
 /* Default styles */
